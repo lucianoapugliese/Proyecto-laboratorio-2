@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AuxiliarDeLimpieza">
+    <Position X="12.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAkAAIABAAAAABAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>AuxiliarDeLimpieza.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cajero">
+    <Position X="6" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAEKAAABAAAAABAAAAAAAABEEAAAgA=</HashCode>
+      <FileName>Cajero.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cliente">
+    <Position X="12.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAABAAAAAAIEAAAABAABAABAgAAAAAAAAGAAAAA=</HashCode>
+      <FileName>Cliente.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Empleado">
+    <Position X="8" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAogAAAwADEAAAEJAAAAAJAAAgAAAAAAEAICEQ=</HashCode>
+      <FileName>Empleado.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gerente">
+    <Position X="10.25" Y="6.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAMAAAABAAAAABAAAACAAAAAEAAAAA=</HashCode>
+      <FileName>Gerente.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Persona">
+    <Position X="10" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQEAABAQQQABCEAAAAxAAJAABAAAEAAAAAAEAEAAA=</HashCode>
+      <FileName>Persona.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Producto">
+    <Position X="15" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAAAAAQAACUAAEJpAAJEABAEIgAEAABAEABEAA=</HashCode>
+      <FileName>Producto.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vendedor">
+    <Position X="4" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABQiAAAAAAAAAEKAAABAAABEBAAAACAAABEEAAAgA=</HashCode>
+      <FileName>Vendedor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Venta">
+    <Position X="1.5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgigACAARgAAAAMAAAIJAIAgBFYgAAQgAEBANAQKAE=</HashCode>
+      <FileName>Venta.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
