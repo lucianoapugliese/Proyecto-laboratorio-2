@@ -1,6 +1,6 @@
 #pragma once
-class FechaHora
-{
+#include <iostream>
+#include <cstring>
 	class FechaHora {
 	public:
 		int  getDia();
@@ -22,4 +22,3 @@ class FechaHora
 		int _hora, _minuto;
 
 	};
-};

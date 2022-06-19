@@ -1,4 +1,8 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
+#include "FechaHora.h"
+#include "Direccion.h"
 class Persona
 {
 protected:
@@ -14,19 +18,17 @@ public:
 		std::cin >> nombre;
 		std::cout << "DNI: ";
 		std::cin >> dni;
-		std::cout << "Cantidad de compras: ";
-		std::cin >> cantidadCompras;
 	}
 	void mostrar() {
-		std::cout << '\t' << std::left << std::setw(25) << apellido << std::setw(25) << nombre << std::setw(25) << dni << std::setw(25) << cantidadCompras << std::endl;
+		std::cout << '\t' << std::left << std::setw(25) << apellido << std::setw(25) << nombre << std::setw(25) << dni << std::setw(25) << std::endl;
 	}
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    char getApellido() const;
-    void setApellido(char apellido);
+    const char *getApellido();
+    void setApellido(const char *apellido);
 
-    char getNombre() const;
-    void setNombre(char nombre);
+    const char *getNombre();
+    void setNombre(const char *nombre);
 
     int getDni() const;
     void setDni(int dni);
@@ -36,7 +38,4 @@ public:
 
     Direccion getDomicilio() const;
     void setDomicilio(Direccion domicilio);
-
-
-
 };

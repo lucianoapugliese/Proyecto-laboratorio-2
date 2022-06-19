@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <iomanip>
 class Producto
 {
 private:
@@ -17,33 +19,31 @@ public:
 		std::cin >> marca;
 		std::cout << "Precio: ";
 		std::cin >> precio;
-		std::cout << "Cantidad de compras: ";
-		std::cin >> ventas;
 	}
 	void mostrar() {
-		std::cout << '\t' << std::left << std::setw(25) << codigo << std::setw(25) << categoria << std::setw(25) << nombre << std::setw(25) << marca << std::setw(25) << precio << std::setw(25) << ventas << std::endl;
+		std::cout << '\t' << std::left << std::setw(25) << codigo << std::setw(25) << categoria << std::setw(25) << nombre << std::setw(25) << marca << std::setw(25) << precio << std::endl;
 	}
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    char getNombre() const;
-    void setNombre(char nombre);
+    const char *getNombre();
+    void setNombre(const char *nombre);
 
-    char getMarca() const;
-    void setMarca(char marca);
+    const char *getMarca();
+    void setMarca(const char *marca);
 
-    char getDescripcion() const;
-    void setDescripcion(char descripcion);
+    const char *getDescripcion();
+    void setDescripcion(const char *descripcion);
 
-    int getCodigo() const;
+    int getCodigo();
     void setCodigo(int codigo);
 
-    int getCategoria() const;
+    int getCategoria();
     void setCategoria(int categoria);
 
-    int getStock() const;
+    int getStock();
     void setStock(int stock);
 
-    float getPrecio() const;
+    float getPrecio();
     void setPrecio(float precio);
 
 };

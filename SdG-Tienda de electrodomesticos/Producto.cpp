@@ -1,36 +1,36 @@
 #include "Producto.h"
 
-char Producto::getNombre() const
+const char *Producto::getNombre() 
 {
     return nombre;
 }
 
-void Producto::setNombre(char nombre)
+void Producto::setNombre(const char *nombre)
 {
-    this->nombre = nombre;
+    strcpy(this->nombre, nombre);
 }
 
-char Producto::getMarca() const
+const char *Producto::getMarca() 
 {
     return marca;
 }
 
-void Producto::setMarca(char marca)
+void Producto::setMarca(const char *marca)
 {
-    this->marca = marca;
+    strcpy(this->marca , marca);
 }
 
-char Producto::getDescripcion() const
+const char *Producto::getDescripcion() 
 {
     return descripcion;
 }
 
-void Producto::setDescripcion(char descripcion)
+void Producto::setDescripcion(const char *descripcion)
 {
-    this->descripcion = descripcion;
+    strcpy(this->descripcion , descripcion);
 }
 
-int Producto::getCodigo() const
+int Producto::getCodigo() 
 {
     return codigo;
 }
@@ -40,7 +40,7 @@ void Producto::setCodigo(int codigo)
     this->codigo = codigo;
 }
 
-int Producto::getCategoria() const
+int Producto::getCategoria() 
 {
     return categoria;
 }
@@ -50,7 +50,7 @@ void Producto::setCategoria(int categoria)
     this->categoria = categoria;
 }
 
-int Producto::getStock() const
+int Producto::getStock() 
 {
     return stock;
 }
@@ -60,7 +60,7 @@ void Producto::setStock(int stock)
     this->stock = stock;
 }
 
-float Producto::getPrecio() const
+float Producto::getPrecio() 
 {
     return precio;
 }

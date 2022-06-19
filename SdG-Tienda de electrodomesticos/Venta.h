@@ -1,4 +1,11 @@
 #pragma once
+#include <iostream>
+#include "Direccion.h"
+#include "FechaHora.h"
+#include "Producto.h"
+#include "Cliente.h"
+#include "Vendedor.h"
+
 class Venta
 {
 private:
