@@ -126,7 +126,7 @@ RLUTIL_INLINE void gotoxy(int x, int y) {
 namespace rlutil {
 #endif
 
-/**
+/* *
  * Defs: Internal typedefs and macros
  * RLUTIL_STRING_T - String type depending on which one of C or C++ is used
  * RLUTIL_PRINT(str) - Printing macro independent of C/C++
@@ -166,6 +166,7 @@ namespace rlutil {
  * YELLOW - Yellow (bright)
  * WHITE - White (bright)
  */
+
 enum {
 	BLACK,
 	BLUE,
@@ -220,6 +221,7 @@ enum {
  * ANSI_BACKGROUND_CYAN    - Cyan background
  * ANSI_BACKGROUND_WHITE   - White background
  */
+
 const RLUTIL_STRING_T ANSI_CLS                = "\033[2J\033[3J";
 const RLUTIL_STRING_T ANSI_CONSOLE_TITLE_PRE  = "\033]0;";
 const RLUTIL_STRING_T ANSI_CONSOLE_TITLE_POST = "\007";
@@ -293,6 +295,7 @@ const RLUTIL_STRING_T ANSI_BACKGROUND_WHITE   = "\033[47m";
  * KEY_NUMPAD8 - Numpad 8
  * KEY_NUMPAD9 - Numpad 9
  */
+
 enum {
 	KEY_ESCAPE  = 0,
 	KEY_ENTER   = 1,
@@ -744,5 +747,5 @@ struct CursorHider {
 	~CursorHider() { showcursor(); }
 };
 
-} // namespace rlutil
+} // namespace rlutil*/
 #endif

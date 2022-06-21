@@ -140,11 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AuxiliarDeLimpieza.h" />
+    <ClInclude Include="Cadena.h" />
     <ClInclude Include="Cajero.h" />
     <ClInclude Include="Cliente.h" />
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Empleado.h" />
     <ClInclude Include="FechaHora.h" />
+    <ClInclude Include="Funciones.h" />
     <ClInclude Include="Gerente.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="Producto.h" />
@@ -158,6 +160,7 @@
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Empleado.cpp" />
     <ClCompile Include="FechaHora.cpp" />
+    <ClCompile Include="Funciones.cpp" />
     <ClCompile Include="Gerente.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />

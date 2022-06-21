@@ -4,25 +4,18 @@ class Cliente :
     public Persona
 {
 private:
-	int dni, Numerotarjeta;
+	char mail[50];
+	char Numerotarjeta[17];
 public:
-	void cargar() {
-		std::cout << "Apellido: ";
-		std::cin >> apellido;
-		std::cout << "Nombre: ";
-		std::cin >> nombre;
-		std::cout << "DNI: ";
-		std::cin >> dni;
-	}
-	void mostrar() {
-		std::cout << '\t' << std::left << std::setw(25) << apellido << std::setw(25) << nombre << std::setw(25) << dni << std::setw(25) << std::endl;
-	}
+	Cliente();
+	void cargar();
+	void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    int getDni() const;
-    void setDni(int dni);
+    const char* getMail();
+    void setMail(const char *mail);
 
-    int getNumerotarjeta() const;
-    void setNumerotarjeta(int Numerotarjeta);
+    const char* getNumerotarjeta();
+    void setNumerotarjeta(const char* Numerotarjeta);
 
 };

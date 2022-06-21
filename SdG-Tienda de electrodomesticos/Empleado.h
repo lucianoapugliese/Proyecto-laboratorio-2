@@ -4,31 +4,32 @@ class Empleado :
     public Persona
 {
 private:
-	int ID, categoria, turno;
+	int ID, categoria; // Categoria del 1 al 4
 	FechaHora fechaDeIngreso;
-	char tipoJornada;
+	char tipoJornada, turno; // jornada part-time o full-time // turno mañana, tarde o noche
 	float sueldo;
 public:
+    Empleado();
 	void cargar();
 	void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    int getID() const;
+    int getID();
     void setID(int ID);
 
-    int getCategoria() const;
+    int getCategoria();
     void setCategoria(int categoria);
 
-    int getTurno() const;
-    void setTurno(int turno);
+    char getTurno();
+    void setTurno(char turno);
 
-    FechaHora getFechaDeIngreso() const;
+    FechaHora getFechaDeIngreso();
     void setFechaDeIngreso(FechaHora fechaDeIngreso);
 
-    char getTipoJornada() const;
+    char getTipoJornada();
     void setTipoJornada(char tipoJornada);
 
-    float getSueldo() const;
+    float getSueldo();
     void setSueldo(float sueldo);
 
 };

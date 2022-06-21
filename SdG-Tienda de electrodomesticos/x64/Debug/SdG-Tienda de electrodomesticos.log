@@ -1,3 +1,11 @@
-﻿  main.cpp
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(577,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+﻿  AuxiliarDeLimpieza.cpp
+  Cajero.cpp
+  Empleado.cpp
+  Gerente.cpp
+  Persona.cpp
+  Vendedor.cpp
+  Venta.cpp
+  main.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+  Generando código...
   SdG-Tienda de electrodomesticos.vcxproj -> C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\x64\Debug\SdG-Tienda de electrodomesticos.exe

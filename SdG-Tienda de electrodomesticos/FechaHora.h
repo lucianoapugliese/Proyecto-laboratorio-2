@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <cstring>
+#include <string>
 	class FechaHora {
 	public:
 		int  getDia();
@@ -13,9 +13,10 @@
 		void setAnio(int anio);
 		void setHora(int hora);
 		void setMinuto(int minuto);
+		void cargarFecha();
+		void mostrarFecha();
 		FechaHora(int dia, int mes, int anio, int hora, int minuto);
 		FechaHora();
-		std::string toString();
 
 	private:
 		int _dia, _mes, _anio;

@@ -1,22 +1,67 @@
 #include "Cliente.h"
-
-int Cliente::getDni() const
+Cliente::Cliente() {
+	Numerotarjeta[0] = '0';
+	strcpy(mail, "void@mail.com");
+}
+const char* Cliente::getMail() 
 {
-    return dni;
+    return mail;
 }
 
-void Cliente::setDni(int dni)
+void Cliente::setMail(const char* mail)
 {
-    this->dni = dni;
+	strcpy(this->mail, mail);
 }
 
-int Cliente::getNumerotarjeta() const
+const char* Cliente::getNumerotarjeta()
 {
     return Numerotarjeta;
 }
 
-void Cliente::setNumerotarjeta(int Numerotarjeta)
+void Cliente::setNumerotarjeta(const char* Numerotarjeta)
 {
-    this->Numerotarjeta = Numerotarjeta;
+	strcpy(this->Numerotarjeta, Numerotarjeta);
 }
 
+void Cliente::cargar() {
+	Persona::cargar();
+	std::cout << "Numero de tarjeta: ";
+	std::cin >> Numerotarjeta;
+	std::cout << "Mail: ";
+	std::cin >> mail;
+}
+
+void Cliente::mostrar() {
+	if (estado) {
+		Persona::mostrar();
+		std::cout << mail;
+	}
+}
+
+bool Cliente::grabarEnDisco() {
+	FILE* p = NULL;
+	p = fopen("clientes.dat", "ab");
+	if (p==NULL)
+	{
+		std::cout << "Error al guardar.\n";
+		system("pause");
+		return 0;
+	}
+	fwrite(this, sizeof(Cliente), 1, p);
+	fclose(p);
+	return 1;
+}
+bool Cliente::leerDeDisco(int pos) {
+	FILE* p = NULL;
+	p = fopen("clientes.dat", "rb+");
+	if (p==NULL)
+	{
+		std::cout << "Error al abrir.\n";
+		system("pause");
+		return 0;
+	}
+	fseek(p, pos * sizeof(Cliente), 0);
+	fread(this, sizeof(Cliente), 1, p);
+	fclose(p);
+	return 1;
+}
