@@ -18,4 +18,6 @@ public:
     const char* getNumerotarjeta();
     void setNumerotarjeta(const char* Numerotarjeta);
 
+	bool getEstado();
+	void setEstado(bool estado);
 };

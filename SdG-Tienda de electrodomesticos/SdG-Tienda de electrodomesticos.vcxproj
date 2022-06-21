@@ -139,33 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AuxiliarDeLimpieza.h" />
-    <ClInclude Include="Cadena.h" />
-    <ClInclude Include="Cajero.h" />
     <ClInclude Include="Cliente.h" />
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Empleado.h" />
     <ClInclude Include="FechaHora.h" />
     <ClInclude Include="Funciones.h" />
-    <ClInclude Include="Gerente.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="Producto.h" />
-    <ClInclude Include="Vendedor.h" />
     <ClInclude Include="Venta.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AuxiliarDeLimpieza.cpp" />
-    <ClCompile Include="Cajero.cpp" />
     <ClCompile Include="Cliente.cpp" />
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Empleado.cpp" />
     <ClCompile Include="FechaHora.cpp" />
     <ClCompile Include="Funciones.cpp" />
-    <ClCompile Include="Gerente.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Persona.cpp" />
     <ClCompile Include="Producto.cpp" />
-    <ClCompile Include="Vendedor.cpp" />
     <ClCompile Include="Venta.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

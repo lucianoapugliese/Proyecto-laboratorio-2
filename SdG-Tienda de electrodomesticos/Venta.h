@@ -4,52 +4,65 @@
 #include "FechaHora.h"
 #include "Producto.h"
 #include "Cliente.h"
-#include "Vendedor.h"
+#include "Empleado.h"
 
 class Venta
 {
 private:
-	int cantidadComprada, cantidadCuotas, descuentoPorCantidad;
-	Direccion direccionLocal;
+	int numeroVenta, cantidadComprada, cantidadCuotas, descuentoPorCantidad;
+	//Direccion direccionLocal;
 	Producto productoComprado;
 	FechaHora fechaYHoraDeLaVenta;
 	Cliente cliente;
-	Vendedor vendedor;
+	Empleado vendedor;
 	char metodoPago;
-	bool envioADomicilio;
+	bool envioADomicilio, estado;
+    float costoFinal, costoCuota;
 public:
+    Venta();
 	void cargar();
 	void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    int getCantidadComprada() const;
-    void setCantidadComprada(int cantidadComprada);
+    int getCantidadComprada();
+    void setCantidadComprada(int);
 
-    int getCantidadCuotas() const;
+    int getNumeroVenta() { return numeroVenta; }
+
+    bool getEstado() { return estado; }
+    void setEstado(bool estado) { this->estado = estado; }
+
+    int getCantidadCuotas();
     void setCantidadCuotas(int cantidadCuotas);
 
-    int getDescuentoPorCantidad() const;
-    void setDescuentoPorCantidad(int descuentoPorCantidad);
+    int getDescuentoPorCantidad();
+    //void setDescuentoPorCantidad();
 
-    Direccion getDireccionLocal() const;
-    void setDireccionLocal(Direccion direccionLocal);
+    //Direccion getDireccionLocal();
+    //void setDireccionLocal(Direccion direccionLocal);
 
-    Producto getProductoComprado() const;
+    Producto getProductoComprado();
     void setProductoComprado(Producto productoComprado);
 
-    FechaHora getFechaYHoraDeLaVenta() const;
+    FechaHora getFechaYHoraDeLaVenta();
     void setFechaYHoraDeLaVenta(FechaHora fechaYHoraDeLaVenta);
 
-    Cliente getCliente() const;
+    Cliente getCliente();
     void setCliente(Cliente cliente);
 
-    Vendedor getVendedor() const;
-    void setVendedor(Vendedor vendedor);
+    Empleado getVendedor();
+    void setVendedor(Empleado vendedor);
 
-    char getMetodoPago() const;
+    char getMetodoPago();
     void setMetodoPago(char metodoPago);
 
-    bool getEnvioADomicilio() const;
+    bool getEnvioADomicilio();
     void setEnvioADomicilio(bool envioADomicilio);
 
+    Empleado buscarVendedor();
+    bool buscarCliente(int dni);
+
+    Cliente cargarCliente(int);
+
+    int contRegistros();
 };

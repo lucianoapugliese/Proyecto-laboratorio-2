@@ -62,7 +62,16 @@ void FechaHora::cargarFecha() {
 }
 
 void FechaHora::mostrarFecha() {
+    if (_dia < 10)cout << '0';
     cout << _dia << '/';
+    if (_mes < 10)cout << '0';
     cout << _mes << '/';
     cout << _anio;
+}
+
+void FechaHora::mostrarHora() {
+    if (_hora < 10)cout << '0';
+    cout << _hora << ':';
+    if (_minuto < 10)cout << '0';
+    cout << _minuto;
 }

@@ -15,6 +15,7 @@
 		void setMinuto(int minuto);
 		void cargarFecha();
 		void mostrarFecha();
+		void mostrarHora();
 		FechaHora(int dia, int mes, int anio, int hora, int minuto);
 		FechaHora();
 

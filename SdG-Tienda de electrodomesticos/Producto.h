@@ -4,25 +4,14 @@
 class Producto
 {
 private:
-	char nombre[25], marca[25], descripcion[50];
+	char nombre[50], marca[50], descripcion[50];
 	int codigo, categoria, stock;
 	float precio;
+    bool estado;
 public:
-	void cargar() {
-		std::cout << "Codigo: ";
-		std::cin >> codigo;
-		std::cout << "Categoria: ";
-		std::cin >> categoria;
-		std::cout << "Nombre: ";
-		std::cin >> nombre;
-		std::cout << "Marca: ";
-		std::cin >> marca;
-		std::cout << "Precio: ";
-		std::cin >> precio;
-	}
-	void mostrar() {
-		std::cout << '\t' << std::left << std::setw(25) << codigo << std::setw(25) << categoria << std::setw(25) << nombre << std::setw(25) << marca << std::setw(25) << precio << std::endl;
-	}
+    Producto();
+    void cargar();
+    void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
     const char *getNombre();
@@ -45,5 +34,8 @@ public:
 
     float getPrecio();
     void setPrecio(float precio);
+
+    bool getEstado();
+    void setEstado(bool estado);
 
 };

@@ -23,6 +23,16 @@ void Cliente::setNumerotarjeta(const char* Numerotarjeta)
 	strcpy(this->Numerotarjeta, Numerotarjeta);
 }
 
+bool Cliente::getEstado()
+{
+	return estado;
+}
+
+void Cliente::setEstado(bool estado)
+{
+	this->estado = estado;
+}
+
 void Cliente::cargar() {
 	Persona::cargar();
 	std::cout << "Numero de tarjeta: ";
