@@ -18,6 +18,7 @@ private:
 	char metodoPago;
 	bool envioADomicilio, estado;
     float costoFinal, costoCuota;
+    // solo id del vendedor, producto y dni del cliente
 public:
     Venta();
 	void cargar();
@@ -60,6 +61,7 @@ public:
     void setEnvioADomicilio(bool envioADomicilio);
 
     Empleado buscarVendedor();
+    Producto buscarProducto();
     bool buscarCliente(int dni);
 
     Cliente cargarCliente(int);

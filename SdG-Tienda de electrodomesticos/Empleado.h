@@ -8,6 +8,7 @@ private:
 	FechaHora fechaDeIngreso;
 	char tipoJornada, turno; // jornada part-time o full-time // turno mañana, tarde o noche
 	float sueldo;
+    //float comision del 0 al 100
 public:
     Empleado();
 	void cargar();
@@ -31,5 +32,5 @@ public:
 
     float getSueldo();
     void setSueldo(float sueldo);
-
+    int contRegistros();
 };

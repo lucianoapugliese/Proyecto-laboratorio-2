@@ -1,29 +1,30 @@
 #pragma once
 #include <iostream>
-#include <string>
+#include <cstring>
 #include <iomanip>
 #include "FechaHora.h"
 #include "Direccion.h"
 #include "Funciones.h"
+
 class Persona
 {
 protected:
-	char apellido[50], nombre[50];
 	int dni;
 	bool estado;
 	FechaHora fechaDeNacimiento;
-	Direccion domicilio;
+	//Direccion domicilio;
+	char apellido[50], nombre[50];
 public:
 	Persona();
 	void cargar();
 	void mostrar();
 	//bool grabarEnDisco();
 	//bool leerDeDisco(int pos);
-    const char *getApellido();
-    void setApellido(const char *apellido);
+    std::string getApellido();
+    void setApellido(std::string apellido);
    
-    const char *getNombre();
-    void setNombre(const char *nombre);
+    std::string getNombre();
+    void setNombre(std::string nombre);
 
     int getDni() const;
     void setDni(int dni);
@@ -31,7 +32,10 @@ public:
     FechaHora getFechaDeNacimiento() ;
     void setFechaDeNacimiento(FechaHora fechaDeNacimiento);
 
-    Direccion getDomicilio() ;
-    void setDomicilio(Direccion domicilio);
+    //Direccion getDomicilio() ;
+    //void setDomicilio(Direccion domicilio);
 	//~Persona();
+
+	bool getEstado();
+	void setEstado(bool estado);
 };

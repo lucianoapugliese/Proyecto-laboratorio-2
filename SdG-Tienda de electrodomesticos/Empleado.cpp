@@ -66,12 +66,11 @@ Empleado::Empleado() {
     tipoJornada = '-';
     turno = '-';
     sueldo = 0;
+    ID = contRegistros() + 1;
 }
 
 void Empleado::cargar() {
     Persona::cargar();
-    std::cout << "ID: ";
-    std::cin >> ID;
     std::cout << "Categoria (1-Gerente/2-Cajero/3-Vendedor/4-Auxiliar de Limpieza): ";
     std::cin >> categoria;
     std::cout << "Fecha de ingreso:\n";
@@ -82,37 +81,47 @@ void Empleado::cargar() {
     std::cin >> turno;
     std::cout << "Sueldo: ";
     std::cin >> sueldo;
+    if (grabarEnDisco())
+    {
+        system("cls");
+        std::cout << "Empleado guardado con exito." << std::endl;
+        system("pause");
+        system("cls");
+    }
 }
 
 void Empleado::mostrar() {
-    Persona::mostrar();
-    std::cout << "ID: " << ID << std::endl;
-    std::cout << "Categoria: " << categoria << std::endl;
-    std::cout << "Fecha de ingreso:\n";
-    fechaDeIngreso.mostrarFecha();
-    std::cout << std::endl <<"Tipo de jornada: ";
-    if (tolower(tipoJornada)=='p')
+    if (estado)
     {
-        std::cout << "Part-time";
+        Persona::mostrar();
+        std::cout << "ID: " << ID << std::endl;
+        std::cout << "Categoria: " << categoria << std::endl;
+        std::cout << "Fecha de ingreso:\n";
+        fechaDeIngreso.mostrarFecha();
+        std::cout << std::endl << "Tipo de jornada: ";
+        if (tolower(tipoJornada) == 'p')
+        {
+            std::cout << "Part-time";
+        }
+        else
+        {
+            std::cout << "Full-time";
+        }
+        std::cout << std::endl << "Turno: ";
+        switch (tolower(turno))
+        {
+        case 'm':
+            std::cout << "Mañana";
+            break;
+        case 't':
+            std::cout << "Tarde";
+            break;
+        default:
+            std::cout << "Noche";
+            break;
+        }
+        std::cout << std::endl << "Sueldo: $" << sueldo << std::endl;
     }
-    else
-    {
-        std::cout << "Full-time";
-    }
-    std::cout << std::endl << "Turno: ";
-    switch (tolower(turno))
-    {
-    case 'm':
-        std::cout << "Mañana";
-        break;
-    case 't':
-        std::cout << "Tarde";
-        break;
-    default:
-        std::cout << "Noche";
-        break;
-    }
-    std::cout << std::endl<< "Sueldo: $" << sueldo << std::endl;
 }
 
 bool Empleado::grabarEnDisco() {
@@ -141,4 +150,18 @@ bool Empleado::leerDeDisco(int pos) {
     fread(this, sizeof(Empleado), 1, p);
     fclose(p);
     return 1;
+}
+
+int Empleado::contRegistros()
+{
+    int bytes;
+    FILE* p;
+    p = fopen("empleados.dat", "rb");
+    if (p == NULL) {
+        return 0;
+    }
+    fseek(p, 0, SEEK_END);
+    bytes = ftell(p);
+    fclose(p);
+    return bytes / sizeof(Empleado);
 }

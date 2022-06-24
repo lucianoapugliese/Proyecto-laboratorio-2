@@ -18,8 +18,7 @@ Venta::Venta() {
     }
 
     // Importe final de la compra
-    if (descuentoPorCantidad > 0)costoFinal = productoComprado.getPrecio() * cantidadComprada - productoComprado.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
-    else costoFinal = productoComprado.getPrecio();
+    costoFinal = productoComprado.getPrecio() * cantidadComprada - productoComprado.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
 
     // Costo por cuota
     if (cantidadCuotas > 0) costoCuota = costoFinal / cantidadCuotas;
@@ -142,7 +141,28 @@ Empleado Venta::buscarVendedor()
         {
             if (e.getID() == id) return e;
         }
-        std::cout << "No se ha encotrado al vendedor. Por favor ingrese un ID existente\n";
+        system("cls");
+        std::cout << "No se ha encontrado al vendedor. Por favor ingrese un ID existente." << std::endl;
+        system("pause");
+        system("cls");
+    }
+}
+
+Producto Venta::buscarProducto()
+{
+    Producto e;
+    int pos, id;
+    while (true)
+    {
+        pos = 0;
+        std::cout << ": ";
+        std::cin >> id;
+        while (e.leerDeDisco(pos++))
+        {
+            if (e.getCodigo() == id) return e;
+        }
+        system("cls");
+        std::cout << "No se ha encontrado el producto. Por favor ingrese un ID existente." << std::endl;
         system("pause");
         system("cls");
     }

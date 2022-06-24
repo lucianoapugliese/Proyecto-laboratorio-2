@@ -23,22 +23,19 @@ void Cliente::setNumerotarjeta(const char* Numerotarjeta)
 	strcpy(this->Numerotarjeta, Numerotarjeta);
 }
 
-bool Cliente::getEstado()
-{
-	return estado;
-}
-
-void Cliente::setEstado(bool estado)
-{
-	this->estado = estado;
-}
-
 void Cliente::cargar() {
 	Persona::cargar();
 	std::cout << "Numero de tarjeta: ";
 	std::cin >> Numerotarjeta;
 	std::cout << "Mail: ";
 	std::cin >> mail;
+	if (grabarEnDisco())
+	{
+		system("cls");
+		std::cout << "Cliente guardado con exito." << std::endl;
+		system("pause");
+		system("cls");
+	}
 }
 
 void Cliente::mostrar() {

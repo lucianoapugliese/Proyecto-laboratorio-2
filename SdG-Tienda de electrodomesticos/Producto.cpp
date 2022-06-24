@@ -107,6 +107,13 @@ void Producto::cargar() {
     std::cin >> precio;
     std::cout << "Stock: ";
     std::cin >> stock;
+    if (grabarEnDisco())
+    {
+        system("cls");
+        std::cout << "Producto guardado con exito" << std::endl;
+        system("pause");
+        system("cls");
+    }
 }
 void Producto::mostrar() {
     if (estado) {

@@ -10,7 +10,7 @@ int main() {
 	setlocale(LC_ALL, "Spanish");
 	rlutil::setBackgroundColor(rlutil::MAGENTA);
 	rlutil::cls();
-	Producto o;
+	Persona o;
 	o.cargar();
 	rlutil::cls();
 	o.mostrar();
