@@ -72,3 +72,96 @@ bool Cliente::leerDeDisco(int pos) {
 	fclose(p);
 	return 1;
 }
+
+void Cliente::modificarCliente() {
+	int opcion, ingreso;
+	FechaHora nuevaFecha;
+	std::string palabra;
+	Direccion nuevoDom;
+	char tarjeta[17];
+	do
+	{
+		std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
+		std::cout << "1-DNI" << std::endl;
+		std::cout << "2-Fecha de nacimiento" << std::endl;
+		std::cout << "3-Nombre" << std::endl;
+		std::cout << "4-Apellido" << std::endl;
+		std::cout << "5-Domicilio" << std::endl;
+		std::cout << "6-Numero de tarjeta" << std::endl;
+		std::cout << "-------------------" << std::endl;
+		std::cout << "------------------" << std::endl;
+		std::cout << "0-Volver" << std::endl;
+		rlutil::cls();
+		switch (opcion)
+		{
+		case 1:
+			std::cout << "Ingrese un nuevo DNI: ";
+			std::cin >> ingreso;
+			setDni(ingreso);
+			rlutil::cls();
+			std::cout << "DNI modificado con exito." << std::endl;
+			rlutil::anykey();
+			break;
+		case 2:
+			std::cout << "Ingrese nueva fecha de nacimiento:" << std::endl;
+			nuevaFecha.cargarFecha();
+			setFechaDeNacimiento(nuevaFecha);
+			rlutil::cls();
+			std::cout << "Fecha de nacimiento modificada con exito." << std::endl;
+			rlutil::anykey();
+			break;
+		case 3:
+			std::cout << "Ingrese el nombre nuevo: ";
+			std::cin.ignore();
+			std::getline(std::cin, palabra);
+			setNombre(palabra);
+			rlutil::cls();
+			std::cout << "Nombre modificado con exito." << std::endl;
+			rlutil::anykey();
+			break;
+		case 4:
+			std::cout << "Ingrese el apellido nuevo: ";
+			std::cin.ignore();
+			std::getline(std::cin, palabra);
+			setApellido(palabra);
+			rlutil::cls();
+			std::cout << "Apellido modificado con exito." << std::endl;
+			rlutil::anykey();
+			break;
+		case 5:
+			std::cout << "Ingrese el domicilio nuevo: " << std::endl;
+			nuevoDom.cargar();
+			setDomicilio(nuevoDom);
+			rlutil::cls();
+			std::cout << "Domicilio modificado con exito." << std::endl;
+			rlutil::anykey();
+			break;
+		case 6:
+			std::cout << "Ingrese el nuevo numero de tarjeta: " << std::endl;
+			std::cin >> tarjeta;
+			setNumerotarjeta(tarjeta);
+			rlutil::cls();
+			std::cout << "Numero de tarjeta modificado con exito." << std::endl;
+			rlutil::anykey();
+			break;
+		default:
+			if (opcion != 0)
+			{
+				rlutil::cls();
+				std::cout << "Por favor ingrese una opción correcta.";
+				rlutil::anykey();
+			}
+			break;
+		}
+	} while (opcion != 0);
+}
+Direccion Cliente::getDomicilio() const
+{
+    return domicilio;
+}
+
+void Cliente::setDomicilio(Direccion domicilio)
+{
+    this->domicilio = domicilio;
+}
+

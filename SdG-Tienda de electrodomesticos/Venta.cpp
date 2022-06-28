@@ -16,14 +16,14 @@ Venta::Venta() {
     {
         descuentoPorCantidad = 50;
     }
-
+    /*
     // Importe final de la compra
     costoFinal = productoComprado.getPrecio() * cantidadComprada - productoComprado.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
 
     // Costo por cuota
     if (cantidadCuotas > 0) costoCuota = costoFinal / cantidadCuotas;
     else costoCuota = costoFinal;
-
+    */
     // Numero de venta
     numeroVenta = contRegistros() + 1;
 }
@@ -68,15 +68,6 @@ void Venta::setDireccionLocal(Direccion direccionLocal)
     this->direccionLocal = direccionLocal;
 }
 */
-Producto Venta::getProductoComprado()
-{
-    return productoComprado;
-}
-
-void Venta::setProductoComprado(Producto productoComprado)
-{
-    this->productoComprado = productoComprado;
-}
 
 FechaHora Venta::getFechaYHoraDeLaVenta()
 {
@@ -86,26 +77,6 @@ FechaHora Venta::getFechaYHoraDeLaVenta()
 void Venta::setFechaYHoraDeLaVenta(FechaHora fechaYHoraDeLaVenta)
 {
     this->fechaYHoraDeLaVenta = fechaYHoraDeLaVenta;
-}
-
-Cliente Venta::getCliente()
-{
-    return cliente;
-}
-
-void Venta::setCliente(Cliente cliente)
-{
-    this->cliente = cliente;
-}
-
-Empleado Venta::getVendedor()
-{
-    return vendedor;
-}
-
-void Venta::setVendedor(Empleado vendedor)
-{
-    this->vendedor = vendedor;
 }
 
 char Venta::getMetodoPago()
@@ -128,41 +99,31 @@ void Venta::setEnvioADomicilio(bool envioADomicilio)
     this->envioADomicilio = envioADomicilio;
 }
 
-Empleado Venta::buscarVendedor()
+bool Venta::buscarVendedor(int id)
 {
     Empleado e;
-    int pos, id;
-    while (true)
+    int pos = 0;
+    while (e.leerDeDisco(pos++))
     {
-        pos = 0;
-        std::cout << "ID del vendedor: ";
-        std::cin >> id;
-        while (e.leerDeDisco(pos++))
-        {
-            if (e.getID() == id) return e;
-        }
-        system("cls");
-        std::cout << "No se ha encontrado al vendedor. Por favor ingrese un ID existente." << std::endl;
-        system("pause");
-        system("cls");
+        if (id == e.getID())return 1;
     }
+    return 0;
 }
 
-Producto Venta::buscarProducto()
+Producto Venta::buscarProducto(int codigo)
 {
-    Producto e;
-    int pos, id;
+    Producto p;
+    int pos;
     while (true)
     {
         pos = 0;
-        std::cout << ": ";
-        std::cin >> id;
-        while (e.leerDeDisco(pos++))
+        while (p.leerDeDisco(pos++))
         {
-            if (e.getCodigo() == id) return e;
+            if (p.getCodigo() == codigo) return p;
         }
         system("cls");
-        std::cout << "No se ha encontrado el producto. Por favor ingrese un ID existente." << std::endl;
+        std::cout << "No se ha encontrado el producto. Por favor ingrese un código existente: ";
+        std::cin >> codigo;
         system("pause");
         system("cls");
     }
@@ -185,9 +146,20 @@ Cliente Venta::cargarCliente(int dni)
     int pos = 0;
     while (c.leerDeDisco(pos++))
     {
-       if(c.getDni()==dni) return c;
+        if (c.getDni() == dni) return c;
     }
 }
+
+Empleado Venta::cargarEmpleado(int id)
+{
+    Empleado e;
+    int pos = 0;
+    while (e.leerDeDisco(pos++))
+    {
+        if (e.getID() == id) return e;
+    }
+}
+
 
 int Venta::contRegistros()
 {
@@ -204,7 +176,11 @@ int Venta::contRegistros()
 }
 
 void Venta::cargar() {
-    int dniCliente;
+    Cliente cliente;
+    Producto producto;
+    std::cout << "Código del producto: ";
+    std::cin >> codigoProducto;
+    producto = buscarProducto(codigoProducto);
     std::cout << "Cantidad comprada: ";
     std::cin >> cantidadComprada;
     std::cout << "Cuotas: ";
@@ -213,11 +189,21 @@ void Venta::cargar() {
     std::cin >> metodoPago;
     std::cout << "¿Se envía al domicilio del cliente? (1 - Sí/2 - No): ";
     std::cin >> envioADomicilio;
-    vendedor = buscarVendedor();
+    std::cout << "ID del vendedor: ";
+    std::cin >> IDVendedor;
+    while (!buscarVendedor(IDVendedor))
+    {
+        system("cls");
+        std::cout << "Error. Por favor ingrese un ID de vendedor válido." << std::endl;
+        system("pause");
+        system("cls");
+        std::cout << "ID del vendedor: ";
+        std::cin >> IDVendedor;
+    }
     std::cout << "DNI del cliente: ";
     std::cin >> dniCliente;
-    if (buscarCliente(dniCliente)) cliente = cargarCliente(dniCliente);
-    else {
+    if (!buscarCliente(dniCliente))
+    {
         system("cls");
         std::cout << "NUEVO CLIENTE:" << std::endl << std::endl;
         cliente.cargar();
@@ -229,8 +215,7 @@ void Venta::cargar() {
     else descuentoPorCantidad = 50;
 
     // Importe final de la compra
-    if (descuentoPorCantidad > 0)costoFinal = productoComprado.getPrecio() * cantidadComprada - productoComprado.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
-    else costoFinal = productoComprado.getPrecio();
+    costoFinal = producto.getPrecio() * cantidadComprada - producto.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
 
     // Costo por cuota
     if (cantidadCuotas > 0) costoCuota = costoFinal / cantidadCuotas;
@@ -277,12 +262,15 @@ bool Venta::leerDeDisco(int pos)
 void Venta::mostrar() {
     if (estado)
     {
+        Producto producto = buscarProducto(codigoProducto);
+        Cliente cliente = cargarCliente(dniCliente);
+        Empleado vendedor = cargarEmpleado(IDVendedor);
         std::cout << "Venta N°" << numeroVenta << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
-        std::cout << "Producto: " << productoComprado.getNombre() << std::endl;
+        std::cout << "Producto: " << producto.getNombre() << std::endl;
         std::cout << "Cantidad: " << cantidadComprada << std::endl;
         if (metodoPago == tolower('e')) std::cout << "Metodo de pago: Efectivo";
-        else std::cout << "Metodo de pago: Efectivo";
+        else std::cout << "Metodo de pago: Tarjeta";
         if (cantidadCuotas > 0)
             std::cout << cantidadCuotas << " cuotas de $" << costoCuota << std::endl;
         if (descuentoPorCantidad > 0) std::cout << "Descuento por cantidad de productos comprados: " << descuentoPorCantidad << std::endl << std::endl;
@@ -311,4 +299,34 @@ void Venta::mostrar() {
 	Empleado vendedor;
 	char metodoPago;
 	bool envioADomicilio; */
+
+int Venta::getIDVendedor()
+{
+    return IDVendedor;
+}
+
+void Venta::setIDVendedor(int IDVendedor)
+{
+    this->IDVendedor = IDVendedor;
+}
+
+int Venta::getCodigoProducto()
+{
+    return codigoProducto;
+}
+
+void Venta::setCodigoProducto(int codigoProducto)
+{
+    this->codigoProducto = codigoProducto;
+}
+
+int Venta::getDniCliente()
+{
+    return dniCliente;
+}
+
+void Venta::setDniCliente(int dniCliente)
+{
+    this->dniCliente = dniCliente;
+}
 

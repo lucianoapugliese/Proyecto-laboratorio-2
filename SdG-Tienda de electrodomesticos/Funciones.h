@@ -3,4 +3,3 @@
 #include <string>
 #include <cstdlib>
 
-void cargarCadena(char*, int);

@@ -9,12 +9,9 @@
 class Venta
 {
 private:
-	int numeroVenta, cantidadComprada, cantidadCuotas, descuentoPorCantidad;
+	int numeroVenta, cantidadComprada, cantidadCuotas, descuentoPorCantidad, IDVendedor, codigoProducto, dniCliente;
 	//Direccion direccionLocal;
-	Producto productoComprado;
 	FechaHora fechaYHoraDeLaVenta;
-	Cliente cliente;
-	Empleado vendedor;
 	char metodoPago;
 	bool envioADomicilio, estado;
     float costoFinal, costoCuota;
@@ -42,17 +39,8 @@ public:
     //Direccion getDireccionLocal();
     //void setDireccionLocal(Direccion direccionLocal);
 
-    Producto getProductoComprado();
-    void setProductoComprado(Producto productoComprado);
-
     FechaHora getFechaYHoraDeLaVenta();
     void setFechaYHoraDeLaVenta(FechaHora fechaYHoraDeLaVenta);
-
-    Cliente getCliente();
-    void setCliente(Cliente cliente);
-
-    Empleado getVendedor();
-    void setVendedor(Empleado vendedor);
 
     char getMetodoPago();
     void setMetodoPago(char metodoPago);
@@ -60,11 +48,21 @@ public:
     bool getEnvioADomicilio();
     void setEnvioADomicilio(bool envioADomicilio);
 
-    Empleado buscarVendedor();
-    Producto buscarProducto();
+    bool buscarVendedor(int);
+    Producto buscarProducto(int);
     bool buscarCliente(int dni);
 
     Cliente cargarCliente(int);
+    Empleado cargarEmpleado(int);
 
     int contRegistros();
+    int getIDVendedor() ;
+    void setIDVendedor(int IDVendedor);
+
+    int getCodigoProducto() ;
+    void setCodigoProducto(int codigoProducto);
+
+    int getDniCliente() ;
+    void setDniCliente(int dniCliente);
+
 };

@@ -14,14 +14,14 @@ public:
     void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    const char *getNombre();
-    void setNombre(const char *nombre);
+    std::string getNombre();
+    void setNombre(std::string nombre);
 
-    const char *getMarca();
-    void setMarca(const char *marca);
+    std::string getMarca();
+    void setMarca(std::string marca);
 
-    const char *getDescripcion();
-    void setDescripcion(const char *descripcion);
+    std::string getDescripcion();
+    void setDescripcion(std::string descripcion);
 
     int getCodigo();
     void setCodigo(int codigo);

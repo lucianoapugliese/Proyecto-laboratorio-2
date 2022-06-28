@@ -1,44 +1,48 @@
 #include "Producto.h"
 
 Producto::Producto() {
+    std::string vacio = " ";
     categoria = 0;
     codigo = 0;
     precio = 0;
     stock = 0;
     estado = 1;
-    strcpy(nombre, " ");
-    strcpy(descripcion, " ");
-    strcpy(marca, " ");
+    strcpy(nombre, vacio.c_str());
+    strcpy(descripcion, vacio.c_str());
+    strcpy(marca, vacio.c_str());
 }
 
-const char *Producto::getNombre() 
+std::string Producto::getNombre() 
 {
+    std::string nombre = this->nombre;
     return nombre;
 }
 
-void Producto::setNombre(const char *nombre)
+void Producto::setNombre(std::string nombre)
 {
-    strcpy(this->nombre, nombre);
+    strcpy(this->nombre, nombre.c_str());
 }
 
-const char *Producto::getMarca() 
+std::string Producto::getMarca() 
 {
+    std::string marca = this->marca;
     return marca;
 }
 
-void Producto::setMarca(const char *marca)
+void Producto::setMarca(std::string marca)
 {
-    strcpy(this->marca , marca);
+    strcpy(this->marca , marca.c_str());
 }
 
-const char *Producto::getDescripcion() 
+std::string Producto::getDescripcion() 
 {
+    std::string descripcion = this->descripcion;
     return descripcion;
 }
 
-void Producto::setDescripcion(const char *descripcion)
+void Producto::setDescripcion(std::string descripcion)
 {
-    strcpy(this->descripcion , descripcion);
+    strcpy(this->descripcion , descripcion.c_str());
 }
 
 int Producto::getCodigo() 
