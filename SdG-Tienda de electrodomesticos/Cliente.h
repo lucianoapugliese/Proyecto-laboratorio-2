@@ -22,5 +22,7 @@ public:
 	void modificarCliente();
     Direccion getDomicilio() const;
     void setDomicilio(Direccion domicilio);
-
+	void eliminarCliente();
+	Cliente buscarCliente(int);
+	void listarCliente();
 };

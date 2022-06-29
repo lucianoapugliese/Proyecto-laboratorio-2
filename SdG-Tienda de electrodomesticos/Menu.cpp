@@ -83,6 +83,7 @@ void Menu::menuCompras() {
 void Menu::menuClientes() {
     Cliente cliente;
     int opcion;
+    rlutil::cls();
     do {
         std::cout << "1 - AGREGAR CLIENTE" << std::endl;
         std::cout << "2 - MODIFICAR CLIENTE" << std::endl;
@@ -100,13 +101,9 @@ void Menu::menuClientes() {
         case 2:
             cliente.modificarCliente();
             break;
-        case 3:
+        case 3: cliente.eliminarCliente();
             break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 0:
+        case 4: cliente.listarCliente();
             break;
         default:
             rlutil::cls();
