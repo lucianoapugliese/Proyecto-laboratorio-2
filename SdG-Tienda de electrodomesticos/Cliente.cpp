@@ -98,8 +98,7 @@ void Cliente::modificarCliente() {
 		{
 		case 1:
 			std::cout << "Ingrese un nuevo DNI: ";
-			std::cin >> ingreso;
-			setDni(ingreso);
+			std::cin >> dni;
 			rlutil::cls();
 			std::cout << "DNI modificado con exito." << std::endl;
 			break;
@@ -228,6 +227,7 @@ void Cliente::listarCliente() {
 				}
 			}
 			if (!bandera)std::cout << "No se ha podido encontrar el cliente." << std::endl;
+			break;
 		default:
 			if (opcion!=0)
 			{

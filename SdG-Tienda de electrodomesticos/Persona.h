@@ -5,6 +5,7 @@
 #include "FechaHora.h"
 #include "Direccion.h"
 #include "Funciones.h"
+#include "rlutil.h"
 
 class Persona
 {

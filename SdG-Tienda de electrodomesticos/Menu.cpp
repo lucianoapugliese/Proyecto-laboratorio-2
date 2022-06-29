@@ -59,6 +59,7 @@ void Menu::menuCompras() {
         std::cout << "0 - VOLVER" << std::endl;
         std::cout << std::endl << "Ingrese una opción: ";
         std::cin >> opcion;
+        rlutil::cls();
         switch (opcion) {
         case 1: compra.Cargar();
             break;
@@ -68,17 +69,14 @@ void Menu::menuCompras() {
             break;
         case 4:
             break;
-        case 5:
-            break;
-        case 0:
-            break;
         default:
-            rlutil::cls();
-            std::cout << "Por favor ingrese una opción correcta.";
-            rlutil::anykey();
+            if (opcion != 0) {
+                std::cout << "Por favor ingrese una opción correcta.";
+                rlutil::anykey();
+            }
             break;
         }
-    } while (opcion >=0 && opcion <=5);
+    } while (opcion !=0);
 }
 void Menu::menuClientes() {
     Cliente cliente;
@@ -94,6 +92,7 @@ void Menu::menuClientes() {
         std::cout << "0 - VOLVER" << std::endl;
         std::cout << std::endl << "Ingrese una opción: ";
         std::cin >> opcion;
+            rlutil::cls();
         switch (opcion) {
         case 1:
             cliente.cargar();
@@ -106,9 +105,10 @@ void Menu::menuClientes() {
         case 4: cliente.listarCliente();
             break;
         default:
-            rlutil::cls();
-            std::cout << "Por favor ingrese una opción correcta.";
-            rlutil::anykey();
+            if (opcion != 0) {
+                std::cout << "Por favor ingrese una opción correcta.";
+                rlutil::anykey();
+            }
             break;
         }
     } while (opcion !=0);
@@ -126,6 +126,7 @@ void Menu::menuVentas() {
         std::cout << "0 - VOLVER" << std::endl;
         std::cout << std::endl << "Ingrese una opción: ";
         std::cin >> opcion;
+        rlutil::cls();
         switch (opcion) {
         case 1: venta.cargar();
             break;
@@ -135,14 +136,11 @@ void Menu::menuVentas() {
             break;
         case 4:
             break;
-        case 5:
-            break;
-        case 0:
-            break;
         default:
-            rlutil::cls();
+            if(opcion!=0){
             std::cout << "Por favor ingrese una opción correcta.";
             rlutil::anykey();
+            }
             break;
         }
     } while (opcion!=0);
@@ -160,30 +158,30 @@ void Menu::menuEmpleados() {
         std::cout << "0 - VOLVER" << std::endl;
         std::cout << std::endl << "Ingrese una opción: ";
         std::cin >> opcion;
+        rlutil::cls();
         switch (opcion) {
         case 1:
             empleado.cargar();
             break;
-        case 2:
+        case 2: empleado.modificarEmpleado();
             break;
-        case 3:
+        case 3: empleado.eliminarEmpleado();
             break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 0:
+        case 4: empleado.listarEmpleado();
             break;
         default:
-            rlutil::cls();
-            std::cout << "Por favor ingrese una opción correcta.";
-            rlutil::anykey();
+            if (opcion != 0)
+            {
+                std::cout << "Por favor ingrese una opción correcta.";
+                rlutil::anykey();
+            }
             break;
         }
-    } while (opcion!=0);
+    } while (opcion != 0);
 }
 void Menu::menuReportes() {
-    bool salir = true;
+    bool salir = false;
+    int pos;
     while (salir)
     {
         std::cout << "1 - EL MES CON MAYOR VENTA" << std::endl;
@@ -192,9 +190,9 @@ void Menu::menuReportes() {
         std::cout << "-------------------" << std::endl;
         std::cout << "------------------" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
-        int pos;
         std::cout << std::endl << "> ";
         std::cin >> pos;
+        rlutil::cls();
         switch (pos)
         {
         case 1:
@@ -203,7 +201,7 @@ void Menu::menuReportes() {
             break;
         case 3:
             break;
-        case 0: salir = false;
+        case 0: salir = true;
             break;
         }
     }
@@ -224,6 +222,7 @@ void Menu::menuPrincipal() {
         std::cout << "0 - SALIR" << std::endl;
         std::cout << "INGRESE UNA OPCION " << std::endl;
         std::cin >> opcion;
+        rlutil::cls();
         switch (opcion)
         {
         case 1: menuVentas();
@@ -239,10 +238,8 @@ void Menu::menuPrincipal() {
         case 0: salir = false;
             break;
         default:
-            rlutil::cls();
             std::cout << "Por favor ingrese una opción correcta." << std::endl;
             rlutil::anykey();
         }
-            rlutil::cls();
     }
 }
