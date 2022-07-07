@@ -7,10 +7,11 @@
 #include "Venta.h"
 
 class  Menu {      // / entidades funciones locales ///atributos
-
+private:
+    int color = 1;
 public:
     Menu();
-    ~Menu();
+    void Menurectangulo(int, int, int, int, const char*);
     void menuPrincipal();
     void menuReportes();
     void menuCompras();

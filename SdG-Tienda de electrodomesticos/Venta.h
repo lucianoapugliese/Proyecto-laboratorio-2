@@ -10,7 +10,6 @@ class Venta
 {
 private:
 	int numeroVenta, cantidadComprada, cantidadCuotas, descuentoPorCantidad, IDVendedor, codigoProducto, dniCliente;
-	//Direccion direccionLocal;
 	FechaHora fechaYHoraDeLaVenta;
 	char metodoPago;
 	bool envioADomicilio, estado;
@@ -65,4 +64,7 @@ public:
     int getDniCliente() ;
     void setDniCliente(int dniCliente);
 
+    void modificarVenta();
+    void eliminarVenta();
+    void listarVenta();
 };

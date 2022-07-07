@@ -330,3 +330,220 @@ void Venta::setDniCliente(int dniCliente)
     this->dniCliente = dniCliente;
 }
 
+void Venta::modificarVenta() {
+    int opcion;
+    bool bandera;
+    do
+    {
+        std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
+        std::cout << "1-Cantidad Comprada" << std::endl;
+        std::cout << "2-Cantidad de cuotas" << std::endl;
+        std::cout << "3-Vendedor" << std::endl;
+        std::cout << "4-Producto/s" << std::endl; // NO OLVIDARSE DE PERMITIR COMPRAR MAS DE UN PRODUCTO
+        std::cout << "5-Cliente" << std::endl;
+        std::cout << "6-Método de pago" << std::endl;
+        std::cout << "7-Envío a domicilio" << std::endl;
+        std::cout << "-------------------" << std::endl;
+        std::cout << "------------------" << std::endl;
+        std::cout << "0-Volver" << std::endl << std::endl;
+        std::cout << "Ingrese una opción: ";
+        std::cin >> opcion;
+        rlutil::cls();
+        switch (opcion)
+        {
+        case 1:
+            std::cout << "Ingrese el nuevo monto de cantidad comprada: ";
+            std::cin >> cantidadComprada;
+            rlutil::cls();
+            std::cout << "Cantidad modificada con exito." << std::endl;
+            break;
+        case 2:
+            std::cout << "Ingrese la cantidad de cuotas a pagar:" << std::endl;
+            std::cin >> cantidadCuotas;
+            rlutil::cls();
+            std::cout << "Cantidad de cuotas modificada con exito." << std::endl;
+            break;
+        case 3:
+            std::cout << "Ingrese ID de vendedor: ";
+            std::cin >> IDVendedor;
+            rlutil::cls();
+            std::cout << "Vendedor modificado con exito." << std::endl;
+            break;
+        case 4:
+            std::cout << "Ingrese ID de producto: ";
+            std::cin >> codigoProducto;
+            rlutil::cls();
+            std::cout << "Producto modificado con exito." << std::endl;
+            break;
+        case 5:
+            std::cout << "Ingrese DNI del cliente: ";
+            std::cin >> dniCliente;
+            rlutil::cls();
+            std::cout << "Cliente modificado con exito." << std::endl;
+            break;
+        case 6:
+            bandera = false;
+            do
+            {
+                std::cout << "Ingrese el nuevo método de pago: " << std::endl;
+                std::cin >> metodoPago;
+                if (tolower(metodoPago)=='e'||tolower(metodoPago)=='t') bandera = true;
+                else
+                {
+                    rlutil::cls();
+                    std::cout << "Error. Por favor ingrese una opción válida." << std::endl;
+                    rlutil::anykey();
+                }
+            } while (!bandera);
+            rlutil::cls();
+            std::cout << "Método de pago modificado con éxito." << std::endl;
+            break;
+        case 7:
+            if (envioADomicilio == false) {
+                envioADomicilio = true;
+                std::cout << "Modificación exitosa. La venta se envía al domicilio.";
+                rlutil::anykey();
+            }
+            else { envioADomicilio = false; }
+            rlutil::cls();
+            std::cout << "Cliente modificado con exito." << std::endl;
+            break;
+        default:
+            if (opcion != 0)
+            {
+                std::cout << "Por favor ingrese una opción correcta.";
+            }
+            break;
+        }
+        if (opcion != 0)rlutil::anykey();
+    } while (opcion != 0);
+}
+
+void Venta::eliminarVenta() {
+    bool bandera = false;
+    int ingreso, pos;
+    do
+    {
+
+        std::cout << "1-Eliminar venta" << std::endl;
+        std::cout << "2-Eliminar todas las ventas" << std::endl;
+        std::cout << "-------------------------------" << std::endl;
+        std::cout << "-------------------------------" << std::endl;
+        std::cout << "0-Volver atras" << std::endl;
+        std::cout << std::endl << "Ingrese una opcion: ";
+        std::cin >> ingreso;
+        rlutil::cls();
+        switch (ingreso)
+        {
+        case 1:
+            do
+            {
+                pos = 0;
+                std::cout << "Ingrese el N° de venta a eliminar o presione 0 para volver para atras: ";
+                std::cin >> ingreso;
+                if (ingreso != 0)
+                {
+                    while (leerDeDisco(pos++) && !bandera)
+                    {
+                        if (numeroVenta == ingreso)
+                        {
+                            estado = false;
+                            bandera = true;
+                            rlutil::cls();
+                            std::cout << "Venta eliminada con exito." << std::endl;
+                            rlutil::anykey();
+                        }
+                    }
+                    ingreso = 0;
+                }
+                if (ingreso != 0 && !bandera)
+                {
+                    rlutil::cls();
+                    std::cout << "Error. No se ha podido encontrar la venta. Por favor ingrese nuevamente el N° de venta." << std::endl;
+                    rlutil::anykey();
+                }
+                rlutil::cls();
+            } while (ingreso != 0);
+            break;
+        case 2:
+            do
+            {
+                std::cout << "¿Quiere eliminar todas las ventas?" << std::endl;
+                std::cout << std::endl << "1-Sí" << std::endl;
+                std::cout << "2-No" << std::endl << std::endl;
+                std::cout << "Ingrese una opción: ";
+                std::cin >> ingreso;
+                rlutil::cls();
+                if (ingreso < 1 || ingreso > 2) {
+                    std::cout << "Error. Por favor ingrese una opción válida." << std::endl;
+                    rlutil::anykey();
+                    rlutil::cls();
+                }
+            } while (ingreso < 1 || ingreso > 2);
+            if (ingreso == 1)
+            {
+                pos = 0;
+                while (leerDeDisco(pos++)) {
+                    estado = 0;
+                }
+                std::cout << "Todas las ventas han sido eliminadas con exito." << std::endl;
+                rlutil::anykey();
+            }
+            break;
+        default:
+            if (ingreso != 0)
+            {
+                std::cout << "Por favor ingrese una opción válida." << std::endl;
+            }
+            break;
+        }
+    } while (ingreso != 0);
+}
+
+void Venta::listarVenta() {
+    int opcion, n, pos;
+    bool bandera = false;
+    do
+    {
+        pos = 0;
+        std::cout << "1-Listar todas las ventas";
+        std::cout << "2-Listar una venta";
+        std::cout << "-------------------" << std::endl;
+        std::cout << "------------------" << std::endl;
+        std::cout << "0-Volver" << std::endl << std::endl;
+        std::cout << "Ingrese una opción: ";
+        std::cin >> opcion;
+        rlutil::cls();
+        switch (opcion)
+        {
+        case 1:
+            while (leerDeDisco(pos++)) {
+                mostrar();
+                std::cout << std::endl << std::endl;
+            }
+            break;
+        case 2:
+            std::cout << "Ingrese el N° de venta que quiere listar: ";
+            std::cin >> n;
+            rlutil::cls();
+            while (leerDeDisco(pos++) && !bandera)
+            {
+                if (n == numeroVenta)
+                {
+                    mostrar();
+                    bandera = true;
+                }
+            }
+            if (!bandera)std::cout << "No se ha podido encontrar la venta." << std::endl;
+            break;
+        default:
+            if (opcion != 0)
+            {
+                std::cout << "Por favor ingrese una opción correcta.";
+            }
+            break;
+        }
+        bandera = false;
+        if (opcion != 0)rlutil::anykey();
+    } while (opcion != 0);
+}
