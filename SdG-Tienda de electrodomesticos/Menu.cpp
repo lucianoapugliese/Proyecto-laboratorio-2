@@ -1,46 +1,6 @@
 #include "Menu.h"
 #include "rlutil.h"
 #include <iostream>
-/*
-void Menu::menuPrincipal() {
-    int opcion;
-    bool salir = true;
-    while (salir)
-    {
-        std::cout << "MENU PRINCIPAL DE GESTION " << std::endl;
-        std::cout << "1 - ARTICULOS A LA VENTA" << std::endl;
-        std::cout << "2 - COMPRAS " << std::endl; // A PROVEEDORES
-        std::cout << "3 - REPORTES " << std::endl;
-        std::cout << "------------------" << std::endl;
-        std::cout << "0 - SALIR" << std::endl;
-        std::cout << "INGRESE UNA OPCION " << std::endl;
-        std::cin >> opcion;
-        switch (opcion)
-        {
-        case 1:system("cls");
-            break;
-        case 2:menuCompras();
-            system("cls");
-            break;
-        case 3:menuReportes();
-            system("cls");
-            break;
-        case 0: salir = false;
-
-            break;
-
-        }
-    }
-}*/
-/* Menu::Menu()
-{
-    rlutil::setBackgroundColor(rlutil::BLACK);
-    rlutil::setColor(rlutil::BLUE);
-    // std::cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\BIENVENIDOS A TIENDA DE ELECTROCOMPRAME " << std::endl;
-    rlutil::setBackgroundColor(rlutil::BLUE);
-    rlutil::setColor(rlutil::GREY);
-    
-} */
 void showItem(const char* texto, int x, int y, bool seleccionar)
 {
     if (seleccionar) {
@@ -87,42 +47,6 @@ Menu::Menu()
 void Menu::menuPrincipal() {
     int opcion;
     bool salir = true;
-    while (salir)
-    {
-        std::cout << "MENÚ PRINCIPAL DE GESTIÓN " << std::endl;
-        std::cout << "1 - VENTAS" << std::endl;//Lucho
-        std::cout << "2 - COMPRAS " << std::endl;//Jony
-        std::cout << "3 - EMPLEADOS " << std::endl;//Lucho
-        std::cout << "4 - CLIENTES " << std::endl;//Lucho
-        std::cout << "5 - REPORTES " << std::endl;//Jony
-        std::cout << "------------------" << std::endl;
-        std::cout << "0 - SALIR" << std::endl;
-        std::cout << "INGRESE UNA OPCION " << std::endl;
-        std::cin >> opcion;
-        rlutil::cls();
-        switch (opcion)
-        {
-        case 1: menuVentas();
-            break;
-        case 2: menuCompras();
-            break;
-        case 3: menuEmpleados();
-            break;
-        case 4: menuClientes();
-            break;
-        case 5: menuReportes();
-            break;
-        case 0: salir = false;
-            break;
-        default:
-            std::cout << "Por favor ingrese una opción correcta." << std::endl;
-            rlutil::anykey();
-        }
-    }
-}
-void Menu::menuPrincipal() {
-    int opcion;
-    bool salir = true;
     char salirdelSistema;
     rlutil::setColor(rlutil::WHITE);
     rlutil::setBackgroundColor(rlutil::BLUE);
@@ -145,9 +69,9 @@ void Menu::menuPrincipal() {
         rlutil::locate(40, 13);
         std::cout << "3 - EMPLEADOS " << std::endl;
         rlutil::locate(40, 14);
-        std::cout << "3 - CLIENTES " << std::endl;
+        std::cout << "4 - CLIENTES " << std::endl;
         rlutil::locate(40, 15);
-        std::cout << "3 - REPORTES " << std::endl;
+        std::cout << "5 - REPORTES " << std::endl;
         rlutil::locate(40, 16);
         std::cout << "----------------------------------------" << std::endl;
         rlutil::locate(40, 17);
@@ -159,12 +83,18 @@ void Menu::menuPrincipal() {
         std::cin >> opcion;
         switch (opcion) {
 
-        case 1:menuReportes();
+        case 1:menuVentas();
             break;
         case 2: menuCompras();
             system("cls");
             break;
-        case 3:
+        case 3:menuEmpleados();
+            system("cls");
+            break;
+        case 4:menuClientes();
+            system("cls");
+            break;
+        case 5:menuReportes();
             system("cls");
             break;
         case 0:
@@ -196,27 +126,29 @@ void Menu::menuReportes() { /// reporte de ventas
         rlutil::setColor(rlutil::WHITE);
         Menurectangulo(32, 7, 60, 15, "");
         rlutil::locate(40, 9);
-        std::cout << "MENU PRINCIPAL DE VENTAS " << std::endl;
+        std::cout << "MENÚ PRINCIPAL DE VENTAS " << std::endl;
         rlutil::locate(40, 10);
         std::cout << "---------------------------------------" << std::endl;
         rlutil::locate(40, 11);
         std::cout << "1 - EL MES CON MAYOR VENTA" << std::endl;///refiere a clase venta
         rlutil::locate(40, 12);
-        std::cout << "2 - PRODUCTO MAS VENDIDO " << std::endl;/// refiere clase pruduto dentro venta contar el producto mas vendido
+        std::cout << "2 - PRODUCTO MÁS VENDIDO " << std::endl;/// refiere clase pruduto dentro venta contar el producto mas vendido
         rlutil::locate(40, 13);
-        std::cout << "3 - VENDEDORES CON MAS VENTAS" << std::endl;///refiere a clase venta
+        std::cout << "3 - VENDEDORES CON MÁS VENTAS" << std::endl;///refiere a clase venta
         rlutil::locate(40, 14);
-        std::cout << "4 - MESES CON MAS VENTAS" << std::endl;
+        std::cout << "4 - MESES CON MÁS VENTAS" << std::endl;
         rlutil::locate(40, 15);
-        std::cout << "5 - PRODUCTO MAS VENDIDOS MARCAS " << std::endl;//refiere a clase venta
+        std::cout << "5 - PRODUCTO MÁS VENDIDOS MARCAS " << std::endl;//refiere a clase venta
         rlutil::locate(40, 16);
-        std::cout << "---------------------------------------" << std::endl;
+        std::cout << "6 - RECAUDACIÓN ANUAL EN VENTAS " << std::endl;
         rlutil::locate(40, 17);
         std::cout << "---------------------------------------" << std::endl;
         rlutil::locate(40, 18);
+        std::cout << "---------------------------------------" << std::endl;
+        rlutil::locate(40, 19);
         std::cout << "0 - VOLVER" << std::endl;
         int pos;
-        rlutil::locate(38, 19);
+        rlutil::locate(38, 20);
         std::cout << "> ";
         std::cin >> pos;
 
@@ -228,12 +160,17 @@ void Menu::menuReportes() { /// reporte de ventas
             break;
         case 3:
             break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
         case 0:
             rlutil::setBackgroundColor(rlutil::BLUE);
             rlutil::setColor(rlutil::WHITE); salir = false;
             break;
         }
-        std::cin.ignore();
     }
 }
 void Menu::menuCompras() {
@@ -367,32 +304,42 @@ void Menu::menuEmpleados() {
             }
             break;
         }
+        rlutil::cls();
     } while (opcion != 0);
 }
-void Menu::menuReportes() {
-    bool salir = false;
-    int pos;
+/* void Menu::menuPrincipal() {
+    int opcion;
+    bool salir = true;
     while (salir)
     {
-        std::cout << "1 - EL MES CON MAYOR VENTA" << std::endl;
-        std::cout << "2 - EL ARTICULO MAS VENDIDO" << std::endl;
-        std::cout << "3 - LA RECAUDACION ANUEL EN VENTAS " << std::endl;
-        std::cout << "-------------------" << std::endl;
+        std::cout << "MENÚ PRINCIPAL DE GESTIÓN " << std::endl;
+        std::cout << "1 - VENTAS" << std::endl;//Lucho
+        std::cout << "2 - COMPRAS " << std::endl;//Jony
+        std::cout << "3 - EMPLEADOS " << std::endl;//Lucho
+        std::cout << "4 - CLIENTES " << std::endl;//Lucho
+        std::cout << "5 - REPORTES " << std::endl;//Jony
         std::cout << "------------------" << std::endl;
-        std::cout << "0 - VOLVER" << std::endl;
-        std::cout << std::endl << "> ";
-        std::cin >> pos;
+        std::cout << "0 - SALIR" << std::endl;
+        std::cout << "INGRESE UNA OPCION " << std::endl;
+        std::cin >> opcion;
         rlutil::cls();
-        switch (pos)
+        switch (opcion)
         {
-        case 1:
+        case 1: menuVentas();
             break;
-        case 2:
+        case 2: menuCompras();
             break;
-        case 3:
+        case 3: menuEmpleados();
             break;
-        case 0: salir = true;
+        case 4: menuClientes();
             break;
+        case 5: menuReportes();
+            break;
+        case 0: salir = false;
+            break;
+        default:
+            std::cout << "Por favor ingrese una opción correcta." << std::endl;
+            rlutil::anykey();
         }
     }
-}
+}*/

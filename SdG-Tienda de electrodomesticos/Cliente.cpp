@@ -27,7 +27,7 @@ void Cliente::cargar() {
 	Persona::cargar();
 	std::cout << "Numero de tarjeta: ";
 	std::cin >> Numerotarjeta;
-	std::cout << "Mail: ";
+	std::cout << "Email: ";
 	std::cin >> mail;
 	if (grabarEnDisco())
 	{
@@ -41,7 +41,7 @@ void Cliente::cargar() {
 void Cliente::mostrar() {
 	if (estado) {
 		Persona::mostrar();
-		std::cout << mail;
+		std::cout << std::endl << mail;
 	}
 }
 
@@ -193,13 +193,12 @@ void Cliente::eliminarCliente() {
 }
 
 void Cliente::listarCliente() {
-	int opcion, d, pos;
+	int opcion, d, pos=0;
 	bool bandera = false;
 	do
 	{
-		pos = 0;
-		std::cout << "1-Listar todos los clientes";
-		std::cout << "2-Listar un cliente";
+		std::cout << "1-Listar todos los clientes" << std::endl;
+		std::cout << "2-Listar un cliente" << std::endl;
 		std::cout << "-------------------" << std::endl;
 		std::cout << "------------------" << std::endl;
 		std::cout << "0-Volver" << std::endl << std::endl;
@@ -209,7 +208,9 @@ void Cliente::listarCliente() {
 		switch (opcion)
 		{
 		case 1:
-			while (leerDeDisco(pos++)) {
+			for (int i = 0; i < contRegistros(); i++)
+			{
+				leerDeDisco(i);
 				mostrar();
 				std::cout << std::endl << std::endl;
 			}
@@ -237,6 +238,7 @@ void Cliente::listarCliente() {
 		}
 		bandera = false;
 		if(opcion!=0)rlutil::anykey();
+		pos = 0;
 	} while (opcion != 0);
 }
 
@@ -252,3 +254,17 @@ Cliente Cliente::buscarCliente(int d)
 	rlutil::anykey();
 }
 
+int Cliente::contRegistros() {
+	FILE* p = fopen("clientes.dat", "rb");
+	if (p == NULL) {
+		return 0; ///cantidad de registros cero 0
+	}
+	size_t bytes;
+	int cant_reg;
+
+	fseek(p, 0, SEEK_END);
+	bytes = ftell(p);
+	fclose(p);
+	cant_reg = bytes / sizeof(Cliente);
+	return cant_reg;
+}

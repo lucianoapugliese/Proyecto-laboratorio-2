@@ -54,7 +54,7 @@ public:
     Cliente cargarCliente(int);
     Empleado cargarEmpleado(int);
 
-    int contRegistros();
+    int contVentas();
     int getIDVendedor() ;
     void setIDVendedor(int IDVendedor);
 

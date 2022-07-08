@@ -1,8 +1,8 @@
 #include "Compra.h"
 
-void Compra::SetNumeroDeFactura(const char* Num)
+void Compra::SetNumeroDeFactura(int Num)
 {
-	strcpy(_NumeroDeFactura, Num);
+	_NumeroDeFactura = Num;
 
 }
 
@@ -31,7 +31,7 @@ void Compra::SetCantidadComprada(float CantCompra)
 	Cantidad = CantCompra;
 }
 
-char* Compra::GetNumeroDeFac()
+int Compra::GetNumeroDeFac()
 {
 	return _NumeroDeFactura;
 }

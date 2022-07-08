@@ -5,9 +5,9 @@ void Proveedor::SetNumeroCliente(int Cliente)
 	_NumeroCliente = Cliente;
 }
 
-void Proveedor::SetCuit(int cuit)
+void Proveedor::SetCuit(const char* cuit)
 {
-	_cuit = cuit;
+	strcpy(_cuit, cuit);
 }
 
 void Proveedor::SetNombreEmpresa(const char* nombreEmpresa)
@@ -40,7 +40,7 @@ void Proveedor::SetNumeroFactura(const char* numeroFactura)
 	strcpy(_NumeroFactura, numeroFactura);
 }
 
-char Proveedor::SetRegistroDePago(const char* RegistroPago)
+void Proveedor::SetRegistroDePago(const char* RegistroPago)
 {
 	strcpy(_RegistroDePago, RegistroPago);
 }
@@ -50,7 +50,7 @@ int Proveedor::GetNumeroCliente()
 	return _NumeroCliente;
 }
 
-int Proveedor::GetCuit()
+char* Proveedor::GetCuit()
 {
 	return _cuit;
 }
@@ -115,15 +115,6 @@ bool Proveedor::GrabarEnDisco()
 
 void Proveedor::Mostrar()
 {
-	int _NumeroCliente;
-	int _cuit;
-	char _NombreEmpresa[20];
-	char _Telefono[30];
-	char _DireccionFiscal[30];
-	char _email[30];
-	FechaHora _FechaDeFactura;
-	char _NumeroFactura[20];
-	char _RegistroDePago[20];
 	std::cout << _NumeroCliente;
 	std::cout << _cuit;
 	std::cout << _NombreEmpresa;
@@ -155,3 +146,4 @@ void Proveedor::Cargar()
 	std::cin >> _NumeroFactura;
 	std::cout << "Registro De Pago";
 	std::cin >> _RegistroDePago;
+}

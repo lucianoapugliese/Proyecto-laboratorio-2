@@ -25,7 +25,7 @@ Venta::Venta() {
     else costoCuota = costoFinal;
     */
     // Numero de venta
-    numeroVenta = contRegistros() + 1;
+    numeroVenta = contVentas() + 1;
 }
 
 int Venta::getCantidadComprada()
@@ -161,18 +161,17 @@ Empleado Venta::cargarEmpleado(int id)
 }
 
 
-int Venta::contRegistros()
+int Venta::contVentas()
 {
-    int bytes;
     FILE* p;
     p = fopen("ventas.dat", "rb");
     if (p == NULL) {
         return 0;
     }
-    fseek(p, 0, SEEK_END);
-    bytes = ftell(p);
+    fseek(p, 0, 2);
+    fread(this, sizeof(Venta), 1, p);
     fclose(p);
-    return bytes / sizeof(Venta);
+    return numeroVenta;
 }
 
 void Venta::cargar() {

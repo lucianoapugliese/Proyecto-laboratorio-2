@@ -15,13 +15,13 @@ private:
 	char NombreDeProducto[30]; ////////////// NOMBRE DEL BULTO / PRODUCTO EJMEPLO TVSMART 80 , PLAYSTATION 5 , AFEITADORA , ETC.
 	float Cantidad;            ///// CANTIDAD SE VENDE POR VULTO PERO CONTIENE UNA CANTIDAD DISTINTA POR PRODUCTOS
 public:
-	void SetNumeroDeFactura(const char*);
+	void SetNumeroDeFactura(int);
 	void setTipoDeCompra(int);
 	void SetFechadeCompra(FechaHora);
 	void SetModificarValor(float);
 	void SetNombreDeProducto(const char*);
 	void SetCantidadComprada(float);
-	char* GetNumeroDeFac();
+	int GetNumeroDeFac();
 	int GetTipoDeCompra();
 	FechaHora GetFechaDeLaCompra();
 	float GetCostoDelProducto();

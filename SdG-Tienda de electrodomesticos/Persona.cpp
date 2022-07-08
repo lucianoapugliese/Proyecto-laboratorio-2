@@ -1,4 +1,5 @@
 #include "Persona.h"
+
 Persona::Persona(){
 	std::string vacio = " ";
 	strcpy(nombre,vacio.c_str());
@@ -19,7 +20,6 @@ void Persona::cargar() {
 	std::cin >> dni;
 	std::cout << "Fecha de nacimiento: \n";
 	fechaDeNacimiento.cargarFecha();
-	std::cout << "Domicilio: \n";
 	//domicilio.cargar();
 }
 void Persona::mostrar() {
@@ -29,7 +29,7 @@ void Persona::mostrar() {
 	std::cout << dni;
 	std::cout << "\nFecha de nacimiento: \n";
 	fechaDeNacimiento.mostrarFecha();
-	std::cout << "\nDomicilio: \n";
+	std::cout << std::endl;
 	//domicilio.mostrar();	
 }
 

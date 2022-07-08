@@ -13,7 +13,7 @@ public:
 	void cargar();
 	void mostrar();
 	bool grabarEnDisco();
-	bool leerDeDisco(int pos);
+	bool leerDeDisco(int);
     const char* getMail();
     void setMail(const char *mail);
 
@@ -25,4 +25,5 @@ public:
 	void eliminarCliente();
 	Cliente buscarCliente(int);
 	void listarCliente();
+	int contRegistros();
 };

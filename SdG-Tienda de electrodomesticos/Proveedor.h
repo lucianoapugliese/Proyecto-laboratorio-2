@@ -21,17 +21,17 @@ private:
 public:
 
 	void SetNumeroCliente(int);
-	void SetCuit(int);
+	void SetCuit(const char*);
 	void SetNombreEmpresa(const char*);
 	void SetTelefono(const char*);
 	void SetDireccionFisical(const char*);
 	void SetEmail(const char*);
 	void SetFechaFactura(FechaHora);
 	void SetNumeroFactura(const char*);
-	char SetRegistroDePago(const char*);
+	void SetRegistroDePago(const char*);
 
 	int   GetNumeroCliente();
-	int   GetCuit();
+	char*   GetCuit();
 	char* GetNombreEmpresa();
 	char* GetTelefono();
 	char* GetDireccionFiscal();

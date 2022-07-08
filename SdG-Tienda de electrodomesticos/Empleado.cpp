@@ -61,33 +61,71 @@ void Empleado::setSueldo(float sueldo)
 }
 
 Empleado::Empleado() {
-    ID = 0;
+	int pos = 0;
     categoria = 0;
     tipoJornada = '-';
     turno = '-';
     sueldo = 0;
-    ID = contRegistros() + 1;
+	ID = contEmpleados() + 1;
 }
 
 void Empleado::cargar() {
-    Persona::cargar();
-    std::cout << "Categoria (1-Gerente/2-Cajero/3-Vendedor/4-Auxiliar de Limpieza): ";
-    std::cin >> categoria;
-    std::cout << "Fecha de ingreso:\n";
-    fechaDeIngreso.cargarFecha();
-    std::cout << "Tipo de jornada(f-Full-time/p-Part-time): ";
-    std::cin >> tipoJornada;
-    std::cout << "Turno (m-Mañana/T-Tarde/N-Noche): ";
-    std::cin >> turno;
-    std::cout << "Sueldo: ";
-    std::cin >> sueldo;
-    if (grabarEnDisco())
-    {
-        system("cls");
-        std::cout << "Empleado guardado con exito." << std::endl;
-        system("pause");
-        system("cls");
-    }
+	Persona::cargar();
+	do
+	{
+		std::cout << "Categoria (1-Gerente/2-Cajero/3-Vendedor/4-Auxiliar de Limpieza): ";
+		std::cin >> categoria;
+		if (categoria < 1 || categoria>4)
+		{
+			rlutil::cls();
+			std::cout << "Error. Por favor ingrese un valor válido." << std::endl;
+			rlutil::anykey();
+			rlutil::cls();
+		}
+	} while (categoria < 1 || categoria>4);
+	std::cout << "Fecha de ingreso:\n";
+	fechaDeIngreso.cargarFecha();
+	do
+	{
+		std::cout << "Tipo de jornada(f-Full-time/p-Part-time): ";
+		std::cin >> tipoJornada;
+		if (tolower(tipoJornada) != 'f' && tolower(tipoJornada) != 'p')
+		{
+			rlutil::cls();
+			std::cout << "Error. Por favor ingrese un valor válido." << std::endl;
+			rlutil::anykey();
+			rlutil::cls();
+		}
+	} while (tolower(tipoJornada) != 'f' && tolower(tipoJornada) != 'p');
+	do {
+		std::cout << "Turno (M-Mañana/T-Tarde/N-Noche): ";
+		std::cin >> turno;
+		if (tolower(turno) != 'm' && tolower(turno) != 't' && tolower(turno) != 'n')
+		{
+			rlutil::cls();
+			std::cout << "Error. Por favor ingrese un valor válido." << std::endl;
+			rlutil::anykey();
+			rlutil::cls();
+		}
+	} while (tolower(turno) != 'm' && tolower(turno) != 't' && tolower(turno) != 'n');
+	do {
+		std::cout << "Sueldo: ";
+		std::cin >> sueldo;
+		if (sueldo<=0)
+		{
+			rlutil::cls();
+			std::cout << "Error. Por favor ingrese un sueldo válido." << std::endl;
+			rlutil::anykey();
+			rlutil::cls();
+		}
+	} while (sueldo<=0);
+	if (grabarEnDisco())
+	{
+		system("cls");
+		std::cout << "Empleado guardado con exito." << std::endl;
+		system("pause");
+		system("cls");
+	}
 }
 
 void Empleado::mostrar() {
@@ -139,32 +177,46 @@ bool Empleado::grabarEnDisco() {
 }
 bool Empleado::leerDeDisco(int pos) {
     FILE* p = NULL;
-    p = fopen("empleados.dat", "rb+");
+    p = fopen("empleados.dat", "rb");
     if (p == NULL)
     {
         std::cout << "Error al abrir.\n";
         system("pause");
-        return 0;
+        return false;
     }
     fseek(p, pos * sizeof(Empleado), 0);
     fread(this, sizeof(Empleado), 1, p);
     fclose(p);
-    return 1;
+    return true;
 }
 
-int Empleado::contRegistros()
+int Empleado::contEmpleados()
 {
-    int bytes;
     FILE* p;
+	int pos = 0;
     p = fopen("empleados.dat", "rb");
     if (p == NULL) {
         return 0;
     }
-    fseek(p, 0, SEEK_END);
-    bytes = ftell(p);
-    fclose(p);
-    return bytes / sizeof(Empleado);
+	fclose(p);
+	return ID;
 }
+int Empleado::contRegistros()
+{
+	FILE* p = fopen("empleados.dat", "rb");
+	if (p == NULL) {
+		return 0; ///cantidad de registros cero 0
+	}
+	size_t bytes;
+	int cant_reg;
+
+	fseek(p, 0, SEEK_END);
+	bytes = ftell(p);
+	fclose(p);
+	cant_reg = bytes / sizeof(Empleado);
+	return cant_reg;
+}
+
 void Empleado::modificarEmpleado() {
 	int opcion, ingreso;
 	FechaHora nuevaFecha;
@@ -291,8 +343,8 @@ void Empleado::listarEmpleado() {
 	do
 	{
 		pos = 0;
-		std::cout << "1-Listar todos los empleados";
-		std::cout << "2-Listar un empleado";
+		std::cout << "1-Listar todos los empleados" << std::endl;
+		std::cout << "2-Listar un empleado" << std::endl;
 		std::cout << "-------------------" << std::endl;
 		std::cout << "------------------" << std::endl;
 		std::cout << "0-Volver" << std::endl << std::endl;
@@ -302,7 +354,9 @@ void Empleado::listarEmpleado() {
 		switch (opcion)
 		{
 		case 1:
-			while (leerDeDisco(pos++)) {
+			for (int i = 0; i < contRegistros(); i++)
+			{
+				leerDeDisco(i);
 				mostrar();
 				std::cout << std::endl << std::endl;
 			}
@@ -330,5 +384,6 @@ void Empleado::listarEmpleado() {
 		}
 		bandera = false;
 		if (opcion != 0)rlutil::anykey();
+		rlutil::cls();
 	} while (opcion != 0);
 }
