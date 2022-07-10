@@ -287,12 +287,19 @@ void Menu::menuEmpleados() {
         std::cin >> opcion;
         rlutil::cls();
         switch (opcion) {
-        case 1:
-            empleado.cargar();
+        case 1: empleado.cargar();
             break;
         case 2: empleado.modificarEmpleado();
             break;
-        case 3: empleado.eliminarEmpleado();
+        case 3:
+            if (empleado.eliminarEmpleado() == 1) {
+                std::cout << "Empleado eliminado con exito";
+            }
+            else
+            {
+                std::cout << "Error al eliminar empleado.";
+            }
+            rlutil::anykey();
             break;
         case 4: empleado.listarEmpleado();
             break;
@@ -305,7 +312,7 @@ void Menu::menuEmpleados() {
             break;
         }
         rlutil::cls();
-    } while (opcion != 0);
+    } while (opcion != 0 && opcion != 1);
 }
 /* void Menu::menuPrincipal() {
     int opcion;

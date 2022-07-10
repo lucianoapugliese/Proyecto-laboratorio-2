@@ -10,9 +10,9 @@ private:
 	float sueldo;
     //float comision del 0 al 100
 public:
-    Empleado();
 	void cargar();
 	void mostrar();
+    bool modificarEnDisco(int);
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
     int getID();
@@ -32,9 +32,10 @@ public:
 
     float getSueldo();
     void setSueldo(float sueldo);
-    int contEmpleados();
+    //int contEmpleados();
     void modificarEmpleado();
-    void eliminarEmpleado();
+    int eliminarEmpleado();
     void listarEmpleado();
     int contRegistros();
+    int buscarRegistro(int);
 };

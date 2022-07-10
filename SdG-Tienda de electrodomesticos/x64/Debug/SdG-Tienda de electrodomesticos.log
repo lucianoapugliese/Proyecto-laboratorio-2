@@ -1,5 +1,18 @@
-﻿  Empleado.cpp
+﻿  Compra.cpp
 C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Empleado.cpp(218,37): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Empleado.cpp(223,14): warning C4101: 'ingreso': variable local sin referencia
+  Empleado.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Empleado.cpp(197,37): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Empleado.cpp(332,52): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+  Menu.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+  Proveedor.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+  Venta.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+  main.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+  Generando código...
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Venta.cpp(161): warning C4715: 'Venta::cargarEmpleado': no todas las rutas de acceso de control devuelven un valor
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Venta.cpp(151): warning C4715: 'Venta::cargarCliente': no todas las rutas de acceso de control devuelven un valor
   SdG-Tienda de electrodomesticos.vcxproj -> C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\x64\Debug\SdG-Tienda de electrodomesticos.exe

@@ -5,10 +5,10 @@ Persona::Persona(){
 	strcpy(nombre,vacio.c_str());
 	strcpy(apellido, vacio.c_str());
 	dni = 0;
-	estado = true;
 }
 void Persona::cargar() {
 	std::string palabra;
+	estado = true;
 	std::cout << "Nombre: ";
 	std::cin.ignore();
 	std::getline(std::cin,palabra);

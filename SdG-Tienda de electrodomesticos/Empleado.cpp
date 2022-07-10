@@ -60,15 +60,6 @@ void Empleado::setSueldo(float sueldo)
     this->sueldo = sueldo;
 }
 
-Empleado::Empleado() {
-	int pos = 0;
-    categoria = 0;
-    tipoJornada = '-';
-    turno = '-';
-    sueldo = 0;
-	ID = contEmpleados() + 1;
-}
-
 void Empleado::cargar() {
 	Persona::cargar();
 	do
@@ -119,6 +110,7 @@ void Empleado::cargar() {
 			rlutil::cls();
 		}
 	} while (sueldo<=0);
+	ID = contRegistros()+1;
 	if (grabarEnDisco())
 	{
 		system("cls");
@@ -190,17 +182,6 @@ bool Empleado::leerDeDisco(int pos) {
     return true;
 }
 
-int Empleado::contEmpleados()
-{
-    FILE* p;
-	int pos = 0;
-    p = fopen("empleados.dat", "rb");
-    if (p == NULL) {
-        return 0;
-    }
-	fclose(p);
-	return ID;
-}
 int Empleado::contRegistros()
 {
 	FILE* p = fopen("empleados.dat", "rb");
@@ -219,123 +200,146 @@ int Empleado::contRegistros()
 
 void Empleado::modificarEmpleado() {
 	int opcion, ingreso;
+	bool ingresoCorrecto = true;
 	FechaHora nuevaFecha;
 	std::string palabra;
 	do
 	{
-		std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
-		std::cout << "1-DNI" << std::endl;
-		std::cout << "2-Fecha de nacimiento" << std::endl;
-		std::cout << "3-Nombre" << std::endl;
-		std::cout << "4-Apellido" << std::endl;
-		std::cout << "5-Categoría" << std::endl;
-		std::cout << "6-Tipo de jornada" << std::endl;
-		std::cout << "7-Turno" << std::endl;
-		std::cout << "8-Sueldo" << std::endl;
-		std::cout << "-------------------" << std::endl;
-		std::cout << "------------------" << std::endl;
-		std::cout << "0-Volver" << std::endl << std::endl;
-		std::cout << "Ingrese una opción: ";
-		std::cin >> opcion;
+		std::cout << "Ingrese el ID del empleado o 0 para volver atras: ";
+		std::cin >> ingreso;
 		rlutil::cls();
-		switch (opcion)
+		if (buscarRegistro(ingreso) == -1 && ingreso != 0)
 		{
-		case 1:
-			std::cout << "Ingrese un nuevo DNI: ";
-			std::cin >> dni;
+			std::cout << "No se ha encontrado el empleado. Por favor vuelva a intentarlo.";
+			rlutil::anykey();
 			rlutil::cls();
-			std::cout << "DNI modificado con exito." << std::endl;
-			break;
-		case 2:
-			std::cout << "Ingrese nueva fecha de nacimiento:" << std::endl;
-			nuevaFecha.cargarFecha();
-			setFechaDeNacimiento(nuevaFecha);
-			rlutil::cls();
-			std::cout << "Fecha de nacimiento modificada con exito." << std::endl;
-			break;
-		case 3:
-			std::cout << "Ingrese el nombre nuevo: ";
-			std::cin.ignore();
-			std::getline(std::cin, palabra);
-			setNombre(palabra);
-			rlutil::cls();
-			std::cout << "Nombre modificado con exito." << std::endl;
-			break;
-		case 4:
-			std::cout << "Ingrese el apellido nuevo: ";
-			std::cin.ignore();
-			std::getline(std::cin, palabra);
-			setApellido(palabra);
-			rlutil::cls();
-			std::cout << "Apellido modificado con exito." << std::endl;
-			break;
-		case 5:
-			std::cout << "Ingrese la categoría nueva: " << std::endl;
-			std::cin >> categoria;
-			rlutil::cls();
-			std::cout << "Categoría modificada con exito." << std::endl;
-			break;
-		case 6:
-			std::cout << "Ingrese el nuevo tipo de jornada (p-Part time/f-Full time): " << std::endl;
-			std::cin >> tipoJornada;
-			rlutil::cls();
-			std::cout << "Tipo de jornada modificada con exito." << std::endl;
-			break;
-		case 7:
-			std::cout << "Ingrese el nuevo turno (m-Mañana/t-Tarde/n-Noche): " << std::endl;
-			std::cin >> turno;
-			rlutil::cls();
-			std::cout << "Turno modificado con exito." << std::endl;
-			break;
-		case 8:
-			std::cout << "Ingrese el nuevo sueldo: " << std::endl;
-			std::cin >> sueldo;
-			rlutil::cls();
-			std::cout << "Sueldo modificado con exito." << std::endl;
-			break;
-		default:
-			if (opcion != 0)
-			{
-				std::cout << "Por favor ingrese una opción correcta.";
-			}
-			break;
+			ingresoCorrecto = false;
 		}
-		if (opcion != 0)rlutil::anykey();
-	} while (opcion != 0);
+		else leerDeDisco(ingreso);
+	} while (!ingresoCorrecto);
+	if (ingreso != 0)
+	{
+		do
+		{
+			std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
+			std::cout << "1-DNI" << std::endl;
+			std::cout << "2-Fecha de nacimiento" << std::endl;
+			std::cout << "3-Nombre" << std::endl;
+			std::cout << "4-Apellido" << std::endl;
+			std::cout << "5-Categoría" << std::endl;
+			std::cout << "6-Tipo de jornada" << std::endl;
+			std::cout << "7-Turno" << std::endl;
+			std::cout << "8-Sueldo" << std::endl;
+			std::cout << "-------------------" << std::endl;
+			std::cout << "------------------" << std::endl;
+			std::cout << "0-Volver" << std::endl << std::endl;
+			std::cout << "Ingrese una opción: ";
+			std::cin >> opcion;
+			rlutil::cls();
+			switch (opcion)
+			{
+			case 1:
+				std::cout << "Ingrese un nuevo DNI: ";
+				std::cin >> dni;
+				rlutil::cls();
+				std::cout << "DNI modificado con exito." << std::endl;
+				break;
+			case 2:
+				std::cout << "Ingrese nueva fecha de nacimiento:" << std::endl;
+				nuevaFecha.cargarFecha();
+				setFechaDeNacimiento(nuevaFecha);
+				rlutil::cls();
+				std::cout << "Fecha de nacimiento modificada con exito." << std::endl;
+				break;
+			case 3:
+				std::cout << "Ingrese el nombre nuevo: ";
+				std::cin.ignore();
+				std::getline(std::cin, palabra);
+				setNombre(palabra);
+				rlutil::cls();
+				std::cout << "Nombre modificado con exito." << std::endl;
+				break;
+			case 4:
+				std::cout << "Ingrese el apellido nuevo: ";
+				std::cin.ignore();
+				std::getline(std::cin, palabra);
+				setApellido(palabra);
+				rlutil::cls();
+				std::cout << "Apellido modificado con exito." << std::endl;
+				break;
+			case 5:
+				std::cout << "Ingrese la categoría nueva: " << std::endl;
+				std::cin >> categoria;
+				rlutil::cls();
+				std::cout << "Categoría modificada con exito." << std::endl;
+				break;
+			case 6:
+				std::cout << "Ingrese el nuevo tipo de jornada (p-Part time/f-Full time): " << std::endl;
+				std::cin >> tipoJornada;
+				rlutil::cls();
+				std::cout << "Tipo de jornada modificada con exito." << std::endl;
+				break;
+			case 7:
+				std::cout << "Ingrese el nuevo turno (m-Mañana/t-Tarde/n-Noche): " << std::endl;
+				std::cin >> turno;
+				rlutil::cls();
+				std::cout << "Turno modificado con exito." << std::endl;
+				break;
+			case 8:
+				std::cout << "Ingrese el nuevo sueldo: " << std::endl;
+				std::cin >> sueldo;
+				rlutil::cls();
+				std::cout << "Sueldo modificado con exito." << std::endl;
+				break;
+			default:
+				if (opcion != 0)
+				{
+					std::cout << "Por favor ingrese una opción correcta.";
+				}
+				break;
+			}
+			if (opcion != 0) {
+				rlutil::anykey();
+				modificarEnDisco(ingreso);
+			}
+			//modificarEnDisco()
+		} while (opcion != 0);
+	}
+	rlutil::cls();
 }
 
-void Empleado::eliminarEmpleado() {
+int Empleado::eliminarEmpleado() {
+	FILE* p;
+	int escribio;
+	int id;
 	bool bandera = false;
-	int ingreso, pos;
-	do
+	p = fopen("empleados.dat", "rb+");
+	if (p == NULL)
 	{
-		pos = 0;
-		std::cout << "Ingrese el ID del empleado que va a eliminar o presione 0 para volver para atras: ";
-		std::cin >> ingreso;
-		if (ingreso != 0)
+		std::cout << "Error de archivo";
+		return -1;
+	}
+		std::cout << "Ingrese el ID del empleado a eliminar o presione 0 para volver atras: ";
+		std::cin >> id;
+		while (fread(this, sizeof(Empleado), 1, p) == 1)
 		{
-			while (leerDeDisco(pos++) && !bandera)
+			if (id == ID)
 			{
-				if (ID == ingreso)
-				{
-					estado = false;
-					bandera = true;
-					rlutil::cls();
-					std::cout << "Empleado eliminado con exito." << std::endl;
-					rlutil::anykey();
-				}
+				estado = false;
+				// se cambia el valor del campo estado
+				fseek(p, ftell(p) - sizeof(Empleado), 0);
+				//desplazamiento de part un registro hacia atrás
+				escribio = fwrite(this, sizeof(Empleado), 1, p);
+				// escritura del registro modificado
+				fclose(p);
+				return escribio;
+
 			}
-			ingreso = 0;
 		}
-		if (ingreso != 0 && !bandera)
-		{
-			rlutil::cls();
-			std::cout << "Error. No se ha podido encontrar el empleado. Por favor ingrese nuevamente el ID." << std::endl;
-			rlutil::anykey();
-		}
-		rlutil::cls();
-	} while (ingreso != 0);
+		fclose(p);
+	return -2;
 }
+
 
 void Empleado::listarEmpleado() {
 	int opcion, d, pos;
@@ -358,19 +362,21 @@ void Empleado::listarEmpleado() {
 			{
 				leerDeDisco(i);
 				mostrar();
-				std::cout << std::endl << std::endl;
+				if(!estado)std::cout << std::endl << std::endl;
 			}
 			break;
 		case 2:
 			std::cout << "Ingrese el ID del empleado que quiere listar: ";
 			std::cin >> d;
 			rlutil::cls();
-			while (leerDeDisco(pos++) && !bandera)
+			for (int i = 0; i < contRegistros(); i++)
 			{
+				leerDeDisco(i);
 				if (d == ID)
 				{
 					mostrar();
 					bandera = true;
+					i = contRegistros();
 				}
 			}
 			if (!bandera)std::cout << "No se ha podido encontrar el empleado." << std::endl;
@@ -386,4 +392,21 @@ void Empleado::listarEmpleado() {
 		if (opcion != 0)rlutil::anykey();
 		rlutil::cls();
 	} while (opcion != 0);
+}
+bool Empleado::modificarEnDisco(int pos) {
+	FILE* p = NULL;
+	p = fopen("empleados.dat", "rb+");
+	if (p == NULL)return 0;
+	fseek(p, pos * sizeof(Empleado), 0);
+	fwrite(this, sizeof(Empleado), 1, p);
+	fclose(p);
+	return 1;
+}
+
+int Empleado::buscarRegistro(int id) {
+	for (int i = 0; i < contRegistros(); i++)
+	{
+		if (id == ID) return i;
+	}
+	return -1;
 }
