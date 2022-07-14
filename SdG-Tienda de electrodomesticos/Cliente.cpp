@@ -1,8 +1,5 @@
 #include "Cliente.h"
-Cliente::Cliente() {
-	Numerotarjeta[0] = '0';
-	strcpy(mail, "void@mail.com");
-}
+
 const char* Cliente::getMail() 
 {
     return mail;
@@ -21,6 +18,16 @@ const char* Cliente::getNumerotarjeta()
 void Cliente::setNumerotarjeta(const char* Numerotarjeta)
 {
 	strcpy(this->Numerotarjeta, Numerotarjeta);
+}
+
+Direccion Cliente::getDomicilio()
+{
+    return domicilio;
+}
+
+void Cliente::setDomicilio(Direccion domicilio)
+{
+    this->domicilio = domicilio;
 }
 
 void Cliente::cargar() {
@@ -58,200 +65,20 @@ bool Cliente::grabarEnDisco() {
 	fclose(p);
 	return 1;
 }
+
 bool Cliente::leerDeDisco(int pos) {
 	FILE* p = NULL;
-	p = fopen("clientes.dat", "rb+");
+	p = fopen("clientes.dat", "rb");
 	if (p==NULL)
 	{
-		std::cout << "Error al abrir.\n";
-		system("pause");
+		std::cout << "No hay registros.";
+		rlutil::anykey();
 		return 0;
 	}
 	fseek(p, pos * sizeof(Cliente), 0);
-	fread(this, sizeof(Cliente), 1, p);
+	int leyo=fread(this, sizeof(Cliente), 1, p);
 	fclose(p);
-	return 1;
-}
-
-void Cliente::modificarCliente() {
-	int opcion, ingreso;
-	FechaHora nuevaFecha;
-	std::string palabra;
-	Direccion nuevoDom;
-	char tarjeta[17];
-	do
-	{
-		std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
-		std::cout << "1-DNI" << std::endl;
-		std::cout << "2-Fecha de nacimiento" << std::endl;
-		std::cout << "3-Nombre" << std::endl;
-		std::cout << "4-Apellido" << std::endl;
-		std::cout << "5-Domicilio" << std::endl;
-		std::cout << "6-Numero de tarjeta" << std::endl;
-		std::cout << "-------------------" << std::endl;
-		std::cout << "------------------" << std::endl;
-		std::cout << "0-Volver" << std::endl << std::endl;
-		std::cout << "Ingrese una opción: ";
-		std::cin >> opcion;
-		rlutil::cls();
-		switch (opcion)
-		{
-		case 1:
-			std::cout << "Ingrese un nuevo DNI: ";
-			std::cin >> dni;
-			rlutil::cls();
-			std::cout << "DNI modificado con exito." << std::endl;
-			break;
-		case 2:
-			std::cout << "Ingrese nueva fecha de nacimiento:" << std::endl;
-			nuevaFecha.cargarFecha();
-			setFechaDeNacimiento(nuevaFecha);
-			rlutil::cls();
-			std::cout << "Fecha de nacimiento modificada con exito." << std::endl;
-			break;
-		case 3:
-			std::cout << "Ingrese el nombre nuevo: ";
-			std::cin.ignore();
-			std::getline(std::cin, palabra);
-			setNombre(palabra);
-			rlutil::cls();
-			std::cout << "Nombre modificado con exito." << std::endl;
-			break;
-		case 4:
-			std::cout << "Ingrese el apellido nuevo: ";
-			std::cin.ignore();
-			std::getline(std::cin, palabra);
-			setApellido(palabra);
-			rlutil::cls();
-			std::cout << "Apellido modificado con exito." << std::endl;
-			break;
-		case 5:
-			std::cout << "Ingrese el domicilio nuevo: " << std::endl;
-			nuevoDom.cargar();
-			setDomicilio(nuevoDom);
-			rlutil::cls();
-			std::cout << "Domicilio modificado con exito." << std::endl;
-			break;
-		case 6:
-			std::cout << "Ingrese el nuevo numero de tarjeta: " << std::endl;
-			std::cin >> tarjeta;
-			setNumerotarjeta(tarjeta);
-			rlutil::cls();
-			std::cout << "Numero de tarjeta modificado con exito." << std::endl;
-			break;
-		default:
-			if (opcion != 0)
-			{
-				std::cout << "Por favor ingrese una opción correcta.";
-			}
-			break;
-		}
-		if (opcion != 0)rlutil::anykey();
-	} while (opcion != 0);
-}
-Direccion Cliente::getDomicilio() const
-{
-    return domicilio;
-}
-
-void Cliente::setDomicilio(Direccion domicilio)
-{
-    this->domicilio = domicilio;
-}
-
-void Cliente::eliminarCliente() {
-	bool bandera = false;
-	int ingreso, pos;
-	do
-	{
-		pos = 0;
-		std::cout << "Ingrese el DNI del cliente que va a eliminar o presione 0 para volver para atras: ";
-		std::cin >> ingreso;
-		if (ingreso != 0)
-		{
-			while (leerDeDisco(pos++) && !bandera)
-			{
-				if (dni == ingreso)
-				{
-					estado = false;
-					bandera = true;
-					rlutil::cls();
-					std::cout << "Cliente eliminado con exito." << std::endl;
-					rlutil::anykey();
-				}
-			}
-			ingreso = 0;
-		}
-		if (ingreso != 0 && !bandera)
-		{
-			rlutil::cls();
-			std::cout << "Error. No se ha podido encontrar el cliente. Por favor ingrese nuevamente el DNI." << std::endl;
-			rlutil::anykey();
-		}
-		rlutil::cls();
-	} while (ingreso != 0);
-}
-
-void Cliente::listarCliente() {
-	int opcion, d, pos=0;
-	bool bandera = false;
-	do
-	{
-		std::cout << "1-Listar todos los clientes" << std::endl;
-		std::cout << "2-Listar un cliente" << std::endl;
-		std::cout << "-------------------" << std::endl;
-		std::cout << "------------------" << std::endl;
-		std::cout << "0-Volver" << std::endl << std::endl;
-		std::cout << "Ingrese una opción: ";
-		std::cin >> opcion;
-		rlutil::cls();
-		switch (opcion)
-		{
-		case 1:
-			for (int i = 0; i < contRegistros(); i++)
-			{
-				leerDeDisco(i);
-				mostrar();
-				std::cout << std::endl << std::endl;
-			}
-			break;
-		case 2:
-			std::cout << "Ingrese el DNI del cliente que quiere listar: ";
-			std::cin >> d;
-			rlutil::cls();
-			while (leerDeDisco(pos++)&&!bandera)
-			{
-				if (d==dni)
-				{
-					mostrar();
-					bandera = true;
-				}
-			}
-			if (!bandera)std::cout << "No se ha podido encontrar el cliente." << std::endl;
-			break;
-		default:
-			if (opcion!=0)
-			{
-				std::cout << "Por favor ingrese una opción correcta.";
-			}
-			break;
-		}
-		bandera = false;
-		if(opcion!=0)rlutil::anykey();
-		pos = 0;
-	} while (opcion != 0);
-}
-
-Cliente Cliente::buscarCliente(int d)
-{
-	Cliente c;
-	int pos = 0;
-	while (c.leerDeDisco(pos++))
-	{
-		if(dni==d) return c;
-	}
-	std::cout << "No se ha podido encontrar el cliente." << std::endl;
-	rlutil::anykey();
+	return leyo;
 }
 
 int Cliente::contRegistros() {
@@ -267,4 +94,209 @@ int Cliente::contRegistros() {
 	fclose(p);
 	cant_reg = bytes / sizeof(Cliente);
 	return cant_reg;
+}
+
+void Cliente::modificarCliente() {
+	std::string palabra;
+	int opcion, ingreso, d, nReg;
+	bool ingresoCorrecto=true;
+	do {
+		std::cout << "Ingrese el DNI del cliente a modificar o 0 para volver: ";
+		std::cin >> d;
+		nReg = buscarRegistro(d);
+		if (nReg > 0)
+		{
+			do
+			{
+				mostrar();
+				std::cout << std::endl << std::endl;
+				std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
+				std::cout << "1-DNI" << std::endl;
+				std::cout << "2-Fecha de nacimiento" << std::endl;
+				std::cout << "3-Nombre" << std::endl;
+				std::cout << "4-Apellido" << std::endl;
+				std::cout << "5-Email" << std::endl;
+				std::cout << "6-Número de tarjeta" << std::endl;
+				std::cout << "7-Domicilio" << std::endl;
+				std::cout << "-------------------" << std::endl;
+				std::cout << "-------------------" << std::endl;
+				std::cout << "0-Volver" << std::endl << std::endl;
+				std::cout << "Ingrese una opción: ";
+				std::cin >> opcion;
+				rlutil::cls();
+				switch (opcion)
+				{
+				case 1:
+					std::cout << "Ingrese un nuevo DNI: ";
+					std::cin >> dni;
+					break;
+				case 2:
+					std::cout << "Ingrese nueva fecha de nacimiento:" << std::endl;
+					fechaDeNacimiento.cargarFecha();
+					break;
+				case 3:
+					std::cout << "Ingrese el nombre nuevo: ";
+					std::cin.ignore();
+					std::getline(std::cin, palabra);
+					setNombre(palabra);
+					break;
+				case 4:
+					std::cout << "Ingrese el apellido nuevo: ";
+					std::cin.ignore();
+					std::getline(std::cin, palabra);
+					setApellido(palabra);
+					break;
+				case 5:
+					std::cout << "Ingrese el email nuevo: ";
+					std::cin >> mail;
+					break;
+				case 6:
+					std::cout << "Ingrese el Número de tarjeta nuevo: ";
+					std::cin >> Numerotarjeta;
+					break;
+				case 7:
+					std::cout << "Ingrese el domicilio nuevo:" << std::endl;
+					domicilio.cargar();
+					break;
+				default:
+					if (opcion != 0)
+					{
+						std::cout << "Por favor ingrese una opción correcta.";
+						rlutil::anykey();
+					}
+					break;
+				}
+				if (opcion != 0) {
+					do
+					{
+						rlutil::cls();
+						std::cout << "¿Seguro de realizar la modificación? 1-Sí/2-Cancelar" << std::endl << '>';
+						std::cin >> ingreso;
+						if (ingreso < 1 || ingreso>2)
+						{
+							rlutil::cls();
+							std::cout << "Por favor ingrese una opción válida.";
+							rlutil::anykey();
+						}
+					} while (ingreso < 1 || ingreso>2);
+					if (ingreso == 1) {
+						if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
+						else std::cout << "Error al modificar.";
+						rlutil::anykey();
+					}
+				}
+			} while (opcion != 0);
+		}
+		else if (d != 0)
+		{
+			std::cout << "Error. No se ha encontrado el cliente.";
+			rlutil::anykey();
+		}
+		rlutil::cls();
+	} while (d != 0);
+}
+
+int Cliente::eliminarCliente() {
+	int d, confirmar, reg;
+	do {
+		std::cout << "Ingrese el DNI del cliente que quiere eliminar o ingrese 0 para volver: ";
+		std::cin >> d;
+		reg = buscarRegistro(d);
+		rlutil::cls();
+		if (reg < 0) std::cout << "No se ha podido encontrar el cliente.";
+		else
+		{
+			if (estado) {
+				rlutil::cls();
+				mostrar();
+				std::cout << std::endl << std::endl << "¿Seguro de eliminar cliente? Presione 1 para eliminar/2 para cancelar:" << std::endl;
+				std::cin >> confirmar;
+				rlutil::cls();
+				if (confirmar == 1)
+				{
+					estado = false;
+					if (modificarEnDisco(reg - 1)) std::cout << "Eliminado con exito.";
+					else std::cout << "Error al eliminar.";
+				}
+				else if (confirmar != 2) std::cout << "Por favor ingrese una opción válida.";
+			}
+			else std::cout << "No se ha podido encontrar el cliente.";
+		}
+		if (d != 0) rlutil::anykey();
+		rlutil::cls();
+	} while (d != 0);
+}
+
+void Cliente::listarCliente() {
+	int opcion, d, pos, numeroReg;
+	bool bandera = false;
+	do
+	{
+		pos = 0;
+		std::cout << "1-Listar todos los clientes" << std::endl;
+		std::cout << "2-Listar un cliente" << std::endl;
+		std::cout << "-------------------" << std::endl;
+		std::cout << "------------------" << std::endl;
+		std::cout << "0-Volver" << std::endl << std::endl;
+		std::cout << "Ingrese una opción: ";
+		std::cin >> opcion;
+		rlutil::cls();
+		switch (opcion)
+		{
+		case 1:
+			while (leerDeDisco(pos++))
+			{
+				mostrar();
+				if (estado)std::cout << std::endl << std::endl;
+			}
+			break;
+		case 2:
+			std::cout << "Ingrese el DNI del cliente que quiere listar o 0 para volver: ";
+			std::cin >> d;
+			if (d != 0) {
+				rlutil::cls();
+				if (buscarRegistro(d) < 0) std::cout << "No se ha podido encontrar el cliente.";
+				else
+				{
+					if (estado) {
+						bandera = true;
+						mostrar();
+					}
+					else std::cout << "No se ha podido encontrar el cliente.";
+				}
+			}
+			break;
+		default:
+			if (opcion != 0)
+			{
+				std::cout << "Por favor ingrese una opción correcta.";
+			}
+			break;
+		}
+		bandera = false;
+		if (opcion != 0)rlutil::anykey();
+		rlutil::cls();
+	} while (opcion != 0);
+}
+
+bool Cliente::modificarEnDisco(int pos) {
+	FILE* p = NULL;
+	p = fopen("clientes.dat", "rb+");
+	if (p == NULL)return 0;
+	fseek(p, pos * sizeof(Cliente), 0);
+	bool escribio=fwrite(this, sizeof(Cliente), 1, p);
+	fclose(p);
+	return escribio;
+}
+
+int Cliente::buscarRegistro(int d) {
+	int pos = 0;
+	while (leerDeDisco(pos++))
+	{
+
+		if (d == dni) return pos;
+
+	}
+
+	return -1;
 }

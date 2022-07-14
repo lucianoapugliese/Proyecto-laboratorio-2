@@ -16,7 +16,6 @@ protected:
 	//Direccion domicilio;
 	char apellido[50], nombre[50];
 public:
-	Persona();
 	void cargar();
 	void mostrar();
 	//bool grabarEnDisco();

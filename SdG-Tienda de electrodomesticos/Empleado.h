@@ -32,9 +32,8 @@ public:
 
     float getSueldo();
     void setSueldo(float sueldo);
-    //int contEmpleados();
     void modificarEmpleado();
-    int eliminarEmpleado();
+    void eliminarEmpleado();
     void listarEmpleado();
     int contRegistros();
     int buscarRegistro(int);

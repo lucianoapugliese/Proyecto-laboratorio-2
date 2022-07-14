@@ -1,17 +1,5 @@
 #include "Producto.h"
 
-Producto::Producto() {
-    std::string vacio = " ";
-    categoria = 0;
-    codigo = 0;
-    precio = 0;
-    stock = 0;
-    estado = 1;
-    strcpy(nombre, vacio.c_str());
-    strcpy(descripcion, vacio.c_str());
-    strcpy(marca, vacio.c_str());
-}
-
 std::string Producto::getNombre() 
 {
     std::string nombre = this->nombre;
@@ -153,7 +141,7 @@ bool Producto::grabarEnDisco() {
 }
 bool Producto::leerDeDisco(int pos) {
     FILE* p = NULL;
-    p = fopen("productos.dat", "rb+");
+    p = fopen("productos.dat", "rb");
     if (p == NULL)
     {
         std::cout << "Error al abrir.\n";
@@ -161,7 +149,224 @@ bool Producto::leerDeDisco(int pos) {
         return 0;
     }
     fseek(p, pos * sizeof(Producto), 0);
-    fread(this, sizeof(Producto), 1, p);
+    bool leyo=fread(this, sizeof(Producto), 1, p);
     fclose(p);
-    return 1;
+    return leyo;
+}
+
+int Producto::contRegistros() {
+	FILE* p = fopen("productos.dat", "rb");
+	if (p == NULL) {
+		return 0; ///cantidad de registros cero 0
+	}
+	size_t bytes;
+	int cant_reg;
+
+	fseek(p, 0, SEEK_END);
+	bytes = ftell(p);
+	fclose(p);
+	cant_reg = bytes / sizeof(Producto);
+	return cant_reg;
+}
+
+void Producto::modificarProducto() {
+	std::string palabra;
+	int opcion, ingreso, c, nReg;
+	bool ingresoCorrecto = true;
+	do {
+		std::cout << "Ingrese el código del producto a modificar o 0 para volver: ";
+		std::cin >> c;
+		nReg = buscarRegistro(c);
+		if (nReg > 0)
+		{
+			do
+			{
+				mostrar();
+				std::cout << std::endl << std::endl;
+				std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
+				std::cout << "1-Nombre" << std::endl;
+				std::cout << "2-Marca" << std::endl;
+				std::cout << "3-Descripción" << std::endl;
+				std::cout << "4-Categoría" << std::endl;
+				std::cout << "5-Stock" << std::endl;
+				std::cout << "6-Precio" << std::endl;
+				std::cout << "-------------------" << std::endl;
+				std::cout << "-------------------" << std::endl;
+				std::cout << "0-Volver" << std::endl << std::endl;
+				std::cout << "Ingrese una opción: ";
+				std::cin >> opcion;
+				rlutil::cls();
+				switch (opcion)
+				{
+				case 1:
+					std::cout << "Ingrese el nombre nuevo: ";
+					std::cin.ignore();
+					std::getline(std::cin, palabra);
+					setNombre(palabra);
+					break;
+				case 2:
+					std::cout << "Ingrese la nueva marca: ";
+					std::cin.ignore();
+					std::getline(std::cin, palabra);
+					setMarca(palabra);
+					break;
+				case 3:
+					std::cout << "Ingrese la nueva descripción: ";
+					std::cin.ignore();
+					std::getline(std::cin, palabra);
+					setDescripcion(palabra);
+					break;
+				case 4:
+					std::cout << "Ingrese la nueva categoría:" << std::endl;
+					categoria;
+					break;
+				case 5:
+					std::cout << "Ingrese el stock actual: ";
+					std::cin >> stock;
+					break;
+				case 6:
+					std::cout << "Ingrese el nuevo precio: ";
+					std::cin >> precio;
+					break;
+				default:
+					if (opcion != 0) {
+						std::cout << "Por favor ingrese una opción correcta.";
+						rlutil::anykey();
+					}
+					break;
+				}
+				if (opcion != 0) {
+					do
+					{
+						rlutil::cls();
+						std::cout << "¿Seguro de realizar la modificación? 1-Sí/2-Cancelar" << std::endl << '>';
+						std::cin >> ingreso;
+						if (ingreso < 1 || ingreso>2)
+						{
+							rlutil::cls();
+							std::cout << "Por favor ingrese una opción válida.";
+							rlutil::anykey();
+						}
+					} while (ingreso < 1 || ingreso>2);
+					if (ingreso == 1) {
+						if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
+						else std::cout << "Error al modificar.";
+						rlutil::anykey();
+					}
+				}
+			} while (opcion != 0);
+		}
+		else if (c != 0)
+		{
+			std::cout << "Error. No se ha encontrado el producto.";
+			rlutil::anykey();
+		}
+		rlutil::cls();
+	} while (c != 0);
+}
+
+int Producto::eliminarProducto() {
+	int c, confirmar, reg;
+	do {
+		std::cout << "Ingrese el código del producto que quiere eliminar o 0 para volver: ";
+		std::cin >> c;
+		reg = buscarRegistro(c);
+		rlutil::cls();
+		if (reg < 0) std::cout << "No se ha podido encontrar el producto.";
+		else
+		{
+			if (estado) {
+				rlutil::cls();
+				mostrar();
+				std::cout << std::endl << std::endl << "¿Seguro de eliminar producto? Presione 1 para eliminar/2 para cancelar:" << std::endl;
+				std::cin >> confirmar;
+				rlutil::cls();
+				if (confirmar == 1)
+				{
+					estado = false;
+					if (modificarEnDisco(reg - 1)) std::cout << "Eliminado con exito.";
+					else std::cout << "Error al eliminar.";
+				}
+				else if (confirmar != 2) std::cout << "Por favor ingrese una opción válida.";
+			}
+			else std::cout << "No se ha podido encontrar el producto.";
+		}
+		if (c != 0) rlutil::anykey();
+		rlutil::cls();
+	} while (c != 0);
+}
+
+void Producto::listarProducto() {
+	int opcion, c, pos, numeroReg;
+	bool bandera = false;
+	do
+	{
+		pos = 0;
+		std::cout << "1-Listar todos los productos" << std::endl;
+		std::cout << "2-Listar un producto" << std::endl;
+		std::cout << "-------------------" << std::endl;
+		std::cout << "-------------------" << std::endl;
+		std::cout << "0-Volver" << std::endl << std::endl;
+		std::cout << "Ingrese una opción: ";
+		std::cin >> opcion;
+		rlutil::cls();
+		switch (opcion)
+		{
+		case 1:
+			while (leerDeDisco(pos++))
+			{
+				mostrar();
+				if (estado)std::cout << std::endl << std::endl;
+			}
+			break;
+		case 2:
+			std::cout << "Ingrese el código del producto que quiere listar o 0 para volver: ";
+			std::cin >> c;
+			rlutil::cls();
+			if (c != 0)
+			{
+				if (buscarRegistro(c) < 0) std::cout << "No se ha podido encontrar el producto.";
+				else
+				{
+					if (estado) {
+						bandera = true;
+						mostrar();
+					}
+					else std::cout << "No se ha podido encontrar el producto.";
+				}
+			}
+			break;
+		default:
+			if (opcion != 0)
+			{
+				std::cout << "Por favor ingrese una opción correcta.";
+			}
+			break;
+		}
+		bandera = false;
+		if (opcion != 0)rlutil::anykey();
+		rlutil::cls();
+	} while (opcion != 0);
+}
+
+bool Producto::modificarEnDisco(int pos) {
+	FILE* p = NULL;
+	p = fopen("productos.dat", "rb+");
+	if (p == NULL)return 0;
+	fseek(p, pos * sizeof(Producto), 0);
+	bool escribio = fwrite(this, sizeof(Producto), 1, p);
+	fclose(p);
+	return escribio;
+}
+
+int Producto::buscarRegistro(int c) {
+	int pos = 0;
+	while (leerDeDisco(pos++))
+	{
+
+		if (c == codigo) return pos;
+
+	}
+
+	return -1;
 }

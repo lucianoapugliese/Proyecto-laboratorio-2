@@ -16,7 +16,6 @@ private:
     float costoFinal, costoCuota;
     // solo id del vendedor, producto y dni del cliente
 public:
-    Venta();
 	void cargar();
 	void mostrar();
 	bool grabarEnDisco();
@@ -48,8 +47,8 @@ public:
     void setEnvioADomicilio(bool envioADomicilio);
 
     bool buscarVendedor(int);
-    Producto buscarProducto(int);
-    bool buscarCliente(int dni);
+    bool buscarProducto(int);
+    bool buscarCliente(int);
 
     Cliente cargarCliente(int);
     Empleado cargarEmpleado(int);
@@ -67,4 +66,6 @@ public:
     void modificarVenta();
     void eliminarVenta();
     void listarVenta();
+    int buscarRegistro(int);
+    bool modificarEnDisco(int);
 };

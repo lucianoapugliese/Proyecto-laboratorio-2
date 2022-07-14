@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <iomanip>
+#include "rlutil.h"
+
 class Producto
 {
 private:
@@ -9,7 +11,6 @@ private:
 	float precio;
     bool estado;
 public:
-    Producto();
     void cargar();
     void mostrar();
 	bool grabarEnDisco();
@@ -37,5 +38,12 @@ public:
 
     bool getEstado();
     void setEstado(bool estado);
+
+    int contRegistros();
+    void modificarProducto();
+    int eliminarProducto();
+    void listarProducto();
+    bool modificarEnDisco(int);
+    int buscarRegistro(int);
 
 };

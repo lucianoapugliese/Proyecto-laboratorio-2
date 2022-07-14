@@ -1,11 +1,5 @@
 #include "Persona.h"
 
-Persona::Persona(){
-	std::string vacio = " ";
-	strcpy(nombre,vacio.c_str());
-	strcpy(apellido, vacio.c_str());
-	dni = 0;
-}
 void Persona::cargar() {
 	std::string palabra;
 	estado = true;
@@ -75,17 +69,7 @@ void Persona::setFechaDeNacimiento(FechaHora fechaDeNacimiento)
 {
     this->fechaDeNacimiento = fechaDeNacimiento;
 }
-/*
-Direccion Persona::getDomicilio() 
-{
-    return domicilio;
-}
 
-void Persona::setDomicilio(Direccion domicilio)
-{
-    this->domicilio = domicilio;
-}
-*/
 bool Persona::getEstado()
 {
 	return estado;

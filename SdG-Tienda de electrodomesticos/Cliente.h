@@ -9,7 +9,6 @@ private:
 	char Numerotarjeta[17];
 	Direccion domicilio;
 public:
-	Cliente();
 	void cargar();
 	void mostrar();
 	bool grabarEnDisco();
@@ -20,10 +19,11 @@ public:
     const char* getNumerotarjeta();
     void setNumerotarjeta(const char* Numerotarjeta);
 	void modificarCliente();
-    Direccion getDomicilio() const;
+    Direccion getDomicilio();
     void setDomicilio(Direccion domicilio);
-	void eliminarCliente();
-	Cliente buscarCliente(int);
+	int eliminarCliente();
 	void listarCliente();
 	int contRegistros();
+	int buscarRegistro(int);
+	bool modificarEnDisco(int);
 };

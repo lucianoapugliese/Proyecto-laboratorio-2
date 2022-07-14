@@ -219,7 +219,7 @@ void Menu::menuClientes() {
         std::cout << "0 - VOLVER" << std::endl;
         std::cout << std::endl << "Ingrese una opción: ";
         std::cin >> opcion;
-            rlutil::cls();
+        rlutil::cls();
         switch (opcion) {
         case 1:
             cliente.cargar();
@@ -227,7 +227,12 @@ void Menu::menuClientes() {
         case 2:
             cliente.modificarCliente();
             break;
-        case 3: cliente.eliminarCliente();
+        case 3:
+            if (cliente.eliminarCliente() == 1) {
+                std::cout << "Cliente eliminado con exito";
+            }
+            rlutil::anykey();
+
             break;
         case 4: cliente.listarCliente();
             break;
@@ -238,7 +243,8 @@ void Menu::menuClientes() {
             }
             break;
         }
-    } while (opcion !=0);
+        rlutil::cls();
+    } while (opcion != 0);
 }
 void Menu::menuVentas() {
     Venta venta;
@@ -292,14 +298,11 @@ void Menu::menuEmpleados() {
         case 2: empleado.modificarEmpleado();
             break;
         case 3:
-            if (empleado.eliminarEmpleado() == 1) {
+            /*if (empleado.eliminarEmpleado() == 1) {
                 std::cout << "Empleado eliminado con exito";
-            }
-            else
-            {
-                std::cout << "Error al eliminar empleado.";
-            }
-            rlutil::anykey();
+            }*/
+            empleado.eliminarEmpleado();
+            //rlutil::anykey();
             break;
         case 4: empleado.listarEmpleado();
             break;
