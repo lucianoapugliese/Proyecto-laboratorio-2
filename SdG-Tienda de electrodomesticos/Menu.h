@@ -18,5 +18,6 @@ public:
     void menuClientes();
     void menuEmpleados();
     void menuVentas();
+    void menuProductos();
 
 };

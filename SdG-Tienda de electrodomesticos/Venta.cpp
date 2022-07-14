@@ -128,7 +128,13 @@ bool Venta::buscarCliente(int dni)
     int pos = 0;
     while (c.leerDeDisco(pos++))
     {
-        if (c.getDni() == dni && c.getEstado())return true;
+        if (c.getDni() == dni) {
+            //if (c.getEstado())
+            //{
+
+            return true;
+            //}
+        }
     }
     return false;
 }
@@ -252,7 +258,7 @@ void Venta::cargar() {
         costoFinal += producto.getPrecio() * cantidadComprada[i] - producto.getPrecio() * cantidadComprada[i] * descuentoPorCantidad[i] / 100;
     }
     // Costo por cuota
-    if (cantidadCuotas > 0) costoCuota = costoFinal / cantidadCuotas;
+    if (cantidadCuotas > 1) costoCuota = costoFinal / cantidadCuotas;
     else costoCuota = costoFinal;
     numeroVenta = contVentas()+1;
     system("cls");
@@ -276,7 +282,7 @@ void Venta::mostrar() {
         for (int i = 0; i < 5; i++)
         {
             producto.buscarRegistro(codigoProducto[i]);
-            if (codigoProducto != 0) {
+            if (i==0) {
                 std::cout << "Producto: " << producto.getNombre() << std::endl;
                 std::cout << "Cantidad: " << cantidadComprada[i] << std::endl;
                 precio = producto.getPrecio() * cantidadComprada[i] - producto.getPrecio() * cantidadComprada[i] * descuentoPorCantidad[i] / 100;
@@ -286,9 +292,10 @@ void Venta::mostrar() {
         }
         if (metodoPago == tolower('e')) std::cout << "Metodo de pago: Efectivo";
         else std::cout << "Metodo de pago: Tarjeta";
-        if (cantidadCuotas > 0)
+        std::cout << std::endl;
+        if (cantidadCuotas > 1)
             std::cout << cantidadCuotas << " cuotas de $" << costoCuota << std::endl;
-        std::cout << "Importe total: " << costoFinal << std::endl << std::endl;
+        std::cout << "Importe total: $" << costoFinal << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
         std::cout << cliente.getNombre() << ' ' << cliente.getApellido() << std::endl;
         std::cout << "DNI: " << cliente.getDni() << std::endl << std::endl;
@@ -326,7 +333,7 @@ bool Venta::leerDeDisco(int pos)
     p = fopen("ventas.dat", "rb");
     if (p == NULL)
     {
-        std::cout << "Error al abrir.\n";
+        std::cout << "Todavía no se ha realizado ninguna venta.\n";
         system("pause");
         return 0;
     }
@@ -570,7 +577,7 @@ void Venta::listarVenta() {
             while (leerDeDisco(pos++))
             {
                 mostrar();
-                if (estado)std::cout << std::endl << std::endl;
+                if (estado)std::cout << std::endl << std::endl << "---------------------------------------------------------" << std::endl << "---------------------------------------------------------" << std::endl;
             }
             break;
         case 2:
