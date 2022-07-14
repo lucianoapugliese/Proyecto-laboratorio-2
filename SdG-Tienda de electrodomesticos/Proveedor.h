@@ -46,5 +46,4 @@ public:
 	void Mostrar();
 	void Cargar();
 
-
 };

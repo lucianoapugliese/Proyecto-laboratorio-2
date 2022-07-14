@@ -9,7 +9,7 @@
 class Venta
 {
 private:
-	int numeroVenta, cantidadComprada, cantidadCuotas, descuentoPorCantidad, IDVendedor, codigoProducto, dniCliente;
+    int numeroVenta, cantidadComprada[5], cantidadCuotas, descuentoPorCantidad[5], IDVendedor, codigoProducto[5], dniCliente;
 	FechaHora fechaYHoraDeLaVenta;
 	char metodoPago;
 	bool envioADomicilio, estado;
@@ -20,8 +20,8 @@ public:
 	void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    int getCantidadComprada();
-    void setCantidadComprada(int);
+    //int getCantidadComprada();
+    //void setCantidadComprada(int);
 
     int getNumeroVenta() { return numeroVenta; }
 

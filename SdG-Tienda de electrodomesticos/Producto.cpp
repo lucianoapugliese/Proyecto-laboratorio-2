@@ -86,8 +86,17 @@ void Producto::setPrecio(float precio)
 void Producto::cargar() {
     std::cout << "Codigo: ";
     std::cin >> codigo;
-    std::cout << "Categoria: ";
-    std::cin >> categoria;
+	do {
+		std::cout << "Categoria(1-Electrodoméstico/2-Tecnología/3-Accesorio): ";
+		std::cin >> categoria;
+
+		if (categoria < 1 && categoria>3) {
+			rlutil::cls();
+			std::cout << "Por favor ingrese una opción válida.";
+			rlutil::anykey();
+			rlutil::cls();
+		}
+	} while (categoria < 1 && categoria>3);
     std::cout << "Marca: ";
     std::cin.ignore();
     std::cin.getline(marca, 50);
@@ -112,8 +121,16 @@ void Producto::mostrar() {
         std::cout << "Codigo: ";
         std::cout << codigo << std::endl;
         std::cout << "Categoria: ";
-        std::cout << categoria << std::endl;
-        std::cout << "Marca: ";
+		switch (categoria)
+		{
+		case 1: std::cout << "Electrodoméstico";
+			break;
+		case 2: std::cout << "Tecnología";
+			break;
+		default: std::cout << "Accesorio";
+			break;
+		}
+        std::cout << std::endl << "Marca: ";
         std::cout << marca << std::endl;
         std::cout << "Nombre: ";
         std::cout << nombre << std::endl;
@@ -254,6 +271,7 @@ void Producto::modificarProducto() {
 						rlutil::anykey();
 					}
 				}
+				rlutil::cls();
 			} while (opcion != 0);
 		}
 		else if (c != 0)
@@ -265,7 +283,7 @@ void Producto::modificarProducto() {
 	} while (c != 0);
 }
 
-int Producto::eliminarProducto() {
+void Producto::eliminarProducto() {
 	int c, confirmar, reg;
 	do {
 		std::cout << "Ingrese el código del producto que quiere eliminar o 0 para volver: ";

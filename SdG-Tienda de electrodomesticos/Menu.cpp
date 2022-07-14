@@ -71,14 +71,14 @@ void Menu::menuPrincipal() {
         rlutil::locate(40, 14);
         std::cout << "4 - CLIENTES " << std::endl;
         rlutil::locate(40, 15);
-        std::cout << "5 - REPORTES " << std::endl;
-        rlutil::locate(40, 16);
+        //std::cout << "5 - REPORTES " << std::endl;
+        //rlutil::locate(40, 16);
         std::cout << "----------------------------------------" << std::endl;
-        rlutil::locate(40, 17);
+        rlutil::locate(40, 16);
         std::cout << "---------------------------------------" << std::endl;
-        rlutil::locate(40, 18);
+        rlutil::locate(40, 17);
         std::cout << "0 - SALIR" << std::endl;
-        rlutil::locate(38, 19);
+        rlutil::locate(38, 18);
         std::cout << "> ";
         std::cin >> opcion;
         switch (opcion) {
@@ -228,10 +228,7 @@ void Menu::menuClientes() {
             cliente.modificarCliente();
             break;
         case 3:
-            if (cliente.eliminarCliente() == 1) {
-                std::cout << "Cliente eliminado con exito";
-            }
-            rlutil::anykey();
+            cliente.eliminarCliente();
 
             break;
         case 4: cliente.listarCliente();

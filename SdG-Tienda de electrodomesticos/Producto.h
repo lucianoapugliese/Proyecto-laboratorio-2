@@ -41,7 +41,7 @@ public:
 
     int contRegistros();
     void modificarProducto();
-    int eliminarProducto();
+    void eliminarProducto();
     void listarProducto();
     bool modificarEnDisco(int);
     int buscarRegistro(int);

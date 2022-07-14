@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8118cdb1-5404-4161-8f0b-c70d549037c0}</ProjectGuid>
+    <ProjectGuid>{8702d38a-9189-49bc-9b52-d6160f831f62}</ProjectGuid>
     <RootNamespace>SdGTiendadeelectrodomesticos</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -144,7 +144,6 @@
     <ClInclude Include="Direccion.h" />
     <ClInclude Include="Empleado.h" />
     <ClInclude Include="FechaHora.h" />
-    <ClInclude Include="Funciones.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Persona.h" />
     <ClInclude Include="Producto.h" />
@@ -157,7 +156,6 @@
     <ClCompile Include="Direccion.cpp" />
     <ClCompile Include="Empleado.cpp" />
     <ClCompile Include="FechaHora.cpp" />
-    <ClCompile Include="Funciones.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Persona.cpp" />

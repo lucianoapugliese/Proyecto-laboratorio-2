@@ -341,6 +341,7 @@ void Empleado::modificarEmpleado() {
 						rlutil::anykey();
 					}
 				}
+				rlutil::cls();
 			} while (opcion != 0);
 		}
 		else if (id != 0)

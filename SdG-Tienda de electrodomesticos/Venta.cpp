@@ -28,15 +28,15 @@
 //    numeroVenta = contVentas() + 1;
 //}
 
-int Venta::getCantidadComprada()
-{
-    return cantidadComprada;
-}
+//int Venta::getCantidadComprada()
+//{
+//    return cantidadComprada;
+//}
 
-void Venta::setCantidadComprada(int cantidadComprada)
-{
-    this->cantidadComprada = cantidadComprada;
-}
+//void Venta::setCantidadComprada(int cantidadComprada)
+//{
+//    this->cantidadComprada = cantidadComprada;
+//}
 
 int Venta::getCantidadCuotas()
 {
@@ -48,10 +48,10 @@ void Venta::setCantidadCuotas(int cantidadCuotas)
     this->cantidadCuotas = cantidadCuotas;
 }
 
-int Venta::getDescuentoPorCantidad()
-{
-    return descuentoPorCantidad;
-}
+//int Venta::getDescuentoPorCantidad()
+//{
+//    return descuentoPorCantidad;
+//}
 
 /*
 void Venta::setDescuentoPorCantidad()
@@ -106,7 +106,7 @@ bool Venta::buscarVendedor(int id)
     int pos = 0;
     while (e.leerDeDisco(pos++))
     {
-        if (id == e.getID())return 1;
+        if (id == e.getID() && e.getEstado())return 1;
     }
     return 0;
 }
@@ -117,7 +117,7 @@ bool Venta::buscarProducto(int codigo)
     int pos = 0;
     while (p.leerDeDisco(pos++))
     {
-        if (p.getCodigo() == codigo) return true;
+        if (p.getCodigo() == codigo && p.getEstado()) return true;
     }
     return false;
 }
@@ -128,38 +128,11 @@ bool Venta::buscarCliente(int dni)
     int pos = 0;
     while (c.leerDeDisco(pos++))
     {
-        if (c.getDni() == dni)return true;
+        if (c.getDni() == dni && c.getEstado())return true;
     }
     return false;
 }
 
-Cliente Venta::cargarCliente(int dni)
-{
-    Cliente c;
-    int pos = 0;
-    while (c.leerDeDisco(pos++))
-    {
-        if (c.getDni() == dni) return c;
-    }
-}
-
-Empleado Venta::cargarEmpleado(int id)
-{
-    Empleado e;
-    int pos = 0;
-    while (e.leerDeDisco(pos++))
-    {
-        if (e.getID() == id) return e;
-    }
-}
-/* int cantidadComprada, cantidadCuotas, descuentoPorCantidad;
-	Direccion direccionLocal;
-	Producto productoComprado;
-	FechaHora fechaYHoraDeLaVenta;
-	Cliente cliente;
-	Empleado vendedor;
-	char metodoPago;
-	bool envioADomicilio; */
 
 int Venta::getIDVendedor()
 {
@@ -171,15 +144,15 @@ void Venta::setIDVendedor(int IDVendedor)
     this->IDVendedor = IDVendedor;
 }
 
-int Venta::getCodigoProducto()
-{
-    return codigoProducto;
-}
-
-void Venta::setCodigoProducto(int codigoProducto)
-{
-    this->codigoProducto = codigoProducto;
-}
+//int Venta::getCodigoProducto()
+//{
+//    return codigoProducto;
+//}
+//
+//void Venta::setCodigoProducto(int codigoProducto)
+//{
+//    this->codigoProducto = codigoProducto;
+//}
 
 int Venta::getDniCliente()
 {
@@ -192,25 +165,49 @@ void Venta::setDniCliente(int dniCliente)
 }
 
 void Venta::cargar() {
+    int nProducto = 0, confirmar;
     bool bandera = false;
+    for (int i = 0; i < 5; i++)
+    {
+        codigoProducto[i] = cantidadComprada[i] = 0; // Se inicializan en 0 para descartarlos en caso de no comprar 5 articulos distintos
+    }
     Cliente c;
     Producto producto;
-    do {
-        std::cout << "Código del producto: ";
-        std::cin >> codigoProducto;
-        if (!buscarProducto(codigoProducto))
+    do { // Carga productos hasta llegar a 5 o hasta que se indique el fin de carga ingresando 2
+        do {
+            std::cout << "Código del producto: ";
+            std::cin >> codigoProducto[nProducto];
+                // A continuación se comprueba si existe el producto, en caso de encontrarlo la bandera se activa y sale del while.
+            if (!buscarProducto(codigoProducto[nProducto]))
+            {
+                std::cout << std::endl << std::endl << "No se ha encontrado el producto. Por favor vuelva a intentarlo.";
+                rlutil::anykey();
+                rlutil::cls();
+            }
+            else bandera = true;
+        } while (!bandera);
+        std::cout << "Cantidad comprada: ";
+        std::cin >> cantidadComprada[nProducto];
+        nProducto++; // Incrementa nProducto como si fuese un for.
+        if (nProducto < 5)
         {
-            std::cout << std::endl << std::endl << "No se ha encontrado el producto. Por favor vuelva a intentarlo.";
-            rlutil::anykey();
-            rlutil::cls();
+            do { // Comprobación de ingreso correcto.
+                rlutil::cls();
+                std::cout << "¿Agrega otro producto a la venta? 1-Sí/2-No: ";
+                std::cin >> confirmar;
+                if (confirmar < 1 || confirmar > 2)
+                {
+                    rlutil::cls();
+                    std::cout << "Por favor ingrese una opción válida.";
+                    rlutil::anykey();
+                }
+            } while (confirmar < 1 || confirmar > 2);
         }
-        else bandera = true;
-    } while (!bandera);
-    std::cout << "Cantidad comprada: ";
-    std::cin >> cantidadComprada;
+        rlutil::cls();
+    } while (confirmar == 1 && nProducto < 5); //Posible fin de carga
     std::cout << "Cuotas: ";
     std::cin >> cantidadCuotas;
-    do {
+    do { // Comprobación de ingreso correcto
         std::cout << "Método de pago (e - efectivo/t - tarjeta): ";
         std::cin >> metodoPago;
         if (tolower(metodoPago) != 'e' && tolower(metodoPago) == 't') {
@@ -222,7 +219,7 @@ void Venta::cargar() {
     std::cout << "¿Se envía al domicilio del cliente? (1 - Sí/0 - No): ";
     std::cin >> envioADomicilio;
     bandera = false;
-    do {
+    do { // Comprobación de existencia del archivo del vendedor
         std::cout << "ID del vendedor: ";
         std::cin >> IDVendedor;
         if (!buscarVendedor(IDVendedor))
@@ -235,21 +232,25 @@ void Venta::cargar() {
     } while (!bandera);
     std::cout << "DNI del cliente: ";
     std::cin >> dniCliente;
-    if (!buscarCliente(dniCliente))
+    if (!buscarCliente(dniCliente)) // Si no lo encuentra, lo carga
     {
         system("cls");
         std::cout << "NUEVO CLIENTE:" << std::endl << std::endl;
         c.cargar();
     }
 
-    // Desarrollo del descuento por cantidad dependiendo la cantidad de compras
-    if (cantidadComprada <= 25)
-        descuentoPorCantidad = cantidadComprada / 5 * 10;
-    else descuentoPorCantidad = 50;
+    costoFinal = 0; // Va a acumular el total según la cantidad comprada de cada producto
 
-    // Importe final de la compra
-    costoFinal = producto.getPrecio() * cantidadComprada - producto.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
+    for (int i = 0; i < nProducto; i++)
+    {
+        producto.buscarRegistro(codigoProducto[i]);
+        // Desarrollo del descuento por cantidad dependiendo la cantidad de compras
+        if (cantidadComprada[i] <= 25) descuentoPorCantidad[i] = cantidadComprada[i] / 5 * 10;
+        else descuentoPorCantidad[i] = 50;
 
+        // Importe final de la compra
+        costoFinal += producto.getPrecio() * cantidadComprada[i] - producto.getPrecio() * cantidadComprada[i] * descuentoPorCantidad[i] / 100;
+    }
     // Costo por cuota
     if (cantidadCuotas > 0) costoCuota = costoFinal / cantidadCuotas;
     else costoCuota = costoFinal;
@@ -263,18 +264,30 @@ void Venta::cargar() {
 void Venta::mostrar() {
     if (estado)
     {
-        Producto producto = buscarProducto(codigoProducto);
-        Cliente cliente = cargarCliente(dniCliente);
-        Empleado vendedor = cargarEmpleado(IDVendedor);
+        Producto producto;
+        Cliente cliente;
+        Empleado vendedor;
+        int nProducto = 0;
+        float precio;
+        cliente.buscarRegistro(dniCliente);
+        vendedor.buscarRegistro(IDVendedor);
         std::cout << "Venta N°" << numeroVenta << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
-        std::cout << "Producto: " << producto.getNombre() << std::endl;
-        std::cout << "Cantidad: " << cantidadComprada << std::endl;
+        for (int i = 0; i < 5; i++)
+        {
+            producto.buscarRegistro(codigoProducto[i]);
+            if (codigoProducto != 0) {
+                std::cout << "Producto: " << producto.getNombre() << std::endl;
+                std::cout << "Cantidad: " << cantidadComprada[i] << std::endl;
+                precio = producto.getPrecio() * cantidadComprada[i] - producto.getPrecio() * cantidadComprada[i] * descuentoPorCantidad[i] / 100;
+                if (descuentoPorCantidad[i] > 0) std::cout << "Descuento por cantidad comprada: " << descuentoPorCantidad << std::endl << std::endl;
+                std::cout << "Precio: " << precio << std::endl << std::endl;
+            }
+        }
         if (metodoPago == tolower('e')) std::cout << "Metodo de pago: Efectivo";
         else std::cout << "Metodo de pago: Tarjeta";
         if (cantidadCuotas > 0)
             std::cout << cantidadCuotas << " cuotas de $" << costoCuota << std::endl;
-        if (descuentoPorCantidad > 0) std::cout << "Descuento por cantidad de productos comprados: " << descuentoPorCantidad << std::endl << std::endl;
         std::cout << "Importe total: " << costoFinal << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
         std::cout << cliente.getNombre() << ' ' << cliente.getApellido() << std::endl;
@@ -283,7 +296,7 @@ void Venta::mostrar() {
         if (envioADomicilio) std::cout << "Sí";
         else std::cout << "No";
         std::cout << std::endl << std::endl << "Venta a cargo de: " << vendedor.getNombre() << ' ' << vendedor.getApellido() << std::endl;
-        std::cout << "Vendedor N°: " << vendedor.getID() << std::endl << std::endl;
+        std::cout << "Vendedor N°: " << IDVendedor << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
         std::cout << "Fecha: \t";
         fechaYHoraDeLaVenta.mostrarFecha();
@@ -342,6 +355,7 @@ int Venta::contVentas()
 void Venta::modificarVenta() {
     bool bandera;
     int opcion, ingreso, n, nReg;
+    Producto producto;
     do {
         std::cout << "Ingrese el número de venta a modificar o 0 para volver: ";
         std::cin >> n;
@@ -369,8 +383,30 @@ void Venta::modificarVenta() {
                 switch (opcion)
                 {
                 case 1:
+                    bandera = false;
+                    do {
+                        std::cout << "Seleccione el producto del que se cambiará la cantidad comprada:" << std::endl << std::endl;
+                        for (int i = 0; i < 5; i++) // Busca todos los productos
+                        {
+                            if (codigoProducto[i] != 0) // Solo muestra los comprados
+                            {
+                                producto.buscarRegistro(codigoProducto[i]);
+                                std::cout << i + 1 << '-' << producto.getNombre() << '\t';
+                            }
+                        }
+                        std::cout << std::endl << ">";
+                        std::cin >> ingreso;
+                        if (codigoProducto[ingreso - 1] == 0 || ingreso < 1 || ingreso>5) // Corrobora que se haya cargado el producto y el ingreso de una opción válida
+                        {
+                            rlutil::cls();
+                            std::cout << "Por favor ingrese una opción válida.";
+                            rlutil::anykey();
+                        }
+                        else bandera = true;
+                        rlutil::cls();
+                    } while (!bandera);
                     std::cout << "Ingrese el nuevo monto de cantidad comprada: ";
-                    std::cin >> cantidadComprada;
+                    std::cin >> cantidadComprada[ingreso-1];
                     break;
                 case 2:
                     std::cout << "Ingrese la cantidad de cuotas a pagar:" << std::endl;
@@ -381,32 +417,44 @@ void Venta::modificarVenta() {
                     std::cin >> IDVendedor;
                     break;
                 case 4:
+                    bandera = false;
                     do {
-                        std::cout << "1-Modificar producto/2-Eliminar producto" << std::endl << '>';
-                        std::cin >> ingreso;
-                        if (ingreso < 1 || ingreso > 2)
+                        std::cout << "Seleccione el producto que desea eliminar o cambiar:" << std::endl << std::endl;
+                        for (int i = 0; i < 5; i++) // Busca todos los productos
                         {
+                            if (codigoProducto[i] != 0) // Solo muestra los comprados
+                            {
+                                producto.buscarRegistro(codigoProducto[i]);
+                                std::cout << i + 1 << '-' << producto.getNombre() << '\t';
+                            }
+                        }
+                        std::cout << std::endl << ">";
+                        std::cin >> ingreso;
+                        if (codigoProducto[ingreso - 1] == 0 || ingreso < 1 || ingreso>5) // Corrobora que se haya cargado el producto y el ingreso de una opción válida
+                        {
+                            rlutil::cls();
                             std::cout << "Por favor ingrese una opción válida.";
                             rlutil::anykey();
                         }
-                        else if (ingreso == 1) {
-                            std::cout << "Ingrese ID de producto: ";
-                            std::cin >> codigoProducto;
+                        else bandera = true;
+                        rlutil::cls();
+                    } while (!bandera);
+                    do {
+                        std::cout << "1-Cambiar/2-Eliminar." << std::endl << '>';
+                        std::cin >> opcion;
+                        if (opcion < 1 || opcion > 2) {
                             rlutil::cls();
-                            do {
-                                std::cout << "¿Desea modificar o eliminar algún otro producto? 1-Sí/2-No." << std::endl << '>';
-                                std::cin >> ingreso;
-                                if (ingreso < 1 || ingreso > 2) {
-                                    std::cout << "Por favor ingrese una opción válida.";
-                                    rlutil::anykey();
-                                }
-                            } while (ingreso < 1 || ingreso > 2);
+                            std::cout << "Por favor ingrese una opción correcta.";
+                            rlutil::anykey();
+                            rlutil::cls();
                         }
-                        /*else
-                        {
-
-                        }*/
-                    } while (ingreso == 1);
+                    } while (opcion < 1 || opcion > 2);
+                    if (opcion == 1)
+                    {
+                        std::cout << "Ingrese el nuevo código de producto: ";
+                        std::cin >> codigoProducto[ingreso - 1];
+                    }
+                    else codigoProducto[ingreso - 1] = 0;
                     break;
                 case 5:
                     std::cout << "Ingrese DNI del cliente: ";
@@ -459,6 +507,7 @@ void Venta::modificarVenta() {
                         rlutil::anykey();
                     }
                 }
+                rlutil::cls();
             } while (opcion != 0);
         }
         else if (n != 0)

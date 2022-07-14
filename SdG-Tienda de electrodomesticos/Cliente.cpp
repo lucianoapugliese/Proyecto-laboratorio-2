@@ -185,6 +185,7 @@ void Cliente::modificarCliente() {
 						rlutil::anykey();
 					}
 				}
+				rlutil::cls();
 			} while (opcion != 0);
 		}
 		else if (d != 0)
@@ -196,7 +197,7 @@ void Cliente::modificarCliente() {
 	} while (d != 0);
 }
 
-int Cliente::eliminarCliente() {
+void Cliente::eliminarCliente() {
 	int d, confirmar, reg;
 	do {
 		std::cout << "Ingrese el DNI del cliente que quiere eliminar o ingrese 0 para volver: ";

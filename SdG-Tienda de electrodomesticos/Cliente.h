@@ -21,7 +21,7 @@ public:
 	void modificarCliente();
     Direccion getDomicilio();
     void setDomicilio(Direccion domicilio);
-	int eliminarCliente();
+	void eliminarCliente();
 	void listarCliente();
 	int contRegistros();
 	int buscarRegistro(int);
