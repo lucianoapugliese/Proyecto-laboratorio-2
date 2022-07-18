@@ -77,7 +77,7 @@ bool Cliente::leerDeDisco(int pos) {
 		return 0;
 	}
 	fseek(p, pos * sizeof(Cliente), 0);
-	int leyo=fread(this, sizeof(Cliente), 1, p);
+	bool leyo=fread(this, sizeof(Cliente), 1, p);
 	fclose(p);
 	return leyo;
 }

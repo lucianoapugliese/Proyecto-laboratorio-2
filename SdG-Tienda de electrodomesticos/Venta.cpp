@@ -566,7 +566,7 @@ void Venta::listarVenta() {
             }
             break;
         case 2:
-            std::cout << "Ingrese el número de ventaque quiere listar o 0 para volver: ";
+            std::cout << "Ingrese el número de venta que quiere listar o 0 para volver: ";
             std::cin >> d;
             if (d != 0) {
                 rlutil::cls();

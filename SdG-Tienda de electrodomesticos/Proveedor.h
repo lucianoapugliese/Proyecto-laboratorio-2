@@ -19,7 +19,6 @@ private:
 	char _RegistroDePago[20];
 	bool estado;
 public:
-
 	void SetNumeroCliente(int);
 	void SetCuit(const char*);
 	void SetNombreEmpresa(std::string);
@@ -31,7 +30,7 @@ public:
 	void SetRegistroDePago(const char*);
 
 	int   GetNumeroCliente();
-	char*   GetCuit();
+	char* GetCuit();
 	std::string GetNombreEmpresa();
 	char* GetTelefono();
 	std::string GetDireccionFiscal();
@@ -45,5 +44,10 @@ public:
 
 	void mostrar();
 	void cargar();
-
+	int contProveedores();
+	void modificarProveedores();
+	void eliminarProveedores();
+	void listarProveedores();
+	bool modificarEnDisco(int);
+	int buscarRegistro(int);
 };
