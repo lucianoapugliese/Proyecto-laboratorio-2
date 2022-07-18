@@ -10,9 +10,9 @@ void Proveedor::SetCuit(const char* cuit)
 	strcpy(_cuit, cuit);
 }
 
-void Proveedor::SetNombreEmpresa(const char* nombreEmpresa)
+void Proveedor::SetNombreEmpresa(std::string nombreEmpresa)
 {
-	strcpy(_NombreEmpresa, nombreEmpresa);
+	strcpy(_NombreEmpresa, nombreEmpresa.c_str());
 }
 
 void Proveedor::SetTelefono(const char* telefono)
@@ -20,9 +20,9 @@ void Proveedor::SetTelefono(const char* telefono)
 	strcpy(_Telefono, telefono);
 }
 
-void Proveedor::SetDireccionFisical(const char* DireccionFiscal)
+void Proveedor::SetDireccionFisical(std::string DireccionFiscal)
 {
-	strcpy(_DireccionFiscal, DireccionFiscal);
+	strcpy(_DireccionFiscal, DireccionFiscal.c_str());
 }
 
 void Proveedor::SetEmail(const char* email)
@@ -55,9 +55,10 @@ char* Proveedor::GetCuit()
 	return _cuit;
 }
 
-char* Proveedor::GetNombreEmpresa()
+std::string Proveedor::GetNombreEmpresa()
 {
-	return _NombreEmpresa;
+	std::string pal = _NombreEmpresa;
+	return pal;
 }
 
 char* Proveedor::GetTelefono()
@@ -65,9 +66,10 @@ char* Proveedor::GetTelefono()
 	return _Telefono;
 }
 
-char* Proveedor::GetDireccionFiscal()
+std::string Proveedor::GetDireccionFiscal()
 {
-	return _DireccionFiscal;
+	std::string pal = _DireccionFiscal;
+	return pal;
 }
 
 char* Proveedor::GetEmail()
@@ -90,21 +92,21 @@ char* Proveedor::GetRegistroDepago()
 	return _RegistroDePago;
 }
 
-bool Proveedor::LeeerDeDisco(int pos)
+bool Proveedor::leerDeDisco(int pos)
 {
 	FILE* p;
-	p = fopen("Proveedores.dat", "rb+");
+	p = fopen("proveedores.dat", "rb");
 	if (p == NULL) { return false; }
 	fseek(p, sizeof(Proveedor) * pos, 0);
-	fread(this, sizeof(Proveedor), 1, p);
+	bool leyo = fread(this, sizeof(Proveedor), 1, p);
 	fclose(p);
-	return true;
+	return leyo;
 }
 
-bool Proveedor::GrabarEnDisco()
+bool Proveedor::grabarEnDisco()
 {
 	FILE* p;
-	p = fopen("Proveedores.dat", "ab");
+	p = fopen("proveedores.dat", "ab");
 	if (p == NULL) { return false; }
 	fwrite(this, sizeof(Proveedor), 1, p);
 	fclose(p);
@@ -113,37 +115,41 @@ bool Proveedor::GrabarEnDisco()
 }
 
 
-void Proveedor::Mostrar()
+void Proveedor::mostrar()
 {
-	std::cout << _NumeroCliente;
-	std::cout << _cuit;
-	std::cout << _NombreEmpresa;
-	std::cout << _Telefono;
-	std::cout << _DireccionFiscal;
-	std::cout << _email;
-	_FechaDeFactura.mostrarFecha();
-	std::cout << _NumeroFactura;
-	std::cout << _RegistroDePago;
+	if (estado) {
+		std::cout << "Cliente N°" << _NumeroCliente << std::endl;
+		std::cout << "Cuit: " << _cuit << std::endl;
+		std::cout << "Empresa: " << _NombreEmpresa << std::endl;
+		std::cout << "Tel: " << _Telefono << std::endl;
+		std::cout << "Dirección fiscal: " << _DireccionFiscal << std::endl;
+		std::cout << "Email: " << _email << std::endl;
+		std::cout << "Fecha: ";
+		_FechaDeFactura.mostrarFecha();
+		std::cout << "Factura N°" << _NumeroFactura << std::endl;
+		std::cout << "Registro de pago: " << _RegistroDePago;
+	}
 }
 
-void Proveedor::Cargar()
+void Proveedor::cargar()
 {
 	std::cout << "Numero de Cliente: ";
 	std::cin >> _NumeroCliente;
-	std::cout << "Cuit  ";
+	std::cout << "Cuit: ";
 	std::cin >> _cuit;
-	std::cout << "Nombre de Empresa ";
+	std::cout << "Nombre de Empresa: ";
 	std::cin >> _NombreEmpresa;
-	std::cout << "Telefono";
+	std::cout << "Telefono:";
 	std::cin >> _Telefono;
-	std::cout << "Direccion Fiscal ";
+	std::cout << "Direccion Fiscal: ";
 	std::cin >> _DireccionFiscal;
 	std::cout << "Email ";
 	std::cin >> _email;
-	std::cout << "Fecha De Factura ";
+	std::cout << "Fecha De Factura: " << std::endl;
 	_FechaDeFactura.mostrarFecha();
-	std::cout << "Numero De Factura ";
+	std::cout << "Numero De Factura: ";
 	std::cin >> _NumeroFactura;
-	std::cout << "Registro De Pago";
+	std::cout << "Registro De Pago: ";
 	std::cin >> _RegistroDePago;
+	estado = true;
 }

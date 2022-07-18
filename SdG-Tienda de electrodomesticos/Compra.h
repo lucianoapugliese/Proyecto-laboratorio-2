@@ -13,26 +13,30 @@ private:
 	FechaHora FechaDeCompra;   /////// FECHA DE LA COMPRA
 	float Valor;               ////////////// COSTO DE LA MERCADERIA
 	char NombreDeProducto[30]; ////////////// NOMBRE DEL BULTO / PRODUCTO EJMEPLO TVSMART 80 , PLAYSTATION 5 , AFEITADORA , ETC.
-	float Cantidad;            ///// CANTIDAD SE VENDE POR VULTO PERO CONTIENE UNA CANTIDAD DISTINTA POR PRODUCTOS
+	float Cantidad;  
+	bool estado; ///// CANTIDAD SE VENDE POR VULTO PERO CONTIENE UNA CANTIDAD DISTINTA POR PRODUCTOS
 public:
 	void SetNumeroDeFactura(int);
 	void setTipoDeCompra(int);
 	void SetFechadeCompra(FechaHora);
 	void SetModificarValor(float);
-	void SetNombreDeProducto(const char*);
+	void SetNombreDeProducto(std::string);
 	void SetCantidadComprada(float);
 	int GetNumeroDeFac();
 	int GetTipoDeCompra();
 	FechaHora GetFechaDeLaCompra();
 	float GetCostoDelProducto();
-	char* GetNombreDeProducto();
+	std::string GetNombreDeProducto();
 	float GetCantidadDeProductos();
-
+	int buscarRegistro(int);
 	bool LeerDeDisco(int);
 	bool GuardarEnDisco();
-
+	int contRegistros();
 	void Mostrar();
 	void Cargar();
-
+	bool modificarEnDisco(int);
+	void listarCompra();
+	void eliminarCompra();
+	void modificarCompra();
 };
 

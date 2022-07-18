@@ -216,12 +216,12 @@ void Venta::cargar() {
     do { // Comprobación de ingreso correcto
         std::cout << "Método de pago (e - efectivo/t - tarjeta): ";
         std::cin >> metodoPago;
-        if (tolower(metodoPago) != 'e' && tolower(metodoPago) == 't') {
+        if (tolower(metodoPago) != 'e' && tolower(metodoPago) != 't') {
             std::cout << std::endl << std::endl << "Por favor ingrese una opción válida.";
             rlutil::anykey();
             rlutil::cls();
         }
-    } while (tolower(metodoPago) != 'e' && tolower(metodoPago) == 't');
+    } while (tolower(metodoPago) != 'e' && tolower(metodoPago) != 't');
     std::cout << "¿Se envía al domicilio del cliente? (1 - Sí/0 - No): ";
     std::cin >> envioADomicilio;
     bandera = false;
@@ -281,13 +281,13 @@ void Venta::mostrar() {
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
         for (int i = 0; i < 5; i++)
         {
-            producto.buscarRegistro(codigoProducto[i]);
-            if (i==0) {
+            if (codigoProducto[i] > 0) {
+                producto.buscarRegistro(codigoProducto[i]);
                 std::cout << "Producto: " << producto.getNombre() << std::endl;
                 std::cout << "Cantidad: " << cantidadComprada[i] << std::endl;
                 precio = producto.getPrecio() * cantidadComprada[i] - producto.getPrecio() * cantidadComprada[i] * descuentoPorCantidad[i] / 100;
-                if (descuentoPorCantidad[i] > 0) std::cout << "Descuento por cantidad comprada: " << descuentoPorCantidad << std::endl << std::endl;
-                std::cout << "Precio: " << precio << std::endl << std::endl;
+                if (descuentoPorCantidad[i] > 0) std::cout << "Descuento por cantidad comprada: " << descuentoPorCantidad[i] << '%' << std::endl << std::endl;
+                std::cout << "Precio: $" << precio << std::endl << std::endl;
             }
         }
         if (metodoPago == tolower('e')) std::cout << "Metodo de pago: Efectivo";
@@ -297,7 +297,7 @@ void Venta::mostrar() {
             std::cout << cantidadCuotas << " cuotas de $" << costoCuota << std::endl;
         std::cout << "Importe total: $" << costoFinal << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
-        std::cout << cliente.getNombre() << ' ' << cliente.getApellido() << std::endl;
+        std::cout << "Comprador/a: " << cliente.getNombre() << ' ' << cliente.getApellido() << std::endl;
         std::cout << "DNI: " << cliente.getDni() << std::endl << std::endl;
         std::cout << "Envío a domicilio: ";
         if (envioADomicilio) std::cout << "Sí";
@@ -496,23 +496,8 @@ void Venta::modificarVenta() {
                     break;
                 }
                 if (opcion != 0) {
-                    do
-                    {
-                        rlutil::cls();
-                        std::cout << "¿Seguro de realizar la modificación? 1-Sí/2-Cancelar" << std::endl << '>';
-                        std::cin >> ingreso;
-                        if (ingreso < 1 || ingreso>2)
-                        {
-                            rlutil::cls();
-                            std::cout << "Por favor ingrese una opción válida.";
-                            rlutil::anykey();
-                        }
-                    } while (ingreso < 1 || ingreso>2);
-                    if (ingreso == 1) {
-                        if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
-                        else std::cout << "Error al modificar.";
-                        rlutil::anykey();
-                    }
+                    if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
+                    else std::cout << "Error al modificar.";
                 }
                 rlutil::cls();
             } while (opcion != 0);
@@ -577,7 +562,7 @@ void Venta::listarVenta() {
             while (leerDeDisco(pos++))
             {
                 mostrar();
-                if (estado)std::cout << std::endl << std::endl << "---------------------------------------------------------" << std::endl << "---------------------------------------------------------" << std::endl;
+                if (estado)std::cout << std::endl << std::endl << "/////////////////////////////////////////" << std::endl << "/////////////////////////////////////////" << std::endl;
             }
             break;
         case 2:

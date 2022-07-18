@@ -10,21 +10,21 @@ class Proveedor
 private:
 	int _NumeroCliente;
 	char _cuit[12];
-	char _NombreEmpresa[20];
+	char _NombreEmpresa[50];
 	char _Telefono[30];
-	char _DireccionFiscal[30];
-	char _email[30];
+	char _DireccionFiscal[50];
+	char _email[50];
 	FechaHora _FechaDeFactura;
 	char _NumeroFactura[20];
 	char _RegistroDePago[20];
-
+	bool estado;
 public:
 
 	void SetNumeroCliente(int);
 	void SetCuit(const char*);
-	void SetNombreEmpresa(const char*);
+	void SetNombreEmpresa(std::string);
 	void SetTelefono(const char*);
-	void SetDireccionFisical(const char*);
+	void SetDireccionFisical(std::string);
 	void SetEmail(const char*);
 	void SetFechaFactura(FechaHora);
 	void SetNumeroFactura(const char*);
@@ -32,18 +32,18 @@ public:
 
 	int   GetNumeroCliente();
 	char*   GetCuit();
-	char* GetNombreEmpresa();
+	std::string GetNombreEmpresa();
 	char* GetTelefono();
-	char* GetDireccionFiscal();
+	std::string GetDireccionFiscal();
 	char* GetEmail();
 	FechaHora GetFecha();
 	char* GetNumeroFactura();
 	char* GetRegistroDepago();
 
-	bool LeeerDeDisco(int);
-	bool GrabarEnDisco();
+	bool leerDeDisco(int);
+	bool grabarEnDisco();
 
-	void Mostrar();
-	void Cargar();
+	void mostrar();
+	void cargar();
 
 };

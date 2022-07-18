@@ -323,23 +323,9 @@ void Empleado::modificarEmpleado() {
 					break;
 				}
 				if (opcion != 0) {
-					do
-					{
-						rlutil::cls();
-						std::cout << "¿Seguro de realizar la modificación? 1-Sí/2-Cancelar" << std::endl << '>';
-						std::cin >> ingreso;
-						if (ingreso<1||ingreso>2)
-						{
-							rlutil::cls();
-							std::cout << "Por favor ingrese una opción válida.";
-							rlutil::anykey();
-						}
-					} while (ingreso<1||ingreso>2);
-					if (ingreso == 1) {
-						if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
-						else std::cout << "Error al modificar.";
-						rlutil::anykey();
-					}
+					if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
+					else std::cout << "Error al modificar.";
+					rlutil::anykey();
 				}
 				rlutil::cls();
 			} while (opcion != 0);

@@ -32,10 +32,11 @@ void Cliente::setDomicilio(Direccion domicilio)
 
 void Cliente::cargar() {
 	Persona::cargar();
-	std::cout << "Numero de tarjeta: ";
+	std::cout << "Numero de tarjeta (si no es necesario ingrese '-'): ";
 	std::cin >> Numerotarjeta;
 	std::cout << "Email: ";
 	std::cin >> mail;
+	domicilio.cargar();
 	if (grabarEnDisco())
 	{
 		system("cls");
@@ -98,8 +99,11 @@ int Cliente::contRegistros() {
 
 void Cliente::modificarCliente() {
 	std::string palabra;
-	int opcion, ingreso, d, nReg;
-	bool ingresoCorrecto=true;
+	int opcion, ingreso, d, nReg, entero;
+	Direccion dom;
+	FechaHora fec;
+	char cad[50];
+	bool ingresoCorrecto = true;
 	do {
 		std::cout << "Ingrese el DNI del cliente a modificar o 0 para volver: ";
 		std::cin >> d;
@@ -166,24 +170,11 @@ void Cliente::modificarCliente() {
 					}
 					break;
 				}
-				if (opcion != 0) {
-					do
-					{
-						rlutil::cls();
-						std::cout << "¿Seguro de realizar la modificación? 1-Sí/2-Cancelar" << std::endl << '>';
-						std::cin >> ingreso;
-						if (ingreso < 1 || ingreso>2)
-						{
-							rlutil::cls();
-							std::cout << "Por favor ingrese una opción válida.";
-							rlutil::anykey();
-						}
-					} while (ingreso < 1 || ingreso>2);
-					if (ingreso == 1) {
-						if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
-						else std::cout << "Error al modificar.";
-						rlutil::anykey();
-					}
+				if (opcion != 0)
+				{
+					if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
+					else std::cout << "Error al modificar.";
+					rlutil::anykey();
 				}
 				rlutil::cls();
 			} while (opcion != 0);

@@ -196,11 +196,11 @@ void Menu::menuCompras() {
         switch (opcion) {
         case 1: compra.Cargar();
             break;
-        case 2:
+        case 2: compra.modificarCompra();
             break;
-        case 3:
+        case 3: compra.eliminarCompra();
             break;
-        case 4:
+        case 4: compra.listarCompra();
             break;
         default:
             if (opcion != 0) {
@@ -291,7 +291,7 @@ void Menu::menuVentas() {
     Venta venta;
     int opcion;
     do {
-        std::cout << "1 - AGREGAR VENTA" << std::endl;
+        std::cout << "1 - AGREGAR VENTA (UN MÁXIMO DE 5 PRODUCTOS DISTINTOS POR CADA VENTA)" << std::endl;
         std::cout << "2 - MODIFICAR VENTA" << std::endl;
         std::cout << "3 - ELIMINAR VENTA" << std::endl;
         std::cout << "4 - LISTAR VENTA/S " << std::endl;
