@@ -189,8 +189,8 @@ bool Empleado::leerDeDisco(int n) {
     p = fopen("empleados.dat", "rb");
     if (p == NULL)
     {
-        std::cout << "Error al abrir.\n";
-        system("pause");
+        std::cout << "No hay registros.";
+		rlutil::anykey();
         return false;
     }
     fseek(p, n * sizeof(Empleado), 0);

@@ -94,13 +94,16 @@ char* Proveedor::GetRegistroDepago()
 
 bool Proveedor::leerDeDisco(int pos)
 {
-	FILE* p;
-	p = fopen("proveedores.dat", "rb");
-	if (p == NULL) { return false; }
-	fseek(p, sizeof(Proveedor) * pos, 0);
-	bool leyo = fread(this, sizeof(Proveedor), 1, p);
-	fclose(p);
-	return leyo;
+    FILE* p;
+    p = fopen("proveedores.dat", "rb");
+    if (p == NULL) {
+        std::cout << "No hay registros.";
+        return false;
+    }
+    fseek(p, sizeof(Proveedor) * pos, 0);
+    bool leyo = fread(this, sizeof(Proveedor), 1, p);
+    fclose(p);
+    return leyo;
 }
 
 bool Proveedor::grabarEnDisco()
@@ -133,8 +136,7 @@ void Proveedor::mostrar()
 void Proveedor::cargar()
 {
 	std::string palabra;
-	std::cout << "Numero de Cliente: ";
-	std::cin >> _NumeroCliente;
+    _NumeroCliente = contProveedores() + 1;
 	std::cout << "Cuit: ";
 	std::cin >> _cuit;
 	std::cout << "Nombre de Empresa: ";

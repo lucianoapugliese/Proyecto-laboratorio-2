@@ -297,7 +297,7 @@ void Venta::mostrar() {
             std::cout << cantidadCuotas << " cuotas de $" << costoCuota << std::endl;
         std::cout << "Importe total: $" << costoFinal << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
-        std::cout << "Comprador/a: " << cliente.getNombre() << ' ' << cliente.getApellido() << std::endl;
+        std::cout << "Comprador/a: " << cliente.getNombre() << ' ' << cliente.getApellido() << '\t';
         std::cout << "DNI: " << cliente.getDni() << std::endl << std::endl;
         std::cout << "Envío a domicilio: ";
         if (envioADomicilio) std::cout << "Sí";

@@ -5,6 +5,7 @@
 #include "Empleado.h"
 #include "Producto.h"
 #include "Venta.h"
+#include "Proveedor.h"
 
 class  Menu {      // / entidades funciones locales ///atributos
 private:
@@ -19,5 +20,6 @@ public:
     void menuEmpleados();
     void menuVentas();
     void menuProductos();
+    void menuProveedores();
 
 };

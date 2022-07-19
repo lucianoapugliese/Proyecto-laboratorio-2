@@ -5,6 +5,7 @@
 #include "Producto.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "Proveedor.h"
 class Compra
 {
 private:
@@ -14,7 +15,7 @@ private:
 	float Valor;               ////////////// COSTO DE LA MERCADERIA
 	char NombreDeProducto[30]; ////////////// NOMBRE DEL BULTO / PRODUCTO EJMEPLO TVSMART 80 , PLAYSTATION 5 , AFEITADORA , ETC.
 	float Cantidad;  
-	bool estado; ///// CANTIDAD SE VENDE POR VULTO PERO CONTIENE UNA CANTIDAD DISTINTA POR PRODUCTOS
+	bool estado; ///// CANTIDAD SE VENDE POR BULTO PERO CONTIENE UNA CANTIDAD DISTINTA POR PRODUCTOS
 public:
 	void SetNumeroDeFactura(int);
 	void setTipoDeCompra(int);

@@ -56,7 +56,7 @@ void Menu::menuPrincipal() {
         Menu();
         rlutil::setColor(rlutil::WHITE);
         rlutil::setBackgroundColor(rlutil::BLUE);
-        Menurectangulo(32, 7, 60, 12, "");
+        Menurectangulo(32, 7, 60, 15, "");
         // int x = 40;
         rlutil::locate(40, 9);
         std::cout << "MENU PRINCIPAL DE GESTION " << std::endl;
@@ -72,13 +72,17 @@ void Menu::menuPrincipal() {
         std::cout << "4 - CLIENTES " << std::endl;
         rlutil::locate(40, 15);
         std::cout << "5 - PRODUCTOS " << std::endl;
+        rlutil::locate(40, 16);
+        std::cout << "6 - PROVEEDORES " << std::endl;
         rlutil::locate(40, 17);
-        std::cout << "----------------------------------------" << std::endl;
+        std::cout << "7 - REPORTES " << std::endl;
         rlutil::locate(40, 18);
-        std::cout << "---------------------------------------" << std::endl;
+        std::cout << "----------------------------------------" << std::endl;
         rlutil::locate(40, 19);
+        std::cout << "---------------------------------------" << std::endl;
+        rlutil::locate(40, 20);
         std::cout << "0 - SALIR" << std::endl;
-        rlutil::locate(38, 20);
+        rlutil::locate(38, 22);
         std::cout << "> ";
         std::cin >> opcion;
         system("cls");
@@ -100,7 +104,10 @@ void Menu::menuPrincipal() {
         case 5:menuProductos();
             system("cls");
             break;
-        case 6:menuReportes();
+        case 6:menuProveedores();
+            system("cls");
+            break;
+        case 7:menuReportes();
             system("cls");
             break;
         case 0:
@@ -121,6 +128,7 @@ void Menu::menuPrincipal() {
     }
 }
 void Menu::menuReportes() { /// reporte de ventas
+    int pos;
     bool salir = true;
     rlutil::setBackgroundColor(rlutil::LIGHTBLUE);
     rlutil::setColor(rlutil::WHITE);
@@ -153,7 +161,6 @@ void Menu::menuReportes() { /// reporte de ventas
         std::cout << "---------------------------------------" << std::endl;
         rlutil::locate(40, 19);
         std::cout << "0 - VOLVER" << std::endl;
-        int pos;
         rlutil::locate(38, 20);
         std::cout << "> ";
         std::cin >> pos;
@@ -177,6 +184,7 @@ void Menu::menuReportes() { /// reporte de ventas
             rlutil::setColor(rlutil::WHITE); salir = false;
             break;
         }
+        rlutil::cls();
     }
 }
 void Menu::menuCompras() {
@@ -201,6 +209,38 @@ void Menu::menuCompras() {
         case 3: compra.eliminarCompra();
             break;
         case 4: compra.listarCompra();
+            break;
+        default:
+            if (opcion != 0) {
+                std::cout << "Por favor ingrese una opción correcta.";
+                rlutil::anykey();
+            }
+            break;
+        }
+    } while (opcion !=0);
+}
+void Menu::menuProveedores() {
+    Proveedor proveedor;
+    int opcion;
+    do {
+        std::cout << "1 - AGREGAR PROVEEDOR" << std::endl;
+        std::cout << "2 - MODIFICAR PROVEEDOR" << std::endl;
+        std::cout << "3 - ELIMINAR PROVEEDOR " << std::endl;
+        std::cout << "4 - LISTAR PROVEEDOR/ES " << std::endl;
+        std::cout << "-------------------" << std::endl;
+        std::cout << "------------------" << std::endl;
+        std::cout << "0 - VOLVER" << std::endl;
+        std::cout << std::endl << "Ingrese una opción: ";
+        std::cin >> opcion;
+        rlutil::cls();
+        switch (opcion) {
+        case 1: proveedor.cargar();
+            break;
+        case 2: proveedor.modificarProveedores();
+            break;
+        case 3: proveedor.eliminarProveedores();
+            break;
+        case 4: proveedor.listarProveedores();
             break;
         default:
             if (opcion != 0) {

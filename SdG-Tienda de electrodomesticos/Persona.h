@@ -13,28 +13,21 @@ protected:
 	int dni;
 	bool estado;
 	FechaHora fechaDeNacimiento;
-	//Direccion domicilio;
 	char apellido[50], nombre[50];
 public:
 	void cargar();
 	void mostrar();
-	//bool grabarEnDisco();
-	//bool leerDeDisco(int pos);
-    std::string getApellido();
-    void setApellido(std::string apellido);
-   
-    std::string getNombre();
-    void setNombre(std::string nombre);
+	std::string getApellido();
+	void setApellido(std::string apellido);
 
-    int getDni() const;
-    void setDni(int dni);
+	std::string getNombre();
+	void setNombre(std::string nombre);
 
-    FechaHora getFechaDeNacimiento() ;
-    void setFechaDeNacimiento(FechaHora fechaDeNacimiento);
+	int getDni() const;
+	void setDni(int dni);
 
-    //Direccion getDomicilio() ;
-    //void setDomicilio(Direccion domicilio);
-	//~Persona();
+	FechaHora getFechaDeNacimiento();
+	void setFechaDeNacimiento(FechaHora fechaDeNacimiento);
 
 	bool getEstado();
 	void setEstado(bool estado);

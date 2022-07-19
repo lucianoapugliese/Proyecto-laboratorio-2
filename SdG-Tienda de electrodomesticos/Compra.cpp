@@ -50,6 +50,7 @@ float Compra::GetCostoDelProducto()
 {
 	return Valor;
 }
+
 std::string Compra::GetNombreDeProducto()
 {
 	std::string nom = NombreDeProducto;
@@ -65,7 +66,10 @@ bool Compra::LeerDeDisco(int pos)
 {
 	FILE* p;
 	p = fopen("compras.dat", "rb");
-	if (p == NULL) { return false; }
+	if (p == NULL) { 
+		std::cout << "No hay compras realizadas.";
+		return false;
+	}
 	fseek(p, pos * sizeof(Compra), 0);
 	bool leyo=fread(this, sizeof(Compra), 1, p);
 	fclose(p);
