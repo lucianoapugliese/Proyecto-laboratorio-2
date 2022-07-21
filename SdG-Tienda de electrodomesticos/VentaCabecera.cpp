@@ -2,6 +2,7 @@
 
 void VentaCabecera::cargar()
 {
+    VentaDetalle ventaDetalle;
     Producto producto;
 	bool salir = false;
     int confirmar, pos = 0;
@@ -75,6 +76,7 @@ void VentaCabecera::cargar()
 
 void VentaCabecera::mostrar()
 {
+    VentaDetalle ventaDetalle;
     int pos = 0;
     bool primeraVuelta = false;
     Producto producto;

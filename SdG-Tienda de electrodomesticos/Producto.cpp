@@ -150,9 +150,19 @@ void Producto::cargar(int cod) {
 }
 void Producto::mostrar() {
     if (estado) {
-        std::cout << "Codigo: ";
+		rlutil::cls();
+		Menu ob;
+		int y = 10;
+		rlutil::setColor(rlutil::BLACK);
+		rlutil::setBackgroundColor(rlutil::WHITE);
+		ob.Menurectangulo(45, y, 35, 3, "");
+        std::cout << "Código: ";
         std::cout << codigo << std::endl;
-        std::cout << "Categoria: ";
+		ob.Menurectangulo(45, y+=3, 35, 3, "");
+        std::cout << "Nombre: ";
+        std::cout << nombre << std::endl;
+		ob.Menurectangulo(45, y+=3, 35, 3, "");
+        std::cout << "Categoría: ";
 		switch (categoria)
 		{
 		case 1: std::cout << "Línea blanca";
@@ -162,17 +172,60 @@ void Producto::mostrar() {
 		default: std::cout << "Videojuegos";
 			break;
 		}
-        std::cout << std::endl << "Marca: ";
+		ob.Menurectangulo(45, y+=3, 35, 3, "");
+        std::cout << "Marca: ";
         std::cout << marca << std::endl;
-        std::cout << "Nombre: ";
-        std::cout << nombre << std::endl;
+		ob.Menurectangulo(45, y+=3, 35, 3, "");
         std::cout << "Descripción: ";
         std::cout << descripcion << std::endl;
+		ob.Menurectangulo(45, y+=3, 35, 3, "");
         std::cout << "Precio: $";
         std::cout << precio << std::endl;
+		ob.Menurectangulo(45, y+=3, 35, 3, "");
         std::cout << "Stock: ";
         std::cout << stock << std::endl;
     }
+}
+void Producto::mostrarTodos() {
+	int y = 0, pos = 0;
+	Menu ob;
+	rlutil::setColor(rlutil::BLACK);
+	rlutil::setBackgroundColor(rlutil::WHITE);
+	while (leerDeDisco(pos++))
+	{
+		if (estado) {
+			y += 10;
+			ob.Menurectangulo(45, y, 35, 3, "");
+			std::cout << "Código: ";
+			std::cout << codigo << std::endl;
+			ob.Menurectangulo(45, y += 3, 35, 3, "");
+			std::cout << "Nombre: ";
+			std::cout << nombre << std::endl;
+			ob.Menurectangulo(45, y += 3, 35, 3, "");
+			std::cout << "Categoría: ";
+			switch (categoria)
+			{
+			case 1: std::cout << "Línea blanca";
+				break;
+			case 2: std::cout << "Electrónica";
+				break;
+			default: std::cout << "Videojuegos";
+				break;
+			}
+			ob.Menurectangulo(45, y += 3, 35, 3, "");
+			std::cout << "Marca: ";
+			std::cout << marca << std::endl;
+			ob.Menurectangulo(45, y += 3, 35, 3, "");
+			std::cout << "Descripción: ";
+			std::cout << descripcion << std::endl;
+			ob.Menurectangulo(45, y += 3, 35, 3, "");
+			std::cout << "Precio: $";
+			std::cout << precio << std::endl;
+			ob.Menurectangulo(45, y += 3, 35, 3, "");
+			std::cout << "Stock: ";
+			std::cout << stock << std::endl;
+		}
+	}
 }
 
 bool Producto::grabarEnDisco() {
@@ -219,10 +272,16 @@ int Producto::contRegistros() {
 }
 
 void Producto::modificarProducto() {
+	Menu ob;
+	rlutil::setColor(rlutil::BLACK);
+	rlutil::setBackgroundColor(rlutil::WHITE);
 	std::string palabra;
-	int opcion, ingreso, c, nReg;
+	int opcion, ingreso, c, nReg, y;
 	bool ingresoCorrecto = true;
 	do {
+		rlutil::setBackgroundColor(rlutil::WHITE);
+		rlutil::setColor(rlutil::BLACK);
+		ob.Menurectangulo(30, 8, 65, 3, "");
 		std::cout << "Ingrese el código del producto a modificar o 0 para volver: ";
 		std::cin >> c;
 		nReg = buscarRegistro(c);
@@ -230,51 +289,79 @@ void Producto::modificarProducto() {
 		{
 			do
 			{
+				y = 8;
+				rlutil::setColor(rlutil::BLACK);
+				rlutil::setBackgroundColor(rlutil::WHITE);
 				mostrar();
-				std::cout << std::endl << std::endl;
+				ob.Menurectangulo(45, 8, 35, 2, "PRODUCTO:");
+				ob.Menurectangulo(5, y, 25, 2, "");
 				std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "1-Nombre" << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "2-Marca" << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "3-Descripción" << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "4-Categoría" << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "5-Stock" << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "6-Precio" << std::endl;
-				std::cout << "-------------------" << std::endl;
-				std::cout << "-------------------" << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "0-Volver" << std::endl << std::endl;
+				ob.Menurectangulo(5, y += 2, 25, 2, "");
 				std::cout << "Ingrese una opción: ";
 				std::cin >> opcion;
 				rlutil::cls();
+				rlutil::setColor(rlutil::BLACK);
+				rlutil::setBackgroundColor(rlutil::WHITE);
+				ob.Menurectangulo(20, 11, 80, 3, "");
 				switch (opcion)
 				{
 				case 1:
 					std::cout << "Ingrese el nombre nuevo: ";
+
+					ob.Menurectangulo(20, 14, 80, 3, "");
 					std::cin.ignore();
 					std::getline(std::cin, palabra);
 					setNombre(palabra);
 					break;
 				case 2:
 					std::cout << "Ingrese la nueva marca: ";
+
+					ob.Menurectangulo(20, 14, 80, 3, "");
 					std::cin.ignore();
 					std::getline(std::cin, palabra);
 					setMarca(palabra);
 					break;
 				case 3:
 					std::cout << "Ingrese la nueva descripción: ";
+
+					ob.Menurectangulo(20, 14, 80, 3, "");
 					std::cin.ignore();
 					std::getline(std::cin, palabra);
 					setDescripcion(palabra);
 					break;
 				case 4:
-					std::cout << "Ingrese la nueva categoría:" << std::endl;
-					categoria;
+					std::cout << "Ingrese la nueva categoría(1-Línea blanca, 2-Electrónica o 3-Videojuegos):" << std::endl;
+
+					ob.Menurectangulo(20, 14, 80, 3, "");
+					rlutil::locate(37, 15);
+					std::cin >> categoria;
 					break;
 				case 5:
 					std::cout << "Ingrese el stock actual: ";
+
+					ob.Menurectangulo(20, 14, 80, 3, "");
+					rlutil::locate(37, 15);
 					std::cin >> stock;
 					break;
 				case 6:
 					std::cout << "Ingrese el nuevo precio: ";
+
+					ob.Menurectangulo(20, 14, 80, 3, "$");
+					rlutil::locate(24, 15);
 					std::cin >> precio;
 					break;
 				default:
@@ -285,43 +372,42 @@ void Producto::modificarProducto() {
 					break;
 				}
 				if (opcion != 0) {
-					do
-					{
-						rlutil::cls();
-						std::cout << "¿Seguro de realizar la modificación? 1-Sí/2-Cancelar" << std::endl << '>';
-						std::cin >> ingreso;
-						if (ingreso < 1 || ingreso>2)
-						{
-							rlutil::cls();
-							std::cout << "Por favor ingrese una opción válida.";
-							rlutil::anykey();
-						}
-					} while (ingreso < 1 || ingreso>2);
-					if (ingreso == 1) {
-						if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
-						else std::cout << "Error al modificar.";
-						rlutil::anykey();
-					}
+					rlutil::cls();
+					ob.Menurectangulo(44, 20, 36, 3, "");
+					if (modificarEnDisco(nReg - 1)) std::cout << "Modificación realizada con éxito.";
+					else std::cout << "Error al modificar.";
+					rlutil::anykey();
 				}
 				rlutil::cls();
 			} while (opcion != 0);
 		}
 		else if (c != 0)
 		{
+			rlutil::cls();
+			rlutil::setColor(rlutil::BLACK);
+			rlutil::setBackgroundColor(rlutil::RED);
+			ob.Menurectangulo(44, 20, 45, 3, "");
 			std::cout << "Error. No se ha encontrado el producto.";
 			rlutil::anykey();
 		}
 		rlutil::cls();
+		rlutil::setBackgroundColor(rlutil::WHITE);
+		rlutil::setColor(rlutil::BLACK);
 	} while (c != 0);
 }
 
 void Producto::eliminarProducto() {
 	int c, confirmar, reg;
+	Menu ob;
 	do {
+		ob.Menurectangulo(5, 10, 70, 2, "");
 		std::cout << "Ingrese el código del producto que quiere eliminar o 0 para volver: ";
+		ob.Menurectangulo(5, 12, 70, 2, "");
 		std::cin >> c;
 		reg = buscarRegistro(c);
 		rlutil::cls();
+		rlutil::setColor(rlutil::BLACK);
+		rlutil::setBackgroundColor(rlutil::RED);
 		if (reg < 0) std::cout << "No se ha podido encontrar el producto.";
 		else
 		{
@@ -347,27 +433,41 @@ void Producto::eliminarProducto() {
 }
 
 void Producto::listarProducto() {
-	int opcion, c, pos, numeroReg;
+	int opcion, c, pos, cont;
 	bool bandera = false;
+	rlutil::setColor(rlutil::BLACK);
+	rlutil::setBackgroundColor(rlutil::WHITE);
+	Menu ob;
 	do
 	{
 		pos = 0;
+		system("cls");
+
+		rlutil::setColor(rlutil::BLACK);
+		rlutil::setBackgroundColor(rlutil::WHITE);
+		ob.Menurectangulo(45, 8, 35, 3, "");
+		std::cout << "Seleccion una opcion" << std::endl;
+		ob.Menurectangulo(45, 11, 35, 3, "");
 		std::cout << "1-Listar todos los productos" << std::endl;
-		std::cout << "2-Listar un producto" << std::endl;
-		std::cout << "-------------------" << std::endl;
-		std::cout << "-------------------" << std::endl;
-		std::cout << "0-Volver" << std::endl << std::endl;
-		std::cout << "Ingrese una opción: ";
+		ob.Menurectangulo(45, 14, 35, 3, "");
+		std::cout << "2-Listar un producto por código" << std::endl;
+		ob.Menurectangulo(45, 17, 35, 3, "");
+		std::cout << "0 Volver " << std::endl;
+		ob.Menurectangulo(45, 20, 35, 3, "");
 		std::cin >> opcion;
 		rlutil::cls();
 		switch (opcion)
 		{
 		case 1:
+			mostrarTodos();
+			/*cont = 0;
 			while (leerDeDisco(pos++))
 			{
+				rlutil::locate(54, 7 + (cont * 24));
 				mostrar();
 				if (estado)std::cout << std::endl << std::endl;
-			}
+				if (estado) cont++;
+			}*/
 			break;
 		case 2:
 			std::cout << "Ingrese el código del producto que quiere listar o 0 para volver: ";
@@ -397,6 +497,8 @@ void Producto::listarProducto() {
 		if (opcion != 0)rlutil::anykey();
 		rlutil::cls();
 	} while (opcion != 0);
+	rlutil::setColor(rlutil::WHITE);
+	rlutil::setBackgroundColor(rlutil::BLUE);
 }
 
 bool Producto::modificarEnDisco(int pos) {

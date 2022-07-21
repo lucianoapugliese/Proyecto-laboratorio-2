@@ -1,6 +1,6 @@
 #include "Menu.h"
-#include "rlutil.h"
 #include <iostream>
+
 void showItem(const char* texto, int x, int y, bool seleccionar)
 {
     if (seleccionar) {
@@ -56,7 +56,7 @@ void Menu::menuPrincipal() {
         Menu();
         rlutil::setColor(rlutil::WHITE);
         rlutil::setBackgroundColor(rlutil::BLUE);
-        Menurectangulo(32, 7, 60, 15, "");
+        Menurectangulo(32, 7, 60, 16, "");
         // int x = 40;
         rlutil::locate(40, 9);
         std::cout << "MENU PRINCIPAL DE GESTION " << std::endl;
@@ -71,26 +71,19 @@ void Menu::menuPrincipal() {
         rlutil::locate(40, 14);
         std::cout << "4 - CLIENTES " << std::endl;
         rlutil::locate(40, 15);
-        std::cout << "5 - PRODUCTOS " << std::endl;
+        std::cout << "5 - REPORTES " << std::endl;
         rlutil::locate(40, 16);
-        std::cout << "6 - PROVEEDORES " << std::endl;
+        std::cout << "6 - PRODUCTOS " << std::endl;
         rlutil::locate(40, 17);
-        std::cout << "7 - REPORTES " << std::endl;
-        rlutil::locate(40, 18);
-        std::cout << "----------------------------------------" << std::endl;
-        rlutil::locate(40, 19);
         std::cout << "---------------------------------------" << std::endl;
-        rlutil::locate(40, 20);
+        rlutil::locate(40, 18);
         std::cout << "0 - SALIR" << std::endl;
-        rlutil::locate(38, 22);
+        rlutil::locate(38, 19);
         std::cout << "> ";
         std::cin >> opcion;
-        system("cls");
         switch (opcion) {
 
-        case 1: 
-            menuVentas();
-            system("cls");
+        case 1:menuVentas();
             break;
         case 2: menuCompras();
             system("cls");
@@ -101,23 +94,20 @@ void Menu::menuPrincipal() {
         case 4:menuClientes();
             system("cls");
             break;
-        case 5:menuProductos();
+        case 5:menuReportes();
             system("cls");
             break;
-        case 6:menuProveedores();
-            system("cls");
-            break;
-        case 7:menuReportes();
+        case 6:menuProductos();
             system("cls");
             break;
         case 0:
             system("cls");
             rlutil::setBackgroundColor(rlutil::RED);
             rlutil::setColor(rlutil::WHITE);
-            Menurectangulo(40, 1, 30, 3, " CONFIRMAR SALIDA? S/N \0"); std::cout << std::endl;
+            Menurectangulo(40, 20, 30, 3, " CONFIRMAR SALIDA? S/N \0"); std::cout << std::endl;
             // rlutil::locate(40, 2);
              //std::cout << " CONFIRMAR SALIDA? S/N " << std::endl;
-            rlutil::locate(53, 3);
+            rlutil::locate(53, 22);
             std::cin >> salirdelSistema;
             if (tolower(salirdelSistema) == 's') { salir = false; }
             rlutil::setBackgroundColor(rlutil::BLUE);
@@ -126,6 +116,206 @@ void Menu::menuPrincipal() {
             break;
         }
     }
+}
+void Menu::menuVentas() {
+    VentaCabecera venta;
+    int opcion;
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::BLACK);
+    do {
+        system("cls");
+        Menu();
+        rlutil::setColor(rlutil::WHITE);
+        rlutil::setBackgroundColor(rlutil::BLACK);
+        Menurectangulo(49, 8, 25, 3, "");
+        std::cout << "1 - AGREGAR VENTA" << std::endl;
+        Menurectangulo(49, 11, 25, 3, "");
+        std::cout << "2 - MODIFICAR VENTA" << std::endl;
+        Menurectangulo(49, 14, 25, 3, "");
+        std::cout << "3 - ELIMINAR VENTA" << std::endl;
+        Menurectangulo(49, 17, 25, 3, "");
+        std::cout << "4 - LISTAR VENTA/S " << std::endl;
+        Menurectangulo(49, 20, 25, 3, "");
+        std::cout << "0 - VOLVER" << std::endl;
+        Menurectangulo(49, 23, 25, 3, "");
+        std::cout << "> ";
+        std::cin >> opcion;
+        rlutil::cls();
+        switch (opcion) {
+        case 1: venta.cargar();
+            break;
+        case 2:venta.modificarVenta();
+            break;
+        case 3:venta.eliminarVenta();
+            break;
+        case 4:venta.listarVenta();
+            break;
+        default:
+            rlutil::cls();
+            if (opcion != 0) {
+
+                rlutil::setBackgroundColor(rlutil::RED);
+                rlutil::setColor(rlutil::WHITE);
+                Menurectangulo(45, 11, 23, 4, "OPCION INCORRECTA!");
+
+                rlutil::anykey();
+                rlutil::setBackgroundColor(rlutil::BLACK);
+                rlutil::setColor(rlutil::WHITE);
+            }
+            break;
+        }
+    } while (opcion != 0);
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::BLUE);
+}
+void Menu::menuCompras() {
+    Compra compra;
+    int opcion;
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::LIGHTBLUE);
+    do {
+        system("cls");
+        Menu();
+        rlutil::setColor(rlutil::WHITE);
+        rlutil::setBackgroundColor(rlutil::LIGHTBLUE);
+        Menurectangulo(49, 8, 25, 3, "");
+        std::cout << "1 - AGREGAR COMPRA" << std::endl;
+        Menurectangulo(49, 11, 25, 3, "");
+        std::cout << "2 - ELIMINAR COMPRA " << std::endl;
+        Menurectangulo(49, 14, 25, 3, "");
+        std::cout << "3 - LISTAR COMPRA/S " << std::endl;
+        Menurectangulo(49, 17, 25, 3, "");
+        std::cout << "0 - VOLVER" << std::endl;
+        Menurectangulo(49, 20, 25, 3, "");
+        std::cout << "> ";
+        std::cin >> opcion;
+        rlutil::cls();
+        switch (opcion) {
+        case 1: compra.Cargar();
+            break;
+        case 2: compra.eliminarCompra();
+            break;
+        case 3: compra.listarCompra();
+            break;
+        default:
+            if (opcion != 0) {
+                system("cls");
+                rlutil::setBackgroundColor(rlutil::RED);
+                rlutil::setColor(rlutil::WHITE);
+                Menurectangulo(45, 11, 23, 4, "OPCION INCORRECTA!");
+                rlutil::anykey();
+                rlutil::setBackgroundColor(rlutil::LIGHTBLUE);
+                rlutil::setColor(rlutil::WHITE);
+            }
+            break;
+        }
+    } while (opcion != 0);
+    system("cls");
+    rlutil::setBackgroundColor(rlutil::BLUE);
+    rlutil::setColor(rlutil::WHITE);
+}
+void Menu::menuEmpleados() {
+    Empleado empleado;
+    int opcion;
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::GREEN);
+    do {
+        system("cls");
+        Menu();
+        rlutil::setColor(rlutil::WHITE);
+        rlutil::setBackgroundColor(rlutil::GREEN);
+        Menurectangulo(49, 8, 25, 3, "");
+        std::cout << "1 - AGREGAR EMPLEADO" << std::endl;
+        Menurectangulo(49, 11, 25, 3, "");
+        std::cout << "2 - MODIFICAR EMPLEADO" << std::endl;
+        Menurectangulo(49, 14, 25, 3, "");
+        std::cout << "3 - ELIMINAR EMPLEADO" << std::endl;
+        Menurectangulo(49, 17, 25, 3, "");
+        std::cout << "4 - LISTAR EMPLEADO/S " << std::endl;
+        Menurectangulo(49, 20, 25, 3, "");
+        std::cout << "0 - VOLVER" << std::endl;
+        Menurectangulo(49, 23, 25, 3, "");
+        std::cout << "> ";
+        std::cin >> opcion;
+        switch (opcion) {
+        case 1:
+            empleado.cargar();
+            break;
+        case 2: empleado.modificarEmpleado();
+            break;
+        case 3: empleado.eliminarEmpleado();
+            break;
+        case 4: empleado.listarEmpleado();
+            break;
+        default:
+            if (opcion != 0) {
+                system("cls");
+                rlutil::setBackgroundColor(rlutil::RED);
+                rlutil::setColor(rlutil::WHITE);
+                Menurectangulo(45, 11, 23, 4, "OPCION INCORRECTA!");
+                rlutil::anykey();
+                rlutil::setBackgroundColor(rlutil::GREEN);
+                rlutil::setColor(rlutil::WHITE);
+            }
+
+        }
+
+    } while (opcion != 0);
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::BLUE);
+}
+void Menu::menuClientes() {
+    Cliente cliente;
+    int opcion;
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::MAGENTA);
+    do {
+        system("cls");
+        Menu();
+        rlutil::setColor(rlutil::WHITE);
+        rlutil::setBackgroundColor(rlutil::MAGENTA);
+        Menurectangulo(49, 8, 25, 3, "");
+        std::cout << "1 - AGREGAR CLIENTE" << std::endl;
+        Menurectangulo(49, 11, 25, 3, "");
+        std::cout << "2 - MODIFICAR CLIENTE" << std::endl;
+        Menurectangulo(49, 14, 25, 3, "");
+        std::cout << "3 - ELIMINAR CLIENTE " << std::endl;
+        Menurectangulo(49, 17, 25, 3, "");
+        std::cout << "4 - LISTAR CLIENTE/S " << std::endl;
+        Menurectangulo(49, 20, 25, 3, "");
+        std::cout << "0 - VOLVER" << std::endl;
+        Menurectangulo(49, 23, 25, 3, "");
+        std::cout << "> ";
+
+        std::cin >> opcion;
+        rlutil::cls();
+        switch (opcion) {
+        case 1:
+            cliente.cargar();
+            break;
+        case 2:
+            cliente.modificarCliente();
+            break;
+        case 3: cliente.eliminarCliente();
+            break;
+        case 4: cliente.listarCliente();
+            break;
+        default:
+            if (opcion != 0) {
+                system("cls");
+                rlutil::setBackgroundColor(rlutil::RED);
+                rlutil::setColor(rlutil::WHITE);
+                Menurectangulo(45, 11, 23, 4, "OPCION INCORRECTA!");
+                rlutil::anykey();
+                rlutil::setBackgroundColor(rlutil::MAGENTA);
+                rlutil::setColor(rlutil::WHITE);
+            }
+            break;
+        }
+
+    } while (opcion != 0);
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::setBackgroundColor(rlutil::BLUE);
 }
 void Menu::menuReportes() { /// reporte de ventas
     int pos;
@@ -187,35 +377,6 @@ void Menu::menuReportes() { /// reporte de ventas
         rlutil::cls();
     }
 }
-void Menu::menuCompras() {
-    Compra compra;
-    int opcion;
-    do {
-        std::cout << "1 - AGREGAR COMPRA" << std::endl;
-        std::cout << "2 - ELIMINAR COMPRA " << std::endl;
-        std::cout << "3 - LISTAR COMPRA/S " << std::endl;
-        std::cout << "-------------------" << std::endl;
-        std::cout << "------------------" << std::endl;
-        std::cout << "0 - VOLVER" << std::endl;
-        std::cout << std::endl << "Ingrese una opción: ";
-        std::cin >> opcion;
-        rlutil::cls();
-        switch (opcion) {
-        case 1: compra.Cargar();
-            break;
-        case 2: compra.eliminarCompra();
-            break;
-        case 3: compra.listarCompra();
-            break;
-        default:
-            if (opcion != 0) {
-                std::cout << "Por favor ingrese una opción correcta.";
-                rlutil::anykey();
-            }
-            break;
-        }
-    } while (opcion !=0);
-}
 void Menu::menuProveedores() {
     Proveedor proveedor;
     int opcion;
@@ -246,59 +407,30 @@ void Menu::menuProveedores() {
             }
             break;
         }
-    } while (opcion !=0);
-}
-void Menu::menuClientes() {
-    Cliente cliente;
-    int opcion;
-    rlutil::cls();
-    do {
-        std::cout << "1 - AGREGAR CLIENTE" << std::endl;
-        std::cout << "2 - MODIFICAR CLIENTE" << std::endl;
-        std::cout << "3 - ELIMINAR CLIENTE " << std::endl;
-        std::cout << "4 - LISTAR CLIENTE/S " << std::endl;
-        std::cout << "-------------------" << std::endl;
-        std::cout << "------------------" << std::endl;
-        std::cout << "0 - VOLVER" << std::endl;
-        std::cout << std::endl << "Ingrese una opción: ";
-        std::cin >> opcion;
-        rlutil::cls();
-        switch (opcion) {
-        case 1:
-            cliente.cargar();
-            break;
-        case 2:
-            cliente.modificarCliente();
-            break;
-        case 3:
-            cliente.eliminarCliente();
-
-            break;
-        case 4: cliente.listarCliente();
-            break;
-        default:
-            if (opcion != 0) {
-                std::cout << "Por favor ingrese una opción correcta.";
-                rlutil::anykey();
-            }
-            break;
-        }
-        rlutil::cls();
     } while (opcion != 0);
 }
 void Menu::menuProductos() {
     Producto producto;
     int opcion;
-    rlutil::cls();
+    bool ok = true;
+    rlutil::setColor(rlutil::BLACK);
+    rlutil::setBackgroundColor(rlutil::WHITE);
     do {
+        system("cls");
+        rlutil::setColor(rlutil::BLACK);
+        rlutil::setBackgroundColor(rlutil::WHITE);
+        Menurectangulo(49, 8, 25, 3, "");
         std::cout << "1 - AGREGAR PRODUCTO" << std::endl;
+        Menurectangulo(49, 11, 25, 3, "");
         std::cout << "2 - MODIFICAR PRODUCTO" << std::endl;
-        std::cout << "3 - ELIMINAR PRODUCTO " << std::endl;
-        std::cout << "4 - LISTAR PRODUCTO/S " << std::endl;
-        std::cout << "-------------------" << std::endl;
-        std::cout << "------------------" << std::endl;
+        Menurectangulo(49, 14, 25, 3, "");
+        std::cout << "3 - ELIMINAR PRODUCTO" << std::endl;
+        Menurectangulo(49, 17, 25, 3, "");
+        std::cout << "4 - LISTAR PRODUCTOS " << std::endl;
+        Menurectangulo(49, 20, 25, 3, "");
         std::cout << "0 - VOLVER" << std::endl;
-        std::cout << std::endl << "Ingrese una opción: ";
+        Menurectangulo(49, 23, 25, 3, "");
+        std::cout << "> ";
         std::cin >> opcion;
         rlutil::cls();
         switch (opcion) {
@@ -323,77 +455,6 @@ void Menu::menuProductos() {
         }
         rlutil::cls();
     } while (opcion != 0);
-}
-void Menu::menuVentas() {
-    VentaCabecera venta;
-    int opcion;
-    do {
-        std::cout << "1 - AGREGAR VENTA" << std::endl;
-        std::cout << "2 - MODIFICAR VENTA" << std::endl;
-        std::cout << "3 - ELIMINAR VENTA" << std::endl;
-        std::cout << "4 - LISTAR VENTA/S " << std::endl;
-        std::cout << "-------------------" << std::endl;
-        std::cout << "------------------" << std::endl;
-        std::cout << "0 - VOLVER" << std::endl;
-        std::cout << std::endl << "Ingrese una opción: ";
-        std::cin >> opcion;
-        rlutil::cls();
-        switch (opcion) {
-        case 1: venta.cargar();
-            break;
-        case 2:venta.modificarVenta();
-            break;
-        case 3:venta.eliminarVenta();
-            break;
-        case 4:venta.listarVenta();
-            break;
-        default:
-            if(opcion!=0){
-            std::cout << "Por favor ingrese una opción correcta.";
-            rlutil::anykey();
-            }
-            break;
-        }
-    } while (opcion!=0);
-}
-void Menu::menuEmpleados() {
-    Empleado empleado;
-    int opcion;
-    do {
-        std::cout << "1 - AGREGAR EMPLEADO" << std::endl;
-        std::cout << "2 - MODIFICAR EMPLEADO" << std::endl;
-        std::cout << "3 - ELIMINAR EMPLEADO" << std::endl;
-        std::cout << "4 - LISTAR EMPLEADO/S " << std::endl;
-        std::cout << "-------------------" << std::endl;
-        std::cout << "------------------" << std::endl;
-        std::cout << "0 - VOLVER" << std::endl;
-        std::cout << std::endl << "Ingrese una opción: ";
-        std::cin >> opcion;
-        rlutil::cls();
-        switch (opcion) {
-        case 1: empleado.cargar();
-            break;
-        case 2: empleado.modificarEmpleado();
-            break;
-        case 3:
-            /*if (empleado.eliminarEmpleado() == 1) {
-                std::cout << "Empleado eliminado con exito";
-            }*/
-            empleado.eliminarEmpleado();
-            //rlutil::anykey();
-            break;
-        case 4: empleado.listarEmpleado();
-            break;
-        default:
-            if (opcion != 0)
-            {
-                std::cout << "Por favor ingrese una opción correcta.";
-                rlutil::anykey();
-            }
-            break;
-        }
-        rlutil::cls();
-    } while (opcion != 0 && opcion != 1);
 }
 /* void Menu::menuPrincipal() {
     int opcion;

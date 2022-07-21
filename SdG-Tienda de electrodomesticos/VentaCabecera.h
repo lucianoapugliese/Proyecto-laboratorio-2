@@ -12,7 +12,6 @@ private:
 	char metodoPago;
 	bool envioADomicilio, estado;
 	float importeFinal, importeCuota;
-    VentaDetalle ventaDetalle;
 public:
     void cargar();
     void mostrar();

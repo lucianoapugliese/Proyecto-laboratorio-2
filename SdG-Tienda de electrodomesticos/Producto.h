@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include "rlutil.h"
+#include "Menu.h"
 
 class Producto
 {
@@ -14,6 +15,7 @@ public:
     void cargar();
     void cargar(int);
     void mostrar();
+    void mostrarTodos();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
     std::string getNombre();
