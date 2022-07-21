@@ -6,11 +6,6 @@ void Compra::SetNumeroDeFactura(int Num)
 
 }
 
-void Compra::setTipoDeCompra(int Tipo)
-{
-	TipoDeCompra = Tipo;
-}
-
 void Compra::SetFechadeCompra(FechaHora SFecha)
 {
 	FechaDeCompra = SFecha;
@@ -19,11 +14,6 @@ void Compra::SetFechadeCompra(FechaHora SFecha)
 void Compra::SetModificarValor(float val)
 {
 	Valor = val;
-}
-
-void Compra::SetNombreDeProducto(std::string NombreProdu)
-{
-	strcpy(NombreDeProducto, NombreProdu.c_str());
 }
 
 void Compra::SetCantidadComprada(float CantCompra)
@@ -36,11 +26,6 @@ int Compra::GetNumeroDeFac()
 	return _NumeroDeFactura;
 }
 
-int Compra::GetTipoDeCompra()
-{
-	return TipoDeCompra;
-}
-
 FechaHora Compra::GetFechaDeLaCompra()
 {
 	return FechaDeCompra;
@@ -51,11 +36,6 @@ float Compra::GetCostoDelProducto()
 	return Valor;
 }
 
-std::string Compra::GetNombreDeProducto()
-{
-	std::string nom = NombreDeProducto;
-	return nom;
-}
 
 float Compra::GetCantidadDeProductos()
 {
@@ -87,54 +67,62 @@ bool Compra::GuardarEnDisco()
 	return true;
 }
 
-void Compra::Mostrar()
-{
-	if (estado) {
-		std::cout << "Factura N°" << _NumeroDeFactura << std::endl << std::endl;
-		std::cout << "Tipo de compra: ";
-		switch (TipoDeCompra)
-		{
-		case 1: std::cout << "Línea blanca" << std::endl;
-			break;
-		case 2: std::cout << "Electrónica" << std::endl;
-			break;
-		default: std::cout << "Videojuegos" << std::endl;
-			break;
-		}
-		std::cout << "Fecha de compra:" << std::endl;
-		FechaDeCompra.mostrarFecha();
-		std::cout << "Precio: $" << Valor << std::endl;
-		std::cout << "Nombre del producto: " << NombreDeProducto << std::endl;
-		std::cout << "Cantidad: " << Cantidad;
-	}
-}
-
 void Compra::Cargar()
 {
+	Producto producto;
+	Proveedor proveedor;
+	int numeroRegistro;
+	bool nuevo = false;
 	estado = true;
 	_NumeroDeFactura = contRegistros() + 1;
-	std::string palabra;
-	std::cout << "Nombre del producto: ";
-	std::cin.ignore();
-	std::getline(std::cin, palabra);
-	SetNombreDeProducto(palabra);
-	do
+	std::cout << "Ingrese el código del producto: ";
+	std::cin >> codigoProducto;
+	numeroRegistro = producto.buscarRegistro(codigoProducto);
+	if (numeroRegistro==-1)
 	{
-		std::cout << "Tipo de Compra (1 , 2 , 3):";
-		std::cin >> TipoDeCompra;
-		if (TipoDeCompra < 1 || TipoDeCompra>3) {
-			rlutil::cls();
-			std::cout << "Por favor ingrese una opción válida.";
-			rlutil::anykey();
-			rlutil::cls();
-		}
-	} while (TipoDeCompra < 1 || TipoDeCompra>3);
-	std::cout << "Cargar la Fecha de compra:\n";
-	FechaDeCompra.cargarFecha();
+		rlutil::cls();
+		std::cout << "NUEVO PRODUCTO:" << std::endl << std::endl;
+		producto.cargar(codigoProducto);
+		nuevo = true;
+	}
+	std::cout << "Ingrese el número de cliente del proveedor: ";
+	std::cin >> numeroClienteProveedor;
+	if (!buscarProveedor(numeroClienteProveedor))
+	{
+		rlutil::cls();
+		std::cout << "NUEVO PROVEEDOR:" << std::endl << std::endl;
+		proveedor.cargar();
+	}
 	std::cout << "Cargar Precio:";
 	std::cin >> Valor;
 	std::cout << "Cantidad de compra Dentro del bulto (en kg):";
 	std::cin >> Cantidad;
+	if (!nuevo)
+	{
+		producto.setStock(Cantidad);
+		producto.modificarEnDisco(numeroRegistro - 1);
+	}
+	rlutil::cls();
+	if (GuardarEnDisco) std::cout << "Carga exitosa.";
+	else std::cout << "Error en la carga.";
+	rlutil::anykey();
+}
+
+void Compra::Mostrar()
+{
+	if (estado) {
+		Producto producto;
+		Proveedor proveedor;
+		std::cout << "Factura N°" << _NumeroDeFactura << std::endl << std::endl;
+		std::cout << "Fecha de compra:" << std::endl;
+		FechaDeCompra.mostrarFecha();
+		proveedor.buscarRegistro(numeroClienteProveedor);
+		std::cout << std::endl <<"Proveedor: " << proveedor.GetNombreEmpresa() << "\tCuit: " << proveedor.GetCuit() << std::endl;
+		producto.buscarRegistro(codigoProducto);
+		std::cout << "Producto: " << producto.getNombre() << std::endl;
+		std::cout << "Precio: $" << Valor << std::endl;
+		std::cout << "Cantidad: " << Cantidad;
+	}
 }
 
 int Compra::buscarRegistro(int n) {
@@ -243,6 +231,28 @@ void Compra::modificarCompra() {
 		}
 		rlutil::cls();
 	} while (d != 0);
+}
+
+bool Compra::buscarProducto(int cod)
+{
+	Producto p;
+	int pos = 0;
+	while (p.leerDeDisco(pos++))
+	{
+		if (p.getCodigo() == cod && p.getEstado()) return true;
+	}
+	return false;
+}
+
+bool Compra::buscarProveedor(int num)
+{
+	Proveedor p;
+	int pos = 0;
+	while (p.leerDeDisco(pos++))
+	{
+		if (p.GetNumeroCliente() == num && p.getEstado()) return true;
+	}
+	return false;
 }
 
 void Compra::eliminarCompra() {

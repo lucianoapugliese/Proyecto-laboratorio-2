@@ -277,8 +277,6 @@ void Venta::mostrar() {
         float precio;
         cliente.buscarRegistro(dniCliente);
         vendedor.buscarRegistro(IDVendedor);
-        std::cout << "Venta N°" << numeroVenta << std::endl << std::endl;
-        std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
         for (int i = 0; i < 5; i++)
         {
             if (codigoProducto[i] > 0) {
@@ -290,11 +288,7 @@ void Venta::mostrar() {
                 std::cout << "Precio: $" << precio << std::endl << std::endl;
             }
         }
-        if (metodoPago == tolower('e')) std::cout << "Metodo de pago: Efectivo";
-        else std::cout << "Metodo de pago: Tarjeta";
-        std::cout << std::endl;
-        if (cantidadCuotas > 1)
-            std::cout << cantidadCuotas << " cuotas de $" << costoCuota << std::endl;
+        
         std::cout << "Importe total: $" << costoFinal << std::endl << std::endl;
         std::cout << "--------------------------------------------------------------------------------------" << std::endl << std::endl;
         std::cout << "Comprador/a: " << cliente.getNombre() << ' ' << cliente.getApellido() << '\t';

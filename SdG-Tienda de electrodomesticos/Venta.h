@@ -5,23 +5,27 @@
 #include "Producto.h"
 #include "Cliente.h"
 #include "Empleado.h"
+#include "VentaCabecera.h"
+#include "VentaDetalle.h"
 
 class Venta
 {
 private:
-    int numeroVenta, cantidadComprada[5], cantidadCuotas, descuentoPorCantidad[5], IDVendedor, codigoProducto[5], dniCliente;
+    /*numeroVenta, [5], cantidadCuotas[5], IDVendedor[5], dniCliente;
 	FechaHora fechaYHoraDeLaVenta;
 	char metodoPago;
 	bool envioADomicilio, estado;
-    float costoFinal, costoCuota;
+    float costoFinal, costoCuota;*/
+    VentaCabecera cabecera;
+    VentaDetalle detalle;
     // solo id del vendedor, producto y dni del cliente
 public:
 	void cargar();
 	void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);
-    //int getCantidadComprada();
-    //void setCantidadComprada(int);
+    
+    
 
     int getNumeroVenta() { return numeroVenta; }
 

@@ -16,6 +16,21 @@ void Persona::cargar() {
 	fechaDeNacimiento.cargarFecha();
 	//domicilio.cargar();
 }
+void Persona::cargar(int _dni) {
+	std::string palabra;
+	estado = true;
+	std::cout << "Nombre: ";
+	std::cin.ignore();
+	std::getline(std::cin,palabra);
+	setNombre(palabra);
+	std::cout << "Apellido: ";
+	std::getline(std::cin,palabra);
+	setApellido(palabra);
+	dni = _dni;
+	std::cout << "Fecha de nacimiento: \n";
+	fechaDeNacimiento.cargarFecha();
+	//domicilio.cargar();
+}
 void Persona::mostrar() {
 	std::cout << "Nombre y apellido: ";
 	std::cout << nombre << " " << apellido << std::endl;

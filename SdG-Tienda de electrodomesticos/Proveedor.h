@@ -28,6 +28,7 @@ public:
 	void SetFechaFactura(FechaHora);
 	void SetNumeroFactura(const char*);
 	void SetRegistroDePago(const char*);
+	bool getEstado() { return estado; }
 
 	int   GetNumeroCliente();
 	char* GetCuit();
@@ -38,6 +39,7 @@ public:
 	FechaHora GetFecha();
 	char* GetNumeroFactura();
 	char* GetRegistroDepago();
+	void setEstado(bool _estado) { estado = _estado; }
 
 	bool leerDeDisco(int);
 	bool grabarEnDisco();

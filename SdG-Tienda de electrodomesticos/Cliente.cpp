@@ -46,6 +46,22 @@ void Cliente::cargar() {
 	}
 }
 
+void Cliente::cargar(int _dni) {
+	Persona::cargar(_dni);
+	std::cout << "Numero de tarjeta (si no es necesario ingrese '-'): ";
+	std::cin >> Numerotarjeta;
+	std::cout << "Email: ";
+	std::cin >> mail;
+	domicilio.cargar();
+	if (grabarEnDisco())
+	{
+		system("cls");
+		std::cout << "Cliente guardado con exito." << std::endl;
+		system("pause");
+		system("cls");
+	}
+}
+
 void Cliente::mostrar() {
 	if (estado) {
 		Persona::mostrar();

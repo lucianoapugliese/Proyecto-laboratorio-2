@@ -12,6 +12,7 @@ private:
     bool estado;
 public:
     void cargar();
+    void cargar(int);
     void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int pos);

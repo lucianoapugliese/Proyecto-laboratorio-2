@@ -16,6 +16,7 @@ protected:
 	char apellido[50], nombre[50];
 public:
 	void cargar();
+	void cargar(int);
 	void mostrar();
 	std::string getApellido();
 	void setApellido(std::string apellido);

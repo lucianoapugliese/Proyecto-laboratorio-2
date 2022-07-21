@@ -10,6 +10,7 @@ private:
 	Direccion domicilio;
 public:
 	void cargar();
+	void cargar(int );
 	void mostrar();
 	bool grabarEnDisco();
 	bool leerDeDisco(int);

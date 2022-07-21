@@ -87,7 +87,39 @@ void Producto::cargar() {
     std::cout << "Codigo: ";
     std::cin >> codigo;
 	do {
-		std::cout << "Categoria(1-Electrodoméstico/2-Tecnología/3-Accesorio): ";
+		std::cout << "Categoria(1-Linea blanca/2-Electrónica/3-Videojuegos): ";
+		std::cin >> categoria;
+
+		if (categoria < 1 && categoria>3) {
+			rlutil::cls();
+			std::cout << "Por favor ingrese una opción válida.";
+			rlutil::anykey();
+			rlutil::cls();
+		}
+	} while (categoria < 1 && categoria>3);
+    std::cout << "Marca: ";
+    std::cin.ignore();
+    std::cin.getline(marca, 50);
+    std::cout << "Nombre: ";
+    std::cin.getline(nombre, 50);
+    std::cout << "Descripción: ";
+    std::cin.getline(descripcion, 50);
+    std::cout << "Precio: $";
+    std::cin >> precio;
+    std::cout << "Stock: ";
+    std::cin >> stock;
+    if (grabarEnDisco())
+    {
+        system("cls");
+        std::cout << "Producto guardado con exito" << std::endl;
+        system("pause");
+        system("cls");
+    }
+}
+void Producto::cargar(int cod) {
+	codigo = cod;
+	do {
+		std::cout << "Categoria(1-Linea blanca/2-Electrónica/3-Videojuegos): ";
 		std::cin >> categoria;
 
 		if (categoria < 1 && categoria>3) {
@@ -123,11 +155,11 @@ void Producto::mostrar() {
         std::cout << "Categoria: ";
 		switch (categoria)
 		{
-		case 1: std::cout << "Electrodoméstico";
+		case 1: std::cout << "Línea blanca";
 			break;
-		case 2: std::cout << "Tecnología";
+		case 2: std::cout << "Electrónica";
 			break;
-		default: std::cout << "Accesorio";
+		default: std::cout << "Videojuegos";
 			break;
 		}
         std::cout << std::endl << "Marca: ";
