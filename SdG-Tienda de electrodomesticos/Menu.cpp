@@ -192,9 +192,8 @@ void Menu::menuCompras() {
     int opcion;
     do {
         std::cout << "1 - AGREGAR COMPRA" << std::endl;
-        std::cout << "2 - MODIFICAR COMPRA" << std::endl;
-        std::cout << "3 - ELIMINAR COMPRA " << std::endl;
-        std::cout << "4 - LISTAR COMPRA/S " << std::endl;
+        std::cout << "2 - ELIMINAR COMPRA " << std::endl;
+        std::cout << "3 - LISTAR COMPRA/S " << std::endl;
         std::cout << "-------------------" << std::endl;
         std::cout << "------------------" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
@@ -204,11 +203,9 @@ void Menu::menuCompras() {
         switch (opcion) {
         case 1: compra.Cargar();
             break;
-        case 2: compra.modificarCompra();
+        case 2: compra.eliminarCompra();
             break;
-        case 3: compra.eliminarCompra();
-            break;
-        case 4: compra.listarCompra();
+        case 3: compra.listarCompra();
             break;
         default:
             if (opcion != 0) {
@@ -328,10 +325,10 @@ void Menu::menuProductos() {
     } while (opcion != 0);
 }
 void Menu::menuVentas() {
-    Venta venta;
+    VentaCabecera venta;
     int opcion;
     do {
-        std::cout << "1 - AGREGAR VENTA (UN MÁXIMO DE 5 PRODUCTOS DISTINTOS POR CADA VENTA)" << std::endl;
+        std::cout << "1 - AGREGAR VENTA" << std::endl;
         std::cout << "2 - MODIFICAR VENTA" << std::endl;
         std::cout << "3 - ELIMINAR VENTA" << std::endl;
         std::cout << "4 - LISTAR VENTA/S " << std::endl;

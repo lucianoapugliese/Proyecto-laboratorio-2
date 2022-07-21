@@ -2,7 +2,7 @@
 
 void Reporte::mesMayorVenta()
 {
-	Venta venta;
+	VentaCabecera venta;
 	int meses[12] = { }, pos=0, mayorMes=0, mayorCant;
 	while (venta.leerDeDisco(pos++))
 	{

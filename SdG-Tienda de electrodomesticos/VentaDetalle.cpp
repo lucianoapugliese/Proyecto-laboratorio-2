@@ -57,7 +57,7 @@ void VentaDetalle::mostrar()
         std::cout << "Producto: " << producto.getNombre() << std::endl;
         std::cout << "Cantidad: " << cantidadComprada << std::endl;
         precio = producto.getPrecio() * cantidadComprada - producto.getPrecio() * cantidadComprada * descuentoPorCantidad / 100;
-        if (descuentoPorCantidad > 0) std::cout << "Descuento por cantidad comprada: " << descuentoPorCantidad[i] << '%' << std::endl << std::endl;
+        if (descuentoPorCantidad > 0) std::cout << "Descuento por cantidad comprada: " << descuentoPorCantidad << '%' << std::endl << std::endl;
         std::cout << "Precio: $" << precio << std::endl << std::endl;
     }
 }

@@ -149,7 +149,6 @@
     <ClInclude Include="Producto.h" />
     <ClInclude Include="Proveedor.h" />
     <ClInclude Include="Reporte.h" />
-    <ClInclude Include="Venta.h" />
     <ClInclude Include="VentaCabecera.h" />
     <ClInclude Include="VentaDetalle.h" />
   </ItemGroup>
@@ -165,7 +164,6 @@
     <ClCompile Include="Producto.cpp" />
     <ClCompile Include="Proveedor.cpp" />
     <ClCompile Include="Reporte.cpp" />
-    <ClCompile Include="Venta.cpp" />
     <ClCompile Include="VentaCabecera.cpp" />
     <ClCompile Include="VentaDetalle.cpp" />
   </ItemGroup>

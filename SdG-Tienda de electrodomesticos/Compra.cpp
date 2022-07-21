@@ -62,9 +62,9 @@ bool Compra::GuardarEnDisco()
 	p = fopen("compras.dat", "ab");
 	if (p == NULL) { return false; }
 
-	fwrite(this, sizeof(Compra), 1, p);
+	bool escribio=fwrite(this, sizeof(Compra), 1, p);
 	fclose(p);
-	return true;
+	return escribio;
 }
 
 void Compra::Cargar()
@@ -103,7 +103,7 @@ void Compra::Cargar()
 		producto.modificarEnDisco(numeroRegistro - 1);
 	}
 	rlutil::cls();
-	if (GuardarEnDisco) std::cout << "Carga exitosa.";
+	if (GuardarEnDisco()) std::cout << "Carga exitosa.";
 	else std::cout << "Error en la carga.";
 	rlutil::anykey();
 }
@@ -148,89 +148,6 @@ int Compra::contRegistros() {
 	fclose(p);
 	cant_reg = bytes / sizeof(Cliente);
 	return cant_reg;
-}
-
-void Compra::modificarCompra() {
-	std::string palabra;
-	int opcion, ingreso, d, nReg, entero;
-	Direccion dom;
-	FechaHora fec;
-	char cad[50];
-	bool ingresoCorrecto = true;
-	do {
-		std::cout << "Ingrese el número de compra a modificar o 0 para volver: ";
-		std::cin >> d;
-		nReg = buscarRegistro(d);
-		if (nReg > 0)
-		{
-			do
-			{
-				Mostrar();
-				std::cout << std::endl << std::endl;
-				std::cout << "¿Qué desea modificar?" << std::endl << std::endl;
-				std::cout << "1-Tipo de compra" << std::endl;
-				std::cout << "2-Precio" << std::endl;
-				std::cout << "3-Nombre del producto" << std::endl;
-				std::cout << "4-Cantidad" << std::endl;
-				std::cout << "-------------------" << std::endl;
-				std::cout << "-------------------" << std::endl;
-				std::cout << "0-Volver" << std::endl << std::endl;
-				std::cout << "Ingrese una opción: ";
-				std::cin >> opcion;
-				rlutil::cls();
-				switch (opcion)
-				{
-				case 1:
-					do
-					{
-						std::cout << "Ingrese el tipo de compra nueva (1, 2 o 3): ";
-						std::cin >> TipoDeCompra;
-						if (TipoDeCompra < 1 || TipoDeCompra > 3) {
-							rlutil::cls();
-							std::cout << "Error. Por favor ingrese una opción válida.";
-							rlutil::anykey();
-							rlutil::cls();
-						}
-					} while (TipoDeCompra < 1 || TipoDeCompra > 3);
-					break;
-				case 2:
-					std::cout << "Ingrese nuevo precio: " << std::endl;
-					std::cin >> Valor;
-					break;
-				case 3:
-					std::cout << "Ingrese el nombre nuevo: ";
-					std::cin.ignore();
-					std::getline(std::cin, palabra);
-					SetNombreDeProducto(palabra);
-					break;
-				case 4:
-					std::cout << "Ingrese la cantidad nueva: ";
-					std::cin >> Cantidad;
-					break;
-				default:
-					if (opcion != 0)
-					{
-						std::cout << "Por favor ingrese una opción correcta.";
-						rlutil::anykey();
-					}
-					break;
-				}
-				if (opcion != 0)
-				{
-					if (modificarEnDisco(nReg - 1)) std::cout << std::endl << "Modificación realizada con éxito.";
-					else std::cout << "Error al modificar.";
-					rlutil::anykey();
-				}
-				rlutil::cls();
-			} while (opcion != 0);
-		}
-		else if (d != 0)
-		{
-			std::cout << "Error. No se ha encontrado el cliente.";
-			rlutil::anykey();
-		}
-		rlutil::cls();
-	} while (d != 0);
 }
 
 bool Compra::buscarProducto(int cod)

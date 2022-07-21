@@ -7,7 +7,6 @@
 #include "Producto.h"
 #include "Compra.h"
 #include "Menu.h"
-#include "Venta.h"
 
 int main() {
 	setlocale(LC_ALL, "Spanish");

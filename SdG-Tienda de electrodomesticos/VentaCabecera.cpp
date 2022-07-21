@@ -75,7 +75,6 @@ void VentaCabecera::cargar()
 
 void VentaCabecera::mostrar()
 {
-    VentaDetalle ventaDetalle;
     int pos = 0;
     bool primeraVuelta = false;
     Producto producto;
@@ -123,7 +122,6 @@ bool VentaCabecera::grabarEnDisco()
     if (p == NULL)
     {
         std::cout << "Error al guardar.\n";
-        system("pause");
         return 0;
     }
     fwrite(this, sizeof(VentaCabecera), 1, p);
@@ -138,7 +136,6 @@ bool VentaCabecera::leerDeDisco(int pos)
     if (p == NULL)
     {
         std::cout << "Todavía no se ha realizado ninguna venta.\n";
-        system("pause");
         return 0;
     }
     fseek(p, pos * sizeof(VentaCabecera), 0);
@@ -365,7 +362,7 @@ int VentaCabecera::buscarRegistro(int n)
 bool VentaCabecera::modificarEnDisco(int pos)
 {
     FILE* p = NULL;
-    p = fopen("clientes.dat", "rb+");
+    p = fopen("ventasCabecera.dat", "rb+");
     if (p == NULL)return 0;
     fseek(p, pos * sizeof(VentaCabecera), 0);
     bool escribio = fwrite(this, sizeof(VentaCabecera), 1, p);

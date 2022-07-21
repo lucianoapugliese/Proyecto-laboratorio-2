@@ -1,15 +1,17 @@
-﻿  Compra.cpp
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Compra.cpp(161,36): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Compra.cpp(170,7): warning C4101: 'cad': variable local sin referencia
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Compra.cpp(167,14): warning C4101: 'ingreso': variable local sin referencia
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Compra.cpp(167,32): warning C4101: 'entero': variable local sin referencia
-C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\Compra.cpp(280,22): warning C4101: 'numeroReg': variable local sin referencia
-  main.cpp
+﻿  main.cpp
 C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
   Menu.cpp
 C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
   Reporte.cpp
 C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+  VentaCabecera.cpp
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\rlutil.h(580,32): warning C4267: 'inicializando': conversión de 'size_t' a 'unsigned int'; posible pérdida de datos
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(5,14): warning C4101: 'producto': variable local sin referencia
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(80,14): warning C4101: 'producto': variable local sin referencia
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(198,45): warning C4267: '=': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(206,18): warning C4101: 'ventaDetalle': variable local sin referencia
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(204,17): warning C4101: 'ingreso': variable local sin referencia
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(205,14): warning C4101: 'producto': variable local sin referencia
+C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\VentaCabecera.cpp(298,25): warning C4101: 'numeroReg': variable local sin referencia
   Generando código...
   SdG-Tienda de electrodomesticos.vcxproj -> C:\Users\Luciano\source\repos\Laboratorio2\Proyecto Laboratorio 2\SdG-Tienda de electrodomesticos\x64\Debug\SdG-Tienda de electrodomesticos.exe

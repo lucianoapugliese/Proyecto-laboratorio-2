@@ -1,5 +1,5 @@
 #pragma once
-#include "Venta.h"
+#include "VentaCabecera.h"
 #include "Compra.h"
 #include "rlutil.h"
 class Reporte

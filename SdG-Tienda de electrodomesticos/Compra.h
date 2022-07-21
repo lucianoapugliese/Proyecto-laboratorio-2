@@ -34,7 +34,6 @@ public:
 	bool modificarEnDisco(int);
 	void listarCompra();
 	void eliminarCompra();
-	void modificarCompra();
 	bool buscarProducto(int);
 	bool buscarProveedor(int);
 };
