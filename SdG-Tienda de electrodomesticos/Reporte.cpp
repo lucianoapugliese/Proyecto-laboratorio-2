@@ -6,7 +6,7 @@ void Reporte::mesMayorVenta()
 	int meses[12] = { }, pos=0, mayorMes=0, mayorCant;
 	while (venta.leerDeDisco(pos++))
 	{
-		meses[venta.getFechaYHoraDeLaVenta().getMes() - 1]++;
+		if(venta.getEstado()) meses[venta.getFechaYHoraDeLaVenta().getMes() - 1]++;
 	}
 	mayorCant = meses[0];
 	for (int i = 0; i < 12; i++)
@@ -78,10 +78,10 @@ void Reporte::productoMasVendido()
 		}
 	}*/
 	// La idea de abajo es la que mas cierra
-	/*
+	
 	Producto producto;
-	Venta venta;
-	int pos = 0, pos2, idMasVendido, cantMasVendido, ventasProd;
+	VentaDetalle venta;
+	int pos = 0, pos2, codMasVendido, cantMasVendido, ventasProd;
 	bool primerRegistro = false;
 	while (producto.leerDeDisco(pos++)) // Lee todos los productos
 	{
@@ -89,16 +89,97 @@ void Reporte::productoMasVendido()
 		ventasProd = 0;
 		while (venta.leerDeDisco(pos2++))
 		{
-			if (producto.getCodigo()==venta.getCodigoProducto())
+			if (producto.getCodigo() == venta.getCodigoProducto() && venta.getEstado() && producto.getEstado())
 			{
-
+				ventasProd += venta.getCantidadComprada();
 			}
 		}
-	} */
+		if (!primerRegistro)
+		{
+			primerRegistro = true;
+			codMasVendido = producto.getCodigo();
+			cantMasVendido = ventasProd;
+		}
+		if (ventasProd>cantMasVendido)
+		{
+			codMasVendido = producto.getCodigo();
+			cantMasVendido = ventasProd;
+		}
+	}
+	producto.buscarRegistro(codMasVendido);
+	std::cout << "El producto más vendido es: " << producto.getNombre() << " con un total de " << cantMasVendido << " ventas.";
 }
 
 void Reporte::vendedoresConMasVentas()
 {
+	Empleado vendedor;
+	VentaCabecera venta;
+	int* vec, cantVendedores = 0, pos = 0, totalVentasVendedor, pos2;
+	while (vendedor.leerDeDisco(pos++))
+	{
+		if (vendedor.getEstado() && vendedor.getCategoria() == 3)
+		{
+			cantVendedores++; // Cuenta vendedores
+		}
+	}
+	vec = new int[cantVendedores]; // Pide memoria dinamica
+	if (vec == NULL) exit(0);
+	for (int i = 0; i < cantVendedores; i++)
+	{
+		vec[i] = 0;
+	}
+	cantVendedores = 0;
+	while (vendedor.leerDeDisco(pos++)) // Lee todos los vendedores
+	{
+		if (vendedor.getEstado() && vendedor.getCategoria() == 3) // Busca que la categoria sea 3 y que no tenga baja logica
+		{
+			pos2 = 0;
+			while (venta.leerDeDisco(pos2++)) // Busca todas la ventas
+			{
+				if (vendedor.getID() == venta.getIDVendedor() && venta.getEstado()) // Compara ids y corrobora que la venta no tenga baja logica
+				{
+					vec[cantVendedores]++; // Cuenta venta
+				}
+			}
+			cantVendedores++; // Pasa al siguiente vendedor
+		}
+	}
+	int aux;
+	for (int i = 0; i < cantVendedores - 1; i++) { // Ordena de mayor a menor
+		for (int j = i + 1; j < cantVendedores; j++) {
+			if (vec[i] < vec[j]) {
+				aux = vec[i];
+				vec[i] = vec[j];
+				vec[j] = aux;
+			}
+		}
+	}
+	pos = 0;
+	int contVentasActual;
+	std::cout << std::left << std::setw(25) << "Apellido" << std::setw(25) << "Nombre" << std::setw(25) << "Cantidad vendida" << std::endl << std::endl;
+	for (int i = 0; i < cantVendedores; i++)
+	{
+		while (vendedor.leerDeDisco(pos++)) // Lee todos los vendedores
+		{
+			if (vendedor.getEstado() && vendedor.getCategoria() == 3) // Busca que la categoria sea 3 y que no tenga baja logica
+			{
+				contVentasActual = 0;
+				pos2 = 0;
+				while (venta.leerDeDisco(pos2++)) // Busca todas la ventas
+				{
+					if (vendedor.getID() == venta.getIDVendedor() && venta.getEstado()) // Compara ids y corrobora que la venta no tenga baja logica
+					{
+						contVentasActual++; // Cuenta venta
+					}
+				}
+				if (contVentasActual==vec[i])
+				{
+					std::cout << std::left << std::setw(25) << vendedor.getApellido() << std::setw(25) << vendedor.getNombre() << std::setw(25) << contVentasActual << std::endl;
+				}
+			}
+		}
+	}
+	delete vec;
 }
 
 void Reporte::mesesMenosVentas()
